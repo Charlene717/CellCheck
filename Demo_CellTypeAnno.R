@@ -65,3 +65,11 @@
     # MissRate: Misclassification rate
     MissRate <- sum(Check.df$Correctness1 == 1)/nrow(Check.df)
 
+
+
+##########################################################
+    # Multi
+    ## Ref: https://www.researchgate.net/figure/Confusion-matrix-for-60-training-and-40-testing-strategy_fig4_338909223
+
+
+
