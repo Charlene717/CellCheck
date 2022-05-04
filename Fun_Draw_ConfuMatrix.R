@@ -100,11 +100,27 @@ Draw_CM <- function(cm) {
   text(288, 314, paste0("F1 score = \n", round(cm[["byClass"]][["F1"]],4),"\n "),
        cex=1.6, font=2, col='#524c2e')
 
+  ## Accuracy
   text(332, 550, paste0("Accuracy (ACC) = ",(res[1]+res[4])/(res[1]+res[2]+res[3]+res[4])),
                         cex=2, font=2)
   text(332, 525,expression(frac(TP+TN,'Total population')),cex=1.7, font=2)
   # text(330, 537, paste0("Prevalence = ",(res[1]+res[2])/(res[1]+res[2]+res[3]+res[4])),
   #     cex=2, font=2)
+
+  ## Misclassification
+  text(332, 495, paste0("Misclassification = ",(res[2]+res[3])/(res[1]+res[2]+res[3]+res[4])),
+       cex=2, font=2)
+  text(332, 470,expression(frac(FP+FN,'Total population')),cex=1.7, font=2)
+
+  ## Prevalence
+  text(332, 435, paste0("Prevalence = ",(res[1]+res[2])/(res[1]+res[2]+res[3]+res[4])),
+       cex=2, font=2)
+  text(332, 410,expression(frac(TP+FN,'Total population')),cex=1.7, font=2)
+
+  ## Kappa
+  text(332, 375, paste0("Kappa = ",round(cm[["overall"]][["Kappa"]],4)),
+       cex=2, font=2)
+  #text(332, 350,expression(frac(?????)),cex=1.7, font=2)
 
 
   # add in the specifics
