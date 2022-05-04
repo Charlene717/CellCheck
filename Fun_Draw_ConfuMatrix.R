@@ -53,39 +53,56 @@ Draw_CM <- function(cm) {
 
 
   # add in the results
-  text(90, 351, paste0("TPR = ", round(cm[["byClass"]][["Sensitivity"]],4),"\n Recall,Sensitivity"),
+  text(90, 351, paste0("TPR = ", round(cm[["byClass"]][["Sensitivity"]],4),
+                       "\n True positive rate(TPR)",
+                       "\n Recall,Sensitivity"),
        cex=1.6, font=2, col='#2a4c57')
-  text(151, 351, paste0("FPR = ", round(res[3]/(res[3]+res[4]),4),"\n Fall-out"),
+  text(151, 351, paste0("FPR = ", round(res[3]/(res[3]+res[4]),4),
+                        "\n False positive rate(FPR)",
+                        "\n Fall-out"),
        cex=1.6, font=2, col='#2a4c57')
-  text(90, 278, paste0("FNR = ", round(res[2]/(res[1]+res[2]),4),"\n Miss rate"),
+  text(90, 278, paste0("FNR = ", round(res[2]/(res[1]+res[2]),4),
+                       "\n False negative rate(FNR)",
+                       "\n Miss rate"),
        cex=1.6, font=2, col='#2a4c57')
-  text(151, 278, paste0("TNR = ", round(cm[["byClass"]][["Specificity"]],4),"\n Specificity(SPC)"),
+  text(151, 278, paste0("TNR = ", round(cm[["byClass"]][["Specificity"]],4),
+                        "\n True negative rate(TNR)",
+                        "\n Specificity(SPC)"),
        cex=1.6, font=2, col='#2a4c57')
 
-  text(212, 495, paste0("PPV = ", round(cm[["byClass"]][["Precision"]],4),"\n Precision"),
+  text(212, 495, paste0("PPV = ", round(cm[["byClass"]][["Precision"]],4),
+                        "\n Positive predictive calue(PPV)",
+                        "\n Precision"),
        cex=1.6, font=2, col='#506143')
-  text(212, 423, paste0("FOR = ", round(res[2]/(res[2]+res[4]),4),"\n False omission rate"),
+  text(212, 423, paste0("FOR = ", round(res[2]/(res[2]+res[4]),4),
+                        "\n False omission rate(FOR)",
+                        "\n False omission rate"),
        cex=1.6, font=2, col='#506143')
-  text(273, 495, paste0("FDR = ", round(res[3]/(res[1]+res[3]),4),"\n False dicovery rate"),
+  text(273, 495, paste0("FDR = ", round(res[3]/(res[1]+res[3]),4),
+                        "\n False dicovery rate(FDR)"),
        cex=1.6, font=2, col='#506143')
-  text(273, 423, paste0("NPV = ", round(res[4]/(res[2]+res[4]),4),"\n Nagtive predictive value"),
+  text(273, 423, paste0("NPV = ", round(res[4]/(res[2]+res[4]),4),
+                        "\n Nagtive predictive value(NPV)"),
        cex=1.6, font=2, col='#506143')
 
   LRP = cm[["byClass"]][["Sensitivity"]]/(res[3]/(res[3]+res[4]))
-  text(212, 351, paste0("LR+ = ", round(LRP,4),"\n Positive likelihood ratio"),
+  text(212, 351, paste0("LR+ = ", round(LRP,4),
+                        "\n Positive likelihood ratio(LR+)"),
        cex=1.6, font=2, col='#524c2e')
   LRN = (res[2]/(res[1]+res[2]))/cm[["byClass"]][["Specificity"]]
-  text(212, 278, paste0("LR- = ",round(LRN,4),"\n Positive likelihood ratio"),
+  text(212, 278, paste0("LR- = ",round(LRN,4),
+                        "\n Positive likelihood ratio(LR-)"),
        cex=1.6, font=2, col='#524c2e')
 
-  text(258, 314, paste0("DOR = \n", round(LRP/LRN,4),"\n \n Diagnostic \n odds ratio"),
+  text(258, 314, paste0("DOR = \n", round(LRP/LRN,4),
+                        "\n \n Diagnostic odds \n ratio(DOR)"),
        cex=1.6, font=2, col='#524c2e')
   text(288, 314, paste0("F1 score = \n", round(cm[["byClass"]][["F1"]],4),"\n "),
        cex=1.6, font=2, col='#524c2e')
 
   text(332, 550, paste0("Accuracy (ACC) = ",(res[1]+res[4])/(res[1]+res[2]+res[3]+res[4])),
-                        cex=1.8, font=2)
-  text(332, 525,expression(frac(TP+TN,'Total population')),cex=1.8, font=2)
+                        cex=2, font=2)
+  text(332, 525,expression(frac(TP+TN,'Total population')),cex=1.7, font=2)
   # text(330, 537, paste0("Prevalence = ",(res[1]+res[2])/(res[1]+res[2]+res[3]+res[4])),
   #     cex=2, font=2)
 
