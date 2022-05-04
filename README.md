@@ -1,1 +1,1 @@
-# CellCheck ![Untitled](Figures/CellCheck.png)
+# CellCheck <img src="Figures/CellCheck.png" align="right" width="120" />
