@@ -1,7 +1,7 @@
 ##### To Do List ######
 ## Discrete data: Binary data
   # - [ ] Confusion matrix (Simple version)
-  #   - [ ] Basic version
+  #   - [x] Basic version
   #   - [ ] Formula
   #   - [ ] Beautify
   # - [ ] Confusion matrix (Full version)
@@ -18,7 +18,10 @@
   # - [ ] Compare different conditions
 
 ## Continuous data
+  # - [ ] RMSD
 
+## Beautify Figures
+  # - [ ] Various templates
 
 
 ##### Presetting ######
@@ -97,17 +100,31 @@
         draw_confusion_matrix(cm)
         Draw_CM(cm)
 
-        pdf(
-          file = paste0(Save.Path,"/",ProjectName,"_ConfuMax.pdf"),
-          width = 17,  height = 12
-        )
+        ## Full version
+          pdf(
+            file = paste0(Save.Path,"/",ProjectName,"_ConfuMax.pdf"),
+            width = 17,  height = 12
+          )
+            for (i in 1:length(cm.lt)) {
+
+              Draw_CM(cm.lt[[i]],names(cm.lt[i]))
+            }
+          #dev.off()
+          graphics.off()
+          rm(i)
+
+        ## Full version
+          pdf(
+            file = paste0(Save.Path,"/",ProjectName,"_ConfuMaxSimp.pdf"),
+            width = 10,  height = 7
+          )
           for (i in 1:length(cm.lt)) {
 
-            Draw_CM(cm.lt[[i]],names(cm.lt[i]))
+            draw_confusion_matrix(cm.lt[[i]],names(cm.lt[i]))
           }
-        #dev.off()
-        graphics.off()
-        rm(i)
+          #dev.off()
+          graphics.off()
+          rm(i)
 
 
 #########################################################################################################
@@ -126,10 +143,11 @@
     MissRate <- sum(Check_Bi.df$Correctness1 == 1)/nrow(Check_Bi.df)
 
 
-
-##########################################################
     # Multi
     ## Ref: https://www.researchgate.net/figure/Confusion-matrix-for-60-training-and-40-testing-strategy_fig4_338909223
 
 
+#########################################################################################################
+    # RMSD: https://www.rdocumentation.org/packages/DescTools/versions/0.99.44/topics/Measures%20of%20Accuracy
+    # RMSD: https://www.rdocumentation.org/packages/CDM/versions/7.5-15/topics/IRT.RMSD
 
