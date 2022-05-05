@@ -45,7 +45,8 @@
   Check.df <- data.frame(Actual = sample(c(0,1), 100, replace = TRUE),
                          Predict1 = sample(c(0,1), 100, replace = TRUE),
                          Predict2 = sample(c(0,1), 100, replace = TRUE),
-                         Predict3 = sample(c(0,1), 100, replace = TRUE))
+                         Predict3 = sample(c(0,1), 100, replace = TRUE),
+                         Predict4 = sample(c(0,1), 100, replace = TRUE))
 
 ##### Confusion matrix #####
   #### calculate the confusion matrix ####
@@ -82,24 +83,39 @@
 
 
     ## Result dataframe
-    # Results.df <- ""
-    for (i in 1:length(cm.lt)) {
+      # Results.df <- ""
+      for (i in 1:length(cm.lt)) {
 
-        if(i==1){
-          Results.df <- data.frame( cm.lt[[i]][["overall"]] )
-          colnames(Results.df)[i] <- names(cm.lt[i])
-          Results.df <- Results.df %>% t() %>% as.data.frame()
+          if(i==1){
+            Results.df <- data.frame( cm.lt[[i]][["overall"]] )
+            colnames(Results.df)[i] <- names(cm.lt[i])
+            Results.df <- Results.df %>% t() %>% as.data.frame()
 
-        }else{
-          Results_S.df <- data.frame( cm.lt[[i]][["overall"]] )
-          colnames(Results_S.df) <- names(cm.lt[i])
-          Results_S.df <- Results_S.df %>% t() %>% as.data.frame()
-          Results.df <- rbind(Results.df,Results_S.df)
-        }
-    }
+          }else{
+            Results_S.df <- data.frame( cm.lt[[i]][["overall"]] )
+            colnames(Results_S.df) <- names(cm.lt[i])
+            Results_S.df <- Results_S.df %>% t() %>% as.data.frame()
+            Results.df <- rbind(Results.df,Results_S.df)
+          }
+      }
 
-    rm(i,Results_S.df)
-    cm.lt[["Predict1"]][["overall"]][["Accuracy"]]
+      rm(i,Results_S.df)
+      cm.lt[["Predict1"]][["overall"]][["Accuracy"]]
+
+      Results.df <- data.frame(Test=row.names(Results.df),Results.df)
+
+    ## Plot Result
+      # Ref: https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
+      p <- ggplot(data = Results.df, aes(x = Results.df[,1], y = Results.df[,2],
+                                         fill = Results.df[,1]))+
+                  geom_bar(stat = "identity")
+
+      p + scale_fill_brewer(palette = "Dark2")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
+          labs(title = colnames(Results.df)[2],
+               x = colnames(Results.df)[1],
+               y = colnames(Results.df)[2],
+               fill= colnames(Results.df)[1]) # Change legend title in ggplot
+
 
 
 #########################################################################################################
