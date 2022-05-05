@@ -42,20 +42,14 @@
 
 
 
-##### Simulated datafrme #####
-  Check.df <- data.frame(Actual = sample(c(0,1), 100, replace = TRUE),
-                         Predict1 = sample(c(0,1), 100, replace = TRUE),
-                         Predict2 = sample(c(0,1), 100, replace = TRUE),
-                         Predict3 = sample(c(0,1), 100, replace = TRUE),
-                         Predict4 = sample(c(0,1), 100, replace = TRUE),
-                         Predict5 = sample(c(0,1), 100, replace = TRUE),
-                         Predict6 = sample(c(0,1), 100, replace = TRUE))
+##### Load simulation datafrme #####
+  load("D:/Dropbox/##_GitHub/##_CAESAR/CellCheck/Create_simulation_datafrme.RData")
 
 ##### Confusion matrix #####
   #### calculate the confusion matrix ####
     library(caret)
-    cm <- confusionMatrix(data = Check.df$Actual %>% as.factor(),
-                          reference = Check.df$Predict1 %>% as.factor())
+    cm <- confusionMatrix(data = Check_Bi.df$Actual %>% as.factor(),
+                          reference = Check_Bi.df$Predict1 %>% as.factor())
 
 
   #### Draw Confusion Matrix ####
@@ -76,42 +70,17 @@
 
     cm.lt <- list()
 
-    for (i in 1:(ncol(Check.df)-1)) {
-      cm.lt[[i]] <- confusionMatrix(data = Check.df[,1] %>% as.factor(),
-                            reference = Check.df[,1+i] %>% as.factor())
-      names(cm.lt)[[i]] <- colnames(Check.df)[i+1]
+    for (i in 1:(ncol(Check_Bi.df)-1)) {
+      cm.lt[[i]] <- confusionMatrix(data = Check_Bi.df[,1] %>% as.factor(),
+                            reference = Check_Bi.df[,1+i] %>% as.factor())
+      names(cm.lt)[[i]] <- colnames(Check_Bi.df)[i+1]
 
     }
     rm(i)
 
 
     ## Result dataframe
-      # Results.df <- ""
-      for (i in 1:length(cm.lt)) {
-
-          if(i==1){
-            Results.df <- data.frame( cm.lt[[i]][["overall"]] )
-            colnames(Results.df)[i] <- names(cm.lt[i])
-            Results.df <- Results.df %>% t() %>% as.data.frame()
-
-          }else{
-            Results_S.df <- data.frame( cm.lt[[i]][["overall"]] )
-            colnames(Results_S.df) <- names(cm.lt[i])
-            Results_S.df <- Results_S.df %>% t() %>% as.data.frame()
-            Results.df <- rbind(Results.df,Results_S.df)
-          }
-      }
-
-      rm(i,Results_S.df)
-      cm.lt[["Predict1"]][["overall"]][["Accuracy"]]
-
-      Results.df <- data.frame(Test=row.names(Results.df),Results.df)
-
-      ## (Pending) Create df
-      Results.df$Tool <- c("A","A","A","B","B","B")
-      Results.df$Type <- c("1","2","3","1","2","3")
-      ## Test function
-      Results.df2 <- Summary_CM(cm.lt)
+      Results.df <- Summary_CM(cm.lt, Anno.df)
 
     ## Plot Result
       # Ref(Bar Chart): https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
@@ -143,18 +112,18 @@
 
 #########################################################################################################
   ##### Misclassification rate #####
-    Check.df$Correctness1 <- ""
-    for (i in 1:nrow(Check.df)) {
-      if(Check.df$Predict1[i] == Check.df$Actual[i] ){
-        Check.df$Correctness1[i] = 0
+    Check_Bi.df$Correctness1 <- ""
+    for (i in 1:nrow(Check_Bi.df)) {
+      if(Check_Bi.df$Predict1[i] == Check_Bi.df$Actual[i] ){
+        Check_Bi.df$Correctness1[i] = 0
       }else{
-        Check.df$Correctness1[i] = 1
+        Check_Bi.df$Correctness1[i] = 1
       }
 
     }
 
     # MissRate: Misclassification rate
-    MissRate <- sum(Check.df$Correctness1 == 1)/nrow(Check.df)
+    MissRate <- sum(Check_Bi.df$Correctness1 == 1)/nrow(Check_Bi.df)
 
 
 
