@@ -4,7 +4,7 @@ Plot_CMBar <- function(Results.df, Metrics = "Accuracy") {
   ## Plot by group
   p <- ggplot(data = Results.df, aes(x = Type, y = Results.df[,metrics],
                                      fill = Tool))+
-    geom_bar(stat = "identity", position = position_dodge(), color="black",lwd=1.2)+
+    geom_bar(stat = "identity", position = position_dodge(), color="black",lwd=0.7)+
     theme_bw()+theme(panel.grid=element_blank(),panel.border=element_blank(),axis.line=element_line(size=1,colour="black")) # White background and remove grid
   
   p2 <- p + scale_fill_brewer(palette = "Spectral")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
@@ -19,16 +19,18 @@ Plot_CMBar <- function(Results.df, Metrics = "Accuracy") {
               
               # axis.line = element_line(colour = "darkblue", size = 2, linetype = "solid"),
               # axis.title = element_text(size = rel(2),face="bold",color = "#3d3d3d"),
-              axis.title.x = element_text(size = rel(2),face="bold",color = "#3d3d3d", vjust = .2),
-              axis.title.y = element_text(size = rel(2),face="bold",color = "#3d3d3d", vjust = 1.5),
+              axis.title.x = element_text(size = rel(2),face="bold",color = "#1f1f1f", vjust = .2),
+              axis.title.y = element_text(size = rel(2),face="bold",color = "#1f1f1f", vjust = 1.5),
               
               plot.title = element_text(color="black",
                                         size=20,
                                         face="bold.italic",
                                         hjust = 0.05,vjust =-10), # margin = margin(t = 0.5, b = -7),
               # plot.background = element_rect(fill = 'chartreuse'),
-              legend.title = element_text(size=20, color = "black", face="bold"),
-              legend.text = element_text(colour="black", size= 12,face="bold"),
+              legend.title = element_text(size=20, color = "black", face="bold", vjust = 1),
+              legend.text = element_text(colour="black", size= 12,face="bold",
+                                         margin = margin(l = -5, unit = "pt")),
+              legend.key.size = unit(1.5, 'lines'),
               legend.background = element_rect(fill = alpha("white", 0.5)),
               # legend.position = c(0.1, 0.18),
               # plot.text = element_text(size = 20),
