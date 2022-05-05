@@ -78,10 +78,31 @@
       names(cm.lt)[[i]] <- colnames(Check.df)[i+1]
 
     }
+    rm(i)
 
 
+    ## Result dataframe
+    # Results.df <- ""
+    for (i in 1:length(cm.lt)) {
+
+        if(i==1){
+          Results.df <- data.frame( cm.lt[[i]][["overall"]] )
+          colnames(Results.df)[i] <- names(cm.lt[i])
+          Results.df <- Results.df %>% t() %>% as.data.frame()
+
+        }else{
+          Results_S.df <- data.frame( cm.lt[[i]][["overall"]] )
+          colnames(Results_S.df) <- names(cm.lt[i])
+          Results_S.df <- Results_S.df %>% t() %>% as.data.frame()
+          Results.df <- rbind(Results.df,Results_S.df)
+        }
+    }
+
+    rm(i,Results_S.df)
+    cm.lt[["Predict1"]][["overall"]][["Accuracy"]]
 
 
+#########################################################################################################
   ##### Misclassification rate #####
     Check.df$Correctness1 <- ""
     for (i in 1:nrow(Check.df)) {
