@@ -29,10 +29,6 @@
   source("Fun_Draw_ConfuMatrix.R")
   source("Fun_Summary_CM.R")
 
-
-##### Load datasets #####
-
-
 ##### Current path and new folder setting*  #####
   ProjectName = "CC"
 
@@ -44,27 +40,6 @@
 
 ##### Load simulation datafrme #####
   load("D:/Dropbox/##_GitHub/##_CAESAR/CellCheck/Create_simulation_datafrme.RData")
-
-##### Confusion matrix #####
-  #### calculate the confusion matrix ####
-    library(caret)
-    cm <- confusionMatrix(data = Check_Bi.df$Actual %>% as.factor(),
-                          reference = Check_Bi.df$Predict1 %>% as.factor())
-
-
-  #### Draw Confusion Matrix ####
-    source("Fun_Draw_ConfuMax.R")
-    draw_confusion_matrix(cm)
-    Draw_CM(cm)
-
-    pdf(
-      file = paste0(Save.Path,"/",ProjectName,"_ConfuMax.pdf"),
-      width = 12,  height = 12
-    )
-      Draw_CM(cm)
-
-    dev.off()
-
 
 ##### Compare Multigroup #####
 
@@ -86,28 +61,58 @@
       # Ref(Bar Chart): https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
       # Ref(Color): http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html
 
-      ## Plot without grouping
-      p <- ggplot(data = Results.df, aes(x = Results.df[,1], y = Results.df[,2],
-                                         fill = Results.df[,1]))+
-                  geom_bar(stat = "identity")
-
-      p + scale_fill_brewer(palette = "Dark2")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
-          labs(title = colnames(Results.df)[2],
-               x = colnames(Results.df)[1],
-               y = colnames(Results.df)[2],
-               fill= colnames(Results.df)[1]) # Change legend title in ggplot
-
       ## Plot by group
-      p2 <- ggplot(data = Results.df, aes(x = Type, y = Results.df[,2],
+      p <- ggplot(data = Results.df, aes(x = Type, y = Results.df[,2],
                                           fill = Tool))+
-        geom_bar(stat = "identity", position = position_dodge())
+        geom_bar(stat = "identity", position = position_dodge(), color="black",lwd=1.2)+
+        theme_bw()+theme(panel.grid=element_blank(),panel.border=element_blank(),axis.line=element_line(size=1,colour="black")) # White background and remove grid
 
-      p2+ scale_fill_brewer(palette = "Dark2")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
-          labs(#title = colnames(Results.df)[2],
-               #x = colnames(Results.df)[1],
-               y = colnames(Results.df)[2],
-               #fill= colnames(Results.df)[1] # Change legend title in ggplot
-               )
+      p + scale_fill_brewer(palette = "Spectral")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
+          labs(#title = colnames(Results.df)[2],  # Change title in ggplot
+               #x = colnames(Results.df)[1],      # Change title of x axis in ggplot
+               y = colnames(Results.df)[2],       # Change title of y axis in ggplot
+               #fill= colnames(Results.df)[1]     # Change legend title in ggplot
+               )+
+          theme(panel.border = element_rect(fill=NA,color="black", size= 2.5, linetype="solid"))+ # Outline
+          theme(axis.text.x = element_text(color="black",face="bold",  size = 17,angle = 45, hjust = 1, vjust = .99), # Change the size along the x axis
+                axis.text.y = element_text(color="black",face="bold",size = 17), # Change the size along the y axis
+
+                #axis.line = element_line(colour = "darkblue", size = 2, linetype = "solid"),
+                # axis.title = element_text(size = rel(2),face="bold",color = "#3d3d3d"),
+                axis.title.x = element_text(size = rel(2),face="bold",color = "#3d3d3d", vjust = .2),
+                axis.title.y = element_text(size = rel(2),face="bold",color = "#3d3d3d", vjust = 1.5),
+
+                plot.title = element_text(color="black",
+                                          size=20,
+                                          face="bold.italic",
+                                          hjust = 0.05,vjust =-10), # margin = margin(t = 0.5, b = -7),
+                #     plot.background = element_rect(fill = 'chartreuse'),
+                legend.title = element_text(size=20, color = "black", face="bold"),
+                legend.text = element_text(colour="black", size= 12,face="bold"),
+                legend.background = element_rect(fill = alpha("white", 0.5)),
+                #      legend.position = c(0.1, 0.18),
+                #     plot.text = element_text(size = 20),
+                aspect.ratio=1)   #square plot
+
+##### Confusion matrix #####
+    #### calculate the confusion matrix ####
+      library(caret)
+      # cm <- confusionMatrix(data = Check_Bi.df$Actual %>% as.factor(),
+      #                       reference = Check_Bi.df$Predict1 %>% as.factor())
+      cm <- cm.lt[["Predict1"]]
+
+    #### Draw Confusion Matrix ####
+      source("Fun_Draw_ConfuMax.R")
+      draw_confusion_matrix(cm)
+      Draw_CM(cm)
+
+      pdf(
+        file = paste0(Save.Path,"/",ProjectName,"_ConfuMax.pdf"),
+        width = 12,  height = 12
+      )
+      Draw_CM(cm)
+
+      dev.off()
 
 
 #########################################################################################################
