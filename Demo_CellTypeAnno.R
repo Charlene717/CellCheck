@@ -1,3 +1,19 @@
+##### To Do List ######
+## Discrete data: Binary data
+  # - [ ] Confusion matrix (Simple version)
+  # - [ ] Confusion matrix (Full version)
+  # - [ ] Annotation table
+  # - [ ] Compare different conditions
+
+## Discrete data: Multiple data
+  # - [ ] Confusion matrix
+  # - [ ] Annotation table
+  # - [ ] Compare different conditions
+
+## Continuous data
+
+
+
 ##### Presetting ######
   rm(list = ls()) # Clean variable
   memory.limit(150000)
