@@ -26,8 +26,9 @@
 ##### Function setting #####
   ## Call function
   source("Fun_Draw_ConfuMax.R")
-  source("Fun_Draw_ConfuMatrix.R")
-  source("Fun_Summary_CM.R")
+  source("FUN_Draw_ConfuMatrix.R")
+  source("FUN_Summary_CM.R")
+  source("FUN_Plot_CMBar.R")
 
 ##### Current path and new folder setting*  #####
   ProjectName = "CC"
@@ -93,6 +94,10 @@
                 #      legend.position = c(0.1, 0.18),
                 #     plot.text = element_text(size = 20),
                 aspect.ratio=1)   #square plot
+      #
+
+      p3 <- Plot_CMBar(Results.df, Metrics = "Accuracy")
+      p3
 
 ##### Confusion matrix #####
     #### calculate the confusion matrix ####
