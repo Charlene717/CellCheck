@@ -51,6 +51,21 @@
 
     dev.off()
 
+
+##### Compare Multigroup #####
+
+    cm.lt <- list()
+
+    for (i in 1:(ncol(Check.df)-1)) {
+      cm.lt[[i]] <- confusionMatrix(data = Check.df[,1] %>% as.factor(),
+                            reference = Check.df[,1+i] %>% as.factor())
+      names(cm.lt)[[i]] <- colnames(Check.df)[i+1]
+
+    }
+
+
+
+
   ##### Misclassification rate #####
     Check.df$Correctness1 <- ""
     for (i in 1:nrow(Check.df)) {
