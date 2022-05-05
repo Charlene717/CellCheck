@@ -46,7 +46,9 @@
                          Predict1 = sample(c(0,1), 100, replace = TRUE),
                          Predict2 = sample(c(0,1), 100, replace = TRUE),
                          Predict3 = sample(c(0,1), 100, replace = TRUE),
-                         Predict4 = sample(c(0,1), 100, replace = TRUE))
+                         Predict4 = sample(c(0,1), 100, replace = TRUE),
+                         Predict5 = sample(c(0,1), 100, replace = TRUE),
+                         Predict6 = sample(c(0,1), 100, replace = TRUE))
 
 ##### Confusion matrix #####
   #### calculate the confusion matrix ####
@@ -103,9 +105,14 @@
       cm.lt[["Predict1"]][["overall"]][["Accuracy"]]
 
       Results.df <- data.frame(Test=row.names(Results.df),Results.df)
+      Results.df$Tool <- c("A","A","A","B","B","B")
+      Results.df$Type <- c("1","2","3","1","2","3")
 
     ## Plot Result
-      # Ref: https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
+      # Ref(Bar Chart): https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
+      # Ref(Color): http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html
+
+      ## Plot without grouping
       p <- ggplot(data = Results.df, aes(x = Results.df[,1], y = Results.df[,2],
                                          fill = Results.df[,1]))+
                   geom_bar(stat = "identity")
@@ -116,6 +123,17 @@
                y = colnames(Results.df)[2],
                fill= colnames(Results.df)[1]) # Change legend title in ggplot
 
+      ## Plot by group
+      p2 <- ggplot(data = Results.df, aes(x = Type, y = Results.df[,2],
+                                          fill = Tool))+
+        geom_bar(stat = "identity", position = position_dodge())
+
+      p2+ scale_fill_brewer(palette = "Dark2")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
+          labs(#title = colnames(Results.df)[2],
+               #x = colnames(Results.df)[1],
+               y = colnames(Results.df)[2],
+               #fill= colnames(Results.df)[1] # Change legend title in ggplot
+               )
 
 
 #########################################################################################################
