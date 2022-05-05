@@ -5,13 +5,13 @@
 ## Ref: https://cran.r-project.org/web/packages/ConfusionTableR/vignettes/ConfusionTableR.html
 
 
-Draw_CM <- function(cm) {
+Draw_CM <- function(cm,TestID = "Predict1") {
 
   layout(matrix(c(1,1,2)))
   par(mar=c(2,2,2,2))
-  plot(c(50, 350), c(245, 550), type = "n", xlab="", ylab="", xaxt='n', yaxt='n')
+  plot(c(50, 350), c(220, 550), type = "n", xlab="", ylab="", xaxt='n', yaxt='n')
   box(lwd=2)
-  title('CONFUSION MATRIX', cex.main=2.1)
+  title(paste0('CONFUSION MATRIX'," (",TestID,") "), cex.main=2.1)
 
   # create the matrix
   rect(60, 530, 120, 460, col='#324d75') #7f55a6
@@ -20,17 +20,21 @@ Draw_CM <- function(cm) {
   rect(121, 530, 181, 460, col='#434047')
   rect(121, 542, 181, 532, col='#0f274a')
   text(151, 537, 'Condition negative', cex=1.4, font=2, col='white')
-  text(47, 470, 'Predicted', cex=2, srt=90, font=2)
+  text(49, 470, 'Predicted', cex=2, srt=90, font=2)
   text(121, 550, 'Actual', cex=2, font=2)
   rect(60, 388, 120, 458, col='#434047')
   rect(121, 388, 181, 458, col='#324d75')
-  rect(53, 530, 59, 460, col='#0f274a')
-  rect(53, 388, 59, 458, col='#0f274a')
-  text(56, 495, 'Condition positive', cex=1.2, srt=90, font=2, col='white')
-  text(56, 423, 'Condition negative', cex=1.2, srt=90, font=2, col='white')
+  rect(52, 530, 59, 460, col='#0f274a')
+  rect(52, 388, 59, 458, col='#0f274a')
+  text(55, 495, 'Condition \n positive', cex=1.4, srt=90, font=2, col='white')
+  text(55, 423, 'Condition \n negative', cex=1.4, srt=90, font=2, col='white')
 
   # add in the cm results
   res <- as.numeric(cm$table)
+  TP = res[1]
+  FN = res[2]
+  FP = res[3]
+  TN = res[4]
   text(90, 495, paste0("True positive = ", res[1],"\n Power"), cex=1.8, font=2, col='white')
   text(90, 423, paste0("False negative = ",res[2],"\n Type II error"), cex=1.8, font=2, col='white')
   text(151, 495, paste0("False positive = ",res[3],"\n Type I error"), cex=1.8, font=2, col='white')
@@ -73,7 +77,7 @@ Draw_CM <- function(cm) {
        cex=1.6, font=2, col='#2a4c57')
 
   text(212, 495, paste0("PPV = ", round(cm[["byClass"]][["Precision"]],4),
-                        "\n Positive predictive calue(PPV)",
+                        "\n Positive predictive value(PPV)",
                         "\n Precision"),
        cex=1.6, font=2, col='#506143')
   text(212, 423, paste0("FOR = ", round(res[2]/(res[2]+res[4]),4),
@@ -104,44 +108,79 @@ Draw_CM <- function(cm) {
 
   ## Accuracy
   text(332, 550, paste0("Accuracy (ACC) = ",(res[1]+res[4])/(res[1]+res[2]+res[3]+res[4])),
-                        cex=2, font=2)
-  text(332, 525,expression(frac(TP+TN,'Total population')),cex=1.7, font=2)
+                        cex=1.7, font=2)
+  text(332, 530,expression(frac(TP+TN,'Total population')),cex=1.2, font=2)
   # text(330, 537, paste0("Prevalence = ",(res[1]+res[2])/(res[1]+res[2]+res[3]+res[4])),
   #     cex=2, font=2)
 
   ## Misclassification
-  text(332, 495, paste0("Misclassification = ",(res[2]+res[3])/(res[1]+res[2]+res[3]+res[4])),
-       cex=2, font=2)
-  text(332, 470,expression(frac(FP+FN,'Total population')),cex=1.7, font=2)
+  text(332, 510, paste0("Error Rate = ",(res[2]+res[3])/(res[1]+res[2]+res[3]+res[4])),
+       cex=1.7, font=2)
+  text(332, 490,expression(frac(FP+FN,'Total population')),cex=1.2, font=2)
 
   ## Prevalence
-  text(332, 435, paste0("Prevalence = ",(res[1]+res[2])/(res[1]+res[2]+res[3]+res[4])),
-       cex=2, font=2)
-  text(332, 410,expression(frac(TP+FN,'Total population')),cex=1.7, font=2)
+  text(332, 470, paste0("Prevalence = ",(res[1]+res[2])/(res[1]+res[2]+res[3]+res[4])),
+       cex=1.7, font=2)
+  text(332, 450,expression(frac(TP+FN,'Total population')),cex=1.2, font=2)
+
+  # Ref: http://iccm.cc/classification-model-evaluation-confusion-matrix/
+  ## Detection rate
+  text(332, 430, paste0("Detection rate = ",round(cm[["byClass"]][["Detection Rate"]],4)),
+       cex=1.7, font=2)
+  text(332, 410,expression(frac(TP,'Total population')),cex=1.2, font=2)
+
+  ## Detection Prevalence
+  text(332, 390, paste0("Detection Prevalence = ",round(cm[["byClass"]][["Detection Prevalence"]],4)),
+       cex=1.7, font=2)
+  text(332, 370,expression(frac(TP+FP,'Total population')),cex=1.2, font=2)
+
+  ## Balanced Accuracy = (Sensitivity+Specificity)/2
+  text(332, 350, paste0("Balanced Accuracy = ",round(cm[["byClass"]][["Balanced Accuracy"]],4)),
+       cex=1.7, font=2)
+  text(332, 330,expression(frac(Sensitivity+Specificity,'2')),cex=1.2, font=2)
 
   ## Kappa
-  text(332, 375, paste0("Kappa = ",round(cm[["overall"]][["Kappa"]],4)),
-       cex=2, font=2)
+  text(332, 310, paste0("Kappa = ",round(cm[["overall"]][["Kappa"]],4)),
+       cex=1.7, font=2)
   #text(332, 350,expression(frac(?????)),cex=1.7, font=2)
 
+  ## McnemarPValue
+  text(332, 295, paste0("McnemarPValue = ",round(cm[["overall"]][["McnemarPValue"]],4)),
+       cex=1.7, font=2)
+  ## AccuracyPValue
+  text(332, 280, paste0("AccuracyPValue = ",round(cm[["overall"]][["AccuracyPValue"]],4)),
+       cex=1.7, font=2)
+  ## AccuracyNull
+  text(332, 265, paste0("AccuracyNull = ",round(cm[["overall"]][["AccuracyNull"]],4)),
+       cex=1.7, font=2)
+  ## AccuracyUpper
+  text(332, 250, paste0("AccuracyUpper = ",round(cm[["overall"]][["AccuracyUpper"]],4)),
+       cex=1.7, font=2)
+  ## AccuracyLower
+  text(332, 235, paste0("AccuracyLower = ",round(cm[["overall"]][["AccuracyLower"]],4)),
+       cex=1.7, font=2)
+  ## Matthews correlation coefficient
+  MCC = (TP*TN - FP*FN)/((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))^(1/2)
+  text(332, 220, paste0("MCC  = ",round(MCC,4)),
+       cex=1.7, font=2)
 
-  # add in the specifics
-  plot(c(50, 0), c(50, 0), type = "n", xlab="", ylab="", main = "DETAILS", xaxt='n', yaxt='n')
-  text(5, 45, names(cm$byClass[1]), cex=1.2, font=2)
-  text(5, 40, round(as.numeric(cm$byClass[1]), 3), cex=1.2)
-  text(10, 45, names(cm$byClass[2]), cex=1.2, font=2)
-  text(10, 40, round(as.numeric(cm$byClass[2]), 3), cex=1.2)
-  text(15, 45, names(cm$byClass[5]), cex=1.2, font=2)
-  text(15, 40, round(as.numeric(cm$byClass[5]), 3), cex=1.2)
-  text(20, 45, names(cm$byClass[6]), cex=1.2, font=2)
-  text(20, 40, round(as.numeric(cm$byClass[6]), 3), cex=1.2)
-  text(25, 45, names(cm$byClass[7]), cex=1.2, font=2)
-  text(25, 40, round(as.numeric(cm$byClass[7]), 3), cex=1.2)
-
-  # add in the accuracy information
-  text(30, 45, names(cm$overall[1]), cex=1.5, font=2)
-  text(30, 40, round(as.numeric(cm$overall[1]), 3), cex=1.4)
-  text(35, 45, names(cm$overall[2]), cex=1.5, font=2)
-  text(35, 40, round(as.numeric(cm$overall[2]), 3), cex=1.4)
+  # # add in the specifics
+  # plot(c(50, 0), c(50, 0), type = "n", xlab="", ylab="", main = "DETAILS", xaxt='n', yaxt='n')
+  # text(5, 45, names(cm$byClass[1]), cex=1.2, font=2)
+  # text(5, 40, round(as.numeric(cm$byClass[1]), 3), cex=1.2)
+  # text(10, 45, names(cm$byClass[2]), cex=1.2, font=2)
+  # text(10, 40, round(as.numeric(cm$byClass[2]), 3), cex=1.2)
+  # text(15, 45, names(cm$byClass[5]), cex=1.2, font=2)
+  # text(15, 40, round(as.numeric(cm$byClass[5]), 3), cex=1.2)
+  # text(20, 45, names(cm$byClass[6]), cex=1.2, font=2)
+  # text(20, 40, round(as.numeric(cm$byClass[6]), 3), cex=1.2)
+  # text(25, 45, names(cm$byClass[7]), cex=1.2, font=2)
+  # text(25, 40, round(as.numeric(cm$byClass[7]), 3), cex=1.2)
+  #
+  # # add in the accuracy information
+  # text(30, 45, names(cm$overall[1]), cex=1.5, font=2)
+  # text(30, 40, round(as.numeric(cm$overall[1]), 3), cex=1.4)
+  # text(35, 45, names(cm$overall[2]), cex=1.5, font=2)
+  # text(35, 40, round(as.numeric(cm$overall[2]), 3), cex=1.4)
 
 }
