@@ -1,5 +1,5 @@
 
-Summary_CM <- function(cm.lt) {
+Summary_CM <- function(cm.lt, Anno.df) {
 
   ## Summary of result dataframe
   # CM_Summary.df <- ""
@@ -19,10 +19,9 @@ Summary_CM <- function(cm.lt) {
   }
 
   rm(i,Results_S.df)
-  cm.lt[["Predict1"]][["overall"]][["Accuracy"]]
 
-  CM_Summary.df <- data.frame(Test=row.names(CM_Summary.df),CM_Summary.df)
-
+  CM_Summary.df <- data.frame(TestID=row.names(CM_Summary.df),CM_Summary.df)
+  CM_Summary.df <- left_join(CM_Summary.df, Anno.df)
 
   return(CM_Summary.df)
 }
