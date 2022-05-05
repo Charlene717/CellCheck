@@ -143,4 +143,5 @@ Draw_CM <- function(cm) {
   text(30, 40, round(as.numeric(cm$overall[1]), 3), cex=1.4)
   text(35, 45, names(cm$overall[2]), cex=1.5, font=2)
   text(35, 40, round(as.numeric(cm$overall[2]), 3), cex=1.4)
+
 }
