@@ -27,6 +27,7 @@
   ## Call function
   source("Fun_Draw_ConfuMax.R")
   source("Fun_Draw_ConfuMatrix.R")
+  source("Fun_Summary_CM.R")
 
 
 ##### Load datasets #####
@@ -105,8 +106,12 @@
       cm.lt[["Predict1"]][["overall"]][["Accuracy"]]
 
       Results.df <- data.frame(Test=row.names(Results.df),Results.df)
+
+      ## (Pending) Create df
       Results.df$Tool <- c("A","A","A","B","B","B")
       Results.df$Type <- c("1","2","3","1","2","3")
+      ## Test function
+      Results.df2 <- Summary_CM(cm.lt)
 
     ## Plot Result
       # Ref(Bar Chart): https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
