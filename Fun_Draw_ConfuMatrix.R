@@ -1,7 +1,9 @@
-## https://stackoverflow.com/questions/23891140/r-how-to-visualize-confusion-matrix-using-the-caret-package
+## Ref: https://stackoverflow.com/questions/23891140/r-how-to-visualize-confusion-matrix-using-the-caret-package
 ## @Cybernetic  ## https://stackoverflow.com/users/1639594/cybernetic
 
-## Ref:https://towardsdatascience.com/confusion-matrix-deep-dive-8a028b005a97
+## Ref: https://towardsdatascience.com/confusion-matrix-deep-dive-8a028b005a97
+## Ref: https://cran.r-project.org/web/packages/ConfusionTableR/vignettes/ConfusionTableR.html
+
 
 Draw_CM <- function(cm) {
 
