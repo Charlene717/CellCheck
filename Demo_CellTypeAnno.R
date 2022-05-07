@@ -21,23 +21,24 @@
 ## Discrete data: Multiple data
   # - [ ] Confusion matrix
     #   - [x] Basic version
-    #   - [ ] Beautify
+    #   - [x] Beautify
   # - [ ] Annotation table
   # - [ ] Compare different conditions
-  #   - [ ] Bar
+  #   - [x] Bar
   #   - [ ] Bar with SD
   #   - [ ] Bar with pvalue
 
 ## Continuous data
-  # - [ ] RMSD
+  # - [x] RMSD Basic
+  # - [ ] More Metrics
 # - [ ] Compare different conditions
-  #   - [ ] Bar
+  #   - [x] Bar
   #   - [ ] Bar with SD
   #   - [ ] Bar with pvalue
 
 ## Beautify Figures
   # - [x] BarChart
-  # - [ ] LineChart
+  # - [x] LineChart
   # - [ ] Various templates
   # - [ ] TIFF, PNG
   # - [ ] Function for adjusting detail
@@ -99,8 +100,8 @@
     Results_Bi.df <- Summarize_BiCM(cm.lt, Anno.df)
 
     ## Plot by group
-    p1 <- CC_BarPlot(Results_Bi.df, MetricsX = "Type", MetricsY = "Accuracy", MetricsG = "Tool")
-    p2 <- CC_BarPlot(Results_Bi.df, MetricsX = "Type",Metrics = "Kappa", MetricsG = "Tool")
+    p1 <- CC_BarPlot(Results_Bi.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool")
+    p2 <- CC_BarPlot(Results_Bi.df, XValue = "Type", Metrics = "Kappa", Group = "Tool")
     rm(p1,p2)
 
     Metrics_Bi.set <- colnames(Results_Bi.df)[2:(ncol(Results_Bi.df)-(ncol(Anno.df)-1))]
@@ -109,7 +110,7 @@
     pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar.pdf"),
       width = 7,  height = 7)
       for (i in 1:length(Metrics_Bi.set)) {
-          p <- CC_BarPlot(Results_Bi.df, Metrics = Metrics_Bi.set[i])
+          p <- CC_BarPlot(Results_Bi.df, XValue = "Type", Metrics = Metrics_Bi.set[i], Group = "Tool")
           p
       }
     # dev.off()
@@ -184,18 +185,18 @@
       Results_DisMult.df <- left_join(Results_DisMult.df, Anno.df)
 
       ## Plot by group
-      p1 <- CC_BarPlot(Results_DisMult.df, MetricsX = "Type", MetricsY = "Accuracy", MetricsG = "Tool")
+      p1 <- CC_BarPlot(Results_DisMult.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool")
       p1
       rm(p1)
 
       Metrics_DisMult.set <- colnames(Results_DisMult.df)[2:(ncol(Results_DisMult.df)-(ncol(Anno.df)-1))]
 
       #### Export BarPlot PDF ####
-      pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult__MetricsBar.pdf"),
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar.pdf"),
           width = 7,  height = 7)
       for (i in 1:length(Metrics_DisMult.set)) {
-        p <- CC_BarPlot(Results_DisMult.df, MetricsX = "Type",
-                        MetricsY = Metrics_DisMult.set[i], MetricsG = "Tool")
+        p <- CC_BarPlot(Results_DisMult.df, XValue = "Type",
+                        Metrics = Metrics_DisMult.set[i], Group = "Tool")
         p
       }
       dev.off()
@@ -296,7 +297,7 @@
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsBar.pdf"),
           width = 7,  height = 7)
         for (i in 1:length(MA.set)) {
-          p <- CC_BarPlot(MA.df, Metrics = MA.set[i])
+          p <- CC_BarPlot(MA.df, XValue = "Type", Metrics = MA.set[i], Group = "Tool")
           p
         }
       # dev.off()
@@ -306,14 +307,14 @@
 
       #### Export LinePlot PDF ####
       MA.df$PARM <- factor(MA.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
-      p <- CC_LinePlot(MA.df, MetricsX = "PARM", MetricsY = "RMSE", MetricsG = "Type")
+      p <- CC_LinePlot(MA.df, XValue = "PARM", Metrics = "RMSE", Group = "Type")
 
 
       #### Export BarPlot PDF ####
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsLine.pdf"),
           width = 12,  height = 7)
         for (i in 1:length(MA.set)) {
-          p <- CC_LinePlot(MA.df, MetricsX = "PARM", MetricsY = MA.set[i], MetricsG = "Type")
+          p <- CC_LinePlot(MA.df, XValue = "PARM", Metrics = MA.set[i], Group = "Type")
           p
         }
       # dev.off()
