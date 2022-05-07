@@ -20,7 +20,7 @@
 ##### Create simulation datafrme #####
   #### Binary data ####
   Actual1_1 <-sample(c(0,1), 100, replace = TRUE)
-  Check_Bi.df <- data.frame(Actual = Actual1_1,
+  Simu_Bi.df <- data.frame(Actual = Actual1_1,
                             Predict1 = Actual1_1,
                             Predict2 = sample(c(0,1), 100, replace = TRUE),
                             Predict3 = sample(c(0,1), 100, replace = TRUE),
@@ -38,7 +38,7 @@
                             Predict15 = sample(c(0,1), 100, replace = TRUE))
   Word.set <- c("A","B")
   Actual1_2 <-sample(Word.set, 100, replace = TRUE)
-  Check_Bi2.df <- data.frame(Actual = Actual1_2,
+  Simu_Bi2.df <- data.frame(Actual = Actual1_2,
                             Predict1 = Actual1_2,
                             Predict2 = sample(Word.set, 100, replace = TRUE),
                             Predict3 = sample(Word.set, 100, replace = TRUE),
@@ -57,7 +57,7 @@
   #### Discrete data: Multiple data ####
   Word.set <- c("A1","A2","B1","B2","C1","C2","D1","D2","E1","E2")
   Actual2_2 <- sample(Word.set, 500, replace = TRUE)
-  Check_DisMult.df <- data.frame(Actual = Actual2_2,
+  Simu_DisMult.df <- data.frame(Actual = Actual2_2,
                                  Predict1 = Actual2_2,
                                  Predict2 = sample(Word.set, 500, replace = TRUE),
                                  Predict3 = sample(Word.set, 500, replace = TRUE),
@@ -75,7 +75,7 @@
                                  Predict15 = sample(Word.set, 500, replace = TRUE))
 
   Actual2_1 <- sample(c(0:10), 100, replace = TRUE)
-  Check_DisMult2.df <- data.frame(Actual = Actual2_1,
+  Simu_DisMult2.df <- data.frame(Actual = Actual2_1,
                                   Predict1 = Actual2_1,
                                   Predict2 = sample(c(0:10), 100, replace = TRUE),
                                   Predict3 = sample(c(0:10), 100, replace = TRUE),
@@ -93,7 +93,7 @@
                                   Predict15 = sample(c(0:10), 100, replace = TRUE))
   #### Continuous data ####
   Actual3 <- sample(c(0:100), 100, replace = TRUE)
-  Check_Conti.df <- data.frame(Actual = Actual3,
+  Simu_Conti.df <- data.frame(Actual = Actual3,
                                Predict1 = Actual3,
                                Predict2 = sample(c(0:100), 100, replace = TRUE),
                                Predict3 = sample(c(0:100), 100, replace = TRUE),
