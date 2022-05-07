@@ -11,8 +11,8 @@ CC_LinePlot <- function(Results.df, MetricsX = "PARM", MetricsY = "RMSE", Metric
   ## Plot by group
   p <- ggplot(Results.df, aes(x = Results.df[,metricsX],
                               y = Results.df[,metricsY], group = Results.df[,metricsG])) +
-    geom_line(aes(color = Results.df[,metricsG]), size = 2)+
-    geom_point(aes(color= Results.df[,metricsG], shape = Results.df[,metricsG]), size = 5)+
+    geom_line(aes(color = Results.df[,metricsG]), size = 2, alpha = 0.8)+
+    geom_point(aes(color= Results.df[,metricsG], shape = Results.df[,metricsG]), size = 5, alpha = 0.8)+
     theme_bw() + theme(panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank())+
     scale_colour_brewer(palette = "Set1")
