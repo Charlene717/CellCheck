@@ -7,6 +7,7 @@
   # - [ ] Confusion matrix (Full version)
   #   - [x] Basic version
   #   - [ ] Formula
+  #   - [ ] Create CM function by myself
   #   - [ ] Beautify
 
   # - [x] Annotation table
@@ -14,14 +15,22 @@
 
 ## Discrete data: Multiple data
   # - [ ] Confusion matrix
+    #   - [x] Basic version
+    #   - [ ] Beautify
   # - [ ] Annotation table
   # - [ ] Compare different conditions
 
 ## Continuous data
   # - [ ] RMSD
 
+
 ## Beautify Figures
+  # - [x] BarChart
+  # - [ ] LineChart
   # - [ ] Various templates
+  # - [ ] TIFF, PNG
+  # - [ ] Function for adjusting detail
+
 
 
 ##### Presetting ######
@@ -32,6 +41,7 @@
   library(Seurat)
   library(tidyverse)
   library(caret) # Confusion matrix
+  library(cvms) # Confusion matrix for Multi-Class Classification
 
 ##### Function setting #####
   ## Call function
@@ -71,29 +81,28 @@
 
   ####  Plot Result by Bar chart of Metrics ####
     ## Result dataframe
-    Results.df <- Summary_CM(cm.lt, Anno.df)
-
-    # Ref(Bar Chart): https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
-    # Ref(Color): http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html
+    Results_Bi.df <- Summary_CM(cm.lt, Anno.df)
 
     ## Plot by group
-    p <- Plot_CMBar(Results.df, Metrics = "Kappa")
-    p
+    p1 <- Plot_CMBar(Results_Bi.df, Metrics = "Accuracy")
+    p2 <- Plot_CMBar(Results_Bi.df, Metrics = "Kappa")
+    rm(p1,p2)
 
-    Metrics.set <- colnames(Results.df)[2:(ncol(Results.df)-(ncol(Anno.df)-1))]
+    Metrics_Bi.set <- colnames(Results_Bi.df)[2:(ncol(Results_Bi.df)-(ncol(Anno.df)-1))]
 
-    pdf(file = paste0(Save.Path,"/",ProjectName,"_MetricsBar.pdf"),
+    pdf(file = paste0(Save.Path,"/",ProjectName,"_MetricsBar_Bi.pdf"),
       width = 7,  height = 7)
-      for (i in 1:length(Metrics.set)) {
-          p <- Plot_CMBar(Results.df, Metrics = Metrics.set[i])
+      for (i in 1:length(Metrics_Bi.set)) {
+          p <- Plot_CMBar(Results_Bi.df, Metrics = Metrics_Bi.set[i])
           p
       }
+    # dev.off()
     graphics.off()
     rm(p,i)
 
   ##### Plot Confusion matrix #####
       ## Extract the confusion matrix
-        cm <- cm.lt[["Predict1"]]
+        cm <- cm.lt[["Predict2"]]
 
       ## Draw Confusion matrix
         source("Fun_Draw_ConfuMax.R")
@@ -102,50 +111,138 @@
 
         ## Full version
           pdf(
-            file = paste0(Save.Path,"/",ProjectName,"_ConfuMax.pdf"),
+            file = paste0(Save.Path,"/",ProjectName,"_ConfuMax_Bi.pdf"),
             width = 17,  height = 12
           )
             for (i in 1:length(cm.lt)) {
 
               Draw_CM(cm.lt[[i]],names(cm.lt[i]))
             }
-          #dev.off()
-          graphics.off()
+          dev.off()
+          #graphics.off()
           rm(i)
 
-        ## Full version
+        ## Simple version
           pdf(
-            file = paste0(Save.Path,"/",ProjectName,"_ConfuMaxSimp.pdf"),
+            file = paste0(Save.Path,"/",ProjectName,"_ConfuMaxSimp_Bi.pdf"),
             width = 10,  height = 7
           )
           for (i in 1:length(cm.lt)) {
 
             draw_confusion_matrix(cm.lt[[i]],names(cm.lt[i]))
           }
-          #dev.off()
-          graphics.off()
+          dev.off()
+          #graphics.off()
           rm(i)
 
 
 #########################################################################################################
-  ##### Misclassification rate #####
-    Check_Bi.df$Correctness1 <- ""
-    for (i in 1:nrow(Check_Bi.df)) {
-      if(Check_Bi.df$Predict1[i] == Check_Bi.df$Actual[i] ){
-        Check_Bi.df$Correctness1[i] = 0
-      }else{
-        Check_Bi.df$Correctness1[i] = 1
-      }
+  ##### Misclassification rate (error rate) #####
+    # Check_DisMult.df$Correctness1 <- ""
 
-    }
+    Check_DisMult_Res.df <- data.frame(matrix("",0,(ncol(Check_DisMult.df)-1)))
+    colnames(Check_DisMult_Res.df) <- colnames(Check_DisMult.df)[2:ncol(Check_DisMult.df)]
 
     # MissRate: Misclassification rate
-    MissRate <- sum(Check_Bi.df$Correctness1 == 1)/nrow(Check_Bi.df)
+      cm_DisMult.lt <- list()
+      for (j in 1:(ncol(Check_DisMult.df)-1)) {
 
+        for (i in 1:nrow(Check_DisMult.df)) {
+          if(Check_DisMult.df[i,1] == Check_DisMult.df[i,j+1]){
+            Check_DisMult_Res.df[i,j] = 0
+          }else{
+            Check_DisMult_Res.df[i,j] = 1
+          }
+        }
+        cm_DisMult.lt[j] <- sum(Check_DisMult_Res.df[,j] == 1)/nrow(Check_DisMult_Res.df)
+        names(cm_DisMult.lt)[j] <- colnames(Check_DisMult_Res.df)[j]
+      }
 
-    # Multi
+      rm(i,j,Check_DisMult_Res.df)
+      Results_DisMult.df <- data.frame(TestID = colnames(Check_DisMult.df)[2:ncol(Check_DisMult.df)],
+                                       Misclass = unlist(cm_DisMult.lt),
+                                       Accuracy = 1-unlist(cm_DisMult.lt))
+
+    ####  Plot Result by Bar chart of Metrics ####
+      ## Result dataframe
+      Results_DisMult.df <- left_join(Results_DisMult.df, Anno.df)
+
+      ## Plot by group
+      p1 <- Plot_CMBar(Results_DisMult.df, Metrics = "Misclass")
+      p1
+      rm(p1)
+
+      Metrics_DisMult.set <- colnames(Results_DisMult.df)[2:(ncol(Results_DisMult.df)-(ncol(Anno.df)-1))]
+
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_MetricsBar_DisMult.pdf"),
+          width = 7,  height = 7)
+      for (i in 1:length(Metrics_DisMult.set)) {
+        p <- Plot_CMBar(Results_DisMult.df, Metrics = Metrics_DisMult.set[i])
+        p
+      }
+      dev.off()
+      #graphics.off()
+      rm(p,i)
+
+    ##### calculate the confusion matrix for Multi-Class Classification #####
     ## Ref: https://www.researchgate.net/figure/Confusion-matrix-for-60-training-and-40-testing-strategy_fig4_338909223
+    ## Ref: https://cran.r-project.org/web/packages/cvms/vignettes/Creating_a_confusion_matrix.html
+      # install.packages("cvms")
+      library(cvms)
+      ##
+      conf_mat <- confusion_matrix(targets = Check_DisMult.df$Actual,
+                                   predictions = Check_DisMult.df$Predict1)
 
+      conf_mat
+
+      p1 <- plot_confusion_matrix(conf_mat$`Confusion Matrix`[[1]],
+                            add_sums = TRUE)
+
+      p1 + theme(axis.text.x = element_text(face="bold", color="#3d3d3d", size=12), #plot.margin = unit(c(2,3,3,4),"cm")
+                 axis.text.y = element_text(face="bold", color="#3d3d3d", size=12,angle=0),
+                 axis.title.x = element_text(face="bold", color="#3d3d3d", size=18),
+                 axis.title.y = element_text(face="bold", color="#3d3d3d", size=18))
+
+      ##
+      conf_mat2 <- confusion_matrix(targets = Check_DisMult.df$Actual,
+                                   predictions = Check_DisMult.df[,3])
+
+      conf_mat2
+
+      plot_confusion_matrix(conf_mat2$`Confusion Matrix`[[1]],
+                            add_sums = TRUE)
+
+
+      #### calculate the confusion matrix ####
+      conf_mat.lt <- list()
+
+      for (i in 1:(ncol(Check_DisMult.df)-1)) {
+        conf_mat.lt[[i]] <- confusion_matrix(targets = Check_DisMult.df[,1] %>% as.factor(),
+                                             predictions = Check_DisMult.df[,1+i] %>% as.factor())
+        names(conf_mat.lt)[[i]] <- colnames(Check_DisMult.df)[i+1]
+
+      }
+      rm(i)
+
+      #### Export PDF ####
+      pdf(
+        file = paste0(Save.Path,"/",ProjectName,"_ConfuMax_DisMult.pdf"),
+        width = 10,  height = 10
+      )
+        for (i in 1:length(conf_mat.lt)) {
+          p1 <- plot_confusion_matrix(conf_mat.lt[[i]][["Confusion Matrix"]][[1]],
+                                      add_sums = TRUE)
+
+          p1 + ggtitle(names(conf_mat.lt)[i])+
+               theme(axis.text.x = element_text(face="bold", color="#3d3d3d", size=12), #plot.margin = unit(c(2,3,3,4),"cm")
+                     axis.text.y = element_text(face="bold", color="#3d3d3d", size=12,angle=0),
+                     axis.title.x = element_text(face="bold", color="#3d3d3d", size=18),
+                     axis.title.y = element_text(face="bold", color="#3d3d3d", size=18),
+                     title = element_text(face="bold", color="#3d3d3d", size=18)) -> p2
+          print(p2)
+        }
+
+      dev.off()
 
 #########################################################################################################
     # RMSD: https://www.rdocumentation.org/packages/DescTools/versions/0.99.44/topics/Measures%20of%20Accuracy
