@@ -6,23 +6,23 @@
   #   - [ ] Beautify
   # - [ ] Confusion matrix (Full version)
   #   - [x] Basic version
-  #   - [ ] Formula
+  #   - [x] Formula
   #   - [ ] Create CM function by myself
-  #   - [ ] Beautify
+  #   - [x] Beautify
 
   # - [x] Annotation table
   # - [x] Compare different conditions
-  #   - [ ] Bar
+  #   - [x] Bar
   #   - [ ] Bar with SD
   #   - [ ] Bar with pvalue
 
 
 
 ## Discrete data: Multiple data
-  # - [ ] Confusion matrix
+  # - [x] Confusion matrix
     #   - [x] Basic version
     #   - [x] Beautify
-  # - [ ] Annotation table
+  # - [x] Annotation table
   # - [ ] Compare different conditions
   #   - [x] Bar
   #   - [ ] Bar with SD
