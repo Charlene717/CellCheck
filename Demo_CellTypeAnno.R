@@ -99,8 +99,8 @@
     Results_Bi.df <- Summarize_BiCM(cm.lt, Anno.df)
 
     ## Plot by group
-    p1 <- CC_BarPlot(Results_Bi.df, Metrics = "Accuracy")
-    p2 <- CC_BarPlot(Results_Bi.df, Metrics = "Kappa")
+    p1 <- CC_BarPlot(Results_Bi.df, MetricsX = "Type", MetricsY = "Accuracy", MetricsG = "Tool")
+    p2 <- CC_BarPlot(Results_Bi.df, MetricsX = "Type",Metrics = "Kappa", MetricsG = "Tool")
     rm(p1,p2)
 
     Metrics_Bi.set <- colnames(Results_Bi.df)[2:(ncol(Results_Bi.df)-(ncol(Anno.df)-1))]
@@ -184,7 +184,7 @@
       Results_DisMult.df <- left_join(Results_DisMult.df, Anno.df)
 
       ## Plot by group
-      p1 <- CC_BarPlot(Results_DisMult.df, Metrics = "Misclass")
+      p1 <- CC_BarPlot(Results_DisMult.df, MetricsX = "Type", MetricsY = "Accuracy", MetricsG = "Tool")
       p1
       rm(p1)
 
@@ -194,7 +194,8 @@
       pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult__MetricsBar.pdf"),
           width = 7,  height = 7)
       for (i in 1:length(Metrics_DisMult.set)) {
-        p <- CC_BarPlot(Results_DisMult.df, Metrics = Metrics_DisMult.set[i])
+        p <- CC_BarPlot(Results_DisMult.df, MetricsX = "Type",
+                        MetricsY = Metrics_DisMult.set[i], MetricsG = "Tool")
         p
       }
       dev.off()
@@ -305,40 +306,19 @@
 
       #### Export LinePlot PDF ####
       MA.df$PARM <- factor(MA.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
-      p <- ggplot(MA.df, aes(x = PARM, y=MAE, group=Type)) +
-           geom_line(aes(color = Type),size = 2)+
-           geom_point(aes(color=Type,shape = Type), size = 5)+
-           theme_bw() + theme(panel.grid.major = element_blank(),
-                              panel.grid.minor = element_blank())+
-           scale_colour_brewer(palette = "Set1")
+      p <- CC_LinePlot(MA.df, MetricsX = "PARM", MetricsY = "RMSE", MetricsG = "Type")
 
 
-      p + theme(panel.border = element_rect(fill=NA,color="black", size= 2.5, linetype="solid"))+ # Outline
-          theme(axis.text.x = element_text(color="black",face="bold",  size = 17,angle = 0, hjust = 1, vjust = .99), # Change the size along the x axis
-                axis.text.y = element_text(color="black",face="bold",size = 17), # Change the size along the y axis
-
-                # axis.line = element_line(colour = "darkblue", size = 2, linetype = "solid"),
-                # axis.title = element_text(size = rel(2),face="bold",color = "#3d3d3d"),
-                axis.title.x = element_text(size = rel(2),face="bold",color = "#1f1f1f", vjust = .2),
-                axis.title.y = element_text(size = rel(2),face="bold",color = "#1f1f1f", vjust = 1.5),
-
-                plot.title = element_text(color="black",
-                                          size=20,
-                                          face="bold.italic",
-                                          hjust = 0.05,vjust =-10), # margin = margin(t = 0.5, b = -7),
-                # plot.background = element_rect(fill = 'chartreuse'),
-                legend.title = element_text(size=20, color = "black", face="bold", vjust = 1),
-                legend.text = element_text(colour="black", size= 12,face="bold",
-                                           margin = margin(l = -5, unit = "pt")),
-                legend.key.size = unit(1.5, 'lines'),
-                legend.background = element_rect(fill = alpha("white", 0.5)),
-                # legend.position = c(0.1, 0.18),
-                # plot.text = element_text(size = 20),
-                aspect.ratio=0.5)   #square plot
-
-      p <- CC_BarPlot(MA.df, MetricsX = "PARM", MetricsY = "RMSE", MetricsG = "Type")
-
-
+      #### Export BarPlot PDF ####
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsLine.pdf"),
+          width = 12,  height = 7)
+        for (i in 1:length(MA.set)) {
+          p <- CC_LinePlot(MA.df, MetricsX = "PARM", MetricsY = MA.set[i], MetricsG = "Type")
+          p
+        }
+      # dev.off()
+      graphics.off()
+      rm(p,i)
 
 
 
