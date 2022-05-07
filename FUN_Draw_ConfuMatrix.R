@@ -59,53 +59,75 @@ Draw_CM <- function(cm,TestID = "Predict1") {
 
 
   # add in the results
-  text(90, 351, paste0("TPR = ", round(cm[["byClass"]][["Sensitivity"]],4),
+  text(90, 365, paste0("TPR = ", round(cm[["byClass"]][["Sensitivity"]],4),
                        "\n True positive rate(TPR)",
                        "\n Recall,Sensitivity"),
-       cex=1.6, font=2, col='#2a4c57')
-  text(151, 351, paste0("FPR = ", round(res[3]/(res[3]+res[4]),4),
+       cex=1.4, font=2, col='#2a4c57')
+  text(90, 337, expression(frac(TP,TP + FN)),cex=1.2, font=3, col='#2a4c57')
+
+  text(151, 365, paste0("FPR = ", round(res[3]/(res[3]+res[4]),4),
                         "\n False positive rate(FPR)",
                         "\n Fall-out"),
-       cex=1.6, font=2, col='#2a4c57')
-  text(90, 278, paste0("FNR = ", round(res[2]/(res[1]+res[2]),4),
+       cex=1.4, font=2, col='#2a4c57')
+  text(151, 337, expression(frac(FP,FP + TN)),cex=1.2, font=3, col='#2a4c57')
+
+  text(90, 292, paste0("FNR = ", round(res[2]/(res[1]+res[2]),4),
                        "\n False negative rate(FNR)",
                        "\n Miss rate"),
-       cex=1.6, font=2, col='#2a4c57')
-  text(151, 278, paste0("TNR = ", round(cm[["byClass"]][["Specificity"]],4),
+       cex=1.4, font=2, col='#2a4c57')
+  text(90, 264, expression(frac(FN,TP + FN)),cex=1.2, font=3, col='#2a4c57')
+
+  text(151, 292, paste0("TNR = ", round(cm[["byClass"]][["Specificity"]],4),
                         "\n True negative rate(TNR)",
                         "\n Specificity(SPC)"),
-       cex=1.6, font=2, col='#2a4c57')
+       cex=1.4, font=2, col='#2a4c57')
+  text(151, 264, expression(frac(TN,FP + TN)),cex=1.2, font=3, col='#2a4c57')
 
-  text(212, 495, paste0("PPV = ", round(cm[["byClass"]][["Precision"]],4),
+  text(212, 508, paste0("PPV = ", round(cm[["byClass"]][["Precision"]],4),
                         "\n Positive predictive value(PPV)",
                         "\n Precision"),
-       cex=1.6, font=2, col='#506143')
-  text(212, 423, paste0("FOR = ", round(res[2]/(res[2]+res[4]),4),
+       cex=1.4, font=2, col='#506143')
+  text(212, 480, expression(frac(TP,TP + FP)),cex=1.2, font=3, col='#506143')
+
+  text(212, 437, paste0("FOR = ", round(res[2]/(res[2]+res[4]),4),
                         "\n False omission rate(FOR)",
                         "\n False omission rate"),
-       cex=1.6, font=2, col='#506143')
-  text(273, 495, paste0("FDR = ", round(res[3]/(res[1]+res[3]),4),
+       cex=1.4, font=2, col='#506143')
+  text(212, 409, expression(frac(FN,FN + TN)),cex=1.2, font=3, col='#506143')
+
+  text(273, 508, paste0("FDR = ", round(res[3]/(res[1]+res[3]),4),
                         "\n False dicovery rate(FDR)"),
-       cex=1.6, font=2, col='#506143')
-  text(273, 423, paste0("NPV = ", round(res[4]/(res[2]+res[4]),4),
+       cex=1.4, font=2, col='#506143')
+  text(273, 480, expression(frac(FP,TP + FP)),cex=1.2, font=3, col='#506143')
+
+  text(273, 437, paste0("NPV = ", round(res[4]/(res[2]+res[4]),4),
                         "\n Nagtive predictive value(NPV)"),
-       cex=1.6, font=2, col='#506143')
+       cex=1.4, font=2, col='#506143')
+  text(273, 409, expression(frac(TN,FN + TN)),cex=1.2, font=3, col='#506143')
 
   LRP = cm[["byClass"]][["Sensitivity"]]/(res[3]/(res[3]+res[4]))
-  text(212, 351, paste0("LR+ = ", round(LRP,4),
+  text(212, 365, paste0("LR+ = ", round(LRP,4),
                         "\n Positive likelihood ratio(LR+)"),
-       cex=1.6, font=2, col='#524c2e')
+       cex=1.4, font=2, col='#524c2e')
+  text(212, 337, expression(frac(TPR,FPR)),cex=1.2, font=3, col='#524c2e')
+
   LRN = (res[2]/(res[1]+res[2]))/cm[["byClass"]][["Specificity"]]
-  text(212, 278, paste0("LR- = ",round(LRN,4),
+  text(212, 292, paste0("LR- = ",round(LRN,4),
                         "\n Positive likelihood ratio(LR-)"),
-       cex=1.6, font=2, col='#524c2e')
+       cex=1.4, font=2, col='#524c2e')
+  text(212, 264, expression(frac(FNR,TNR)),cex=1.2, font=3, col='#524c2e')
 
-  text(258, 314, paste0("DOR = \n", round(LRP/LRN,4),
+  text(258, 334, paste0("DOR = \n", round(LRP/LRN,4),
                         "\n \n Diagnostic odds \n ratio(DOR)"),
-       cex=1.6, font=2, col='#524c2e')
-  text(288, 314, paste0("F1 score = \n", round(cm[["byClass"]][["F1"]],4),"\n "),
-       cex=1.6, font=2, col='#524c2e')
+       cex=1.4, font=2, col='#524c2e')
+  text(258, 286, expression(frac("LR+","LR-")),cex=1.2, font=3, col='#524c2e')
 
+
+  text(288, 334, paste0("F1 score = \n", round(cm[["byClass"]][["F1"]],4),"\n "),
+       cex=1.6, font=2, col='#524c2e')
+  text(288, 306, expression(frac(2,frac(1,Recall)+frac(1,Precision))),cex=1.2, font=3, col='#524c2e')
+
+  ##################################################################################
   ## Accuracy
   text(332, 550, paste0("Accuracy (ACC) = ",(res[1]+res[4])/(res[1]+res[2]+res[3]+res[4])),
                         cex=1.7, font=2)
