@@ -1,3 +1,7 @@
+# Ref(Bar Chart): https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
+# Ref(Color): http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html
+
+
 Plot_CMBar <- function(Results.df, Metrics = "Accuracy") {
 
   metrics = which(colnames(Results.df) == Metrics)
@@ -6,7 +10,7 @@ Plot_CMBar <- function(Results.df, Metrics = "Accuracy") {
                                      fill = Tool))+
     geom_bar(stat = "identity", position = position_dodge(), color="black",lwd=0.7)+
     theme_bw()+theme(panel.grid=element_blank(),panel.border=element_blank(),axis.line=element_line(size=1,colour="black")) # White background and remove grid
-  
+
   p2 <- p + scale_fill_brewer(palette = "Spectral")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
         labs(#title = colnames(Results.df)[metrics],  # Change title in ggplot
           #x = colnames(Results.df)[1],      # Change title of x axis in ggplot
@@ -16,12 +20,12 @@ Plot_CMBar <- function(Results.df, Metrics = "Accuracy") {
         theme(panel.border = element_rect(fill=NA,color="black", size= 2.5, linetype="solid"))+ # Outline
         theme(axis.text.x = element_text(color="black",face="bold",  size = 17,angle = 45, hjust = 1, vjust = .99), # Change the size along the x axis
               axis.text.y = element_text(color="black",face="bold",size = 17), # Change the size along the y axis
-              
+
               # axis.line = element_line(colour = "darkblue", size = 2, linetype = "solid"),
               # axis.title = element_text(size = rel(2),face="bold",color = "#3d3d3d"),
               axis.title.x = element_text(size = rel(2),face="bold",color = "#1f1f1f", vjust = .2),
               axis.title.y = element_text(size = rel(2),face="bold",color = "#1f1f1f", vjust = 1.5),
-              
+
               plot.title = element_text(color="black",
                                         size=20,
                                         face="bold.italic",
