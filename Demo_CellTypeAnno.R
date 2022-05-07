@@ -83,7 +83,7 @@
 
   ####  Plot Result by Bar chart of Metrics ####
     ## Result dataframe
-    Results_Bi.df <- Summarize_BiCM (cm.lt, Anno.df)
+    Results_Bi.df <- Summarize_BiCM(cm.lt, Anno.df)
 
     ## Plot by group
     p1 <- Plot_CMBar(Results_Bi.df, Metrics = "Accuracy")
@@ -270,5 +270,20 @@
         }
 
       }
-      rm(i)
+      rm(i,MA_New.df)
+
+      MA.df <- data.frame(TestID=row.names(MA.df), MA.df)
+      MA.df <- left_join(MA.df, Anno.df)
+      MA.set <- colnames(MA.df)[2:(ncol(MA.df)-ncol(Anno.df)+1)]
+
+      #### Export PDF ####
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsBar.pdf"),
+          width = 7,  height = 7)
+        for (i in 1:length(MA.set)) {
+          p <- Plot_CMBar(MA.df, Metrics = MA.set[i])
+          p
+        }
+      # dev.off()
+      graphics.off()
+      rm(p,i)
 
