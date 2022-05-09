@@ -16,16 +16,21 @@
 # Ref(Color): http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html
 
 CC_LinePlot <- function(Results.df, XValue = "PARM", Metrics = "RMSE", Group = "Type") {
-
+  ## Check whether the installation of the package is required
+  if (!requireNamespace("ggthemes", quietly = TRUE)){
+    install.packages("ggthemes")
+  }
+  library(ggthemes)
 
   ## Plot by Group
   p <- ggplot(Results.df, aes(x = Results.df[,XValue],
                               y = Results.df[,Metrics], group = Results.df[,Group])) +
     geom_line(aes(color = Results.df[,Group]), size = 2, alpha = 0.8)+
-    geom_point(aes(color= Results.df[,Group], shape = Results.df[,Group]), size = 5, alpha = 0.8)+
+    geom_point(aes(color= Results.df[,Group]),shape = 17, size = 5, alpha = 0.8)+
     theme_bw() + theme(panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank())+
-    scale_colour_brewer(palette = "Set1")
+    #scale_colour_brewer(palette = "Set1")+
+    scale_color_ptol(Group)
 
 
   p2 <- p + # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
