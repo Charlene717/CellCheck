@@ -1,3 +1,15 @@
+#' A function for creating Measure accuracy dataframe
+#'
+#' This function allows you to create dataframe of measure accuracy from continuous data .
+#' @param Actual A serous of actual value.
+#' @param Predict A serous of predict value.
+#' @keywords summarize the confusion matrix
+#' @export
+#' @examples
+#' Measure_Accuracy(Actual, Predict,  NaRm = FALSE)
+#'
+
+
 ## Ref: https://www.rdocumentation.org/packages/DescTools/versions/0.99.44/topics/Measures%20of%20Accuracy
 ## Ref: https://www.rdocumentation.org/packages/CDM/versions/7.5-15/topics/IRT.RMSD
 

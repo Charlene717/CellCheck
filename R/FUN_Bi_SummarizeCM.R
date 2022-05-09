@@ -1,3 +1,14 @@
+#' A function for summarizing the results from multiple binary confusion matrix to dataframe
+#'
+#' This function allows you to summarize the results from multiple binary confusion matrix to dataframe.
+#' @param cm.lt A list of multiple binary confusion matrix.
+#' @param Anno.df A dataframe of the annotation table.
+#' @keywords summarize the confusion matrix
+#' @export
+#' @examples
+#' Summarize_BiCM(cm.lt, Anno.df)
+#'
+
 
 Summarize_BiCM <- function(cm.lt, Anno.df) {
 

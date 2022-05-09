@@ -1,3 +1,15 @@
+#' A function for creating Measure accuracy dataframe
+#'
+#' This function allows you to create dataframe of measure accuracy from discrete multiple data.
+#' @param Simu_DisMult.d A dataframe of the discrete multiple data.
+#' @param Simu_Anno.df A dataframe of the annotation table.
+#' @keywords summarize the confusion matrix
+#' @export
+#' @examples
+#' Measure_Accuracy(Actual, Predict,  NaRm = FALSE)
+#'
+
+
 ##### Calculate Accuracy(ACC) and Misclassification rate (Error Rate, ER) #####
 
 AccEr_DiscMult <- function(Simu_DisMult.df, Simu_Anno.df) {

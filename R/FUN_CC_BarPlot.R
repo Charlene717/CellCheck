@@ -1,3 +1,16 @@
+#' A function for plotting Barplot from dataframe
+#'
+#' This function allows you to plot Barplot from dataframe.
+#' @param Results.df A dataframe for plotting Barplot.
+#' @param XValue X-axis setting.
+#' @param Metrics Y-axis setting. Usually represent the metrics.
+#' @param Group Group setting.
+#' @keywords Barplot
+#' @export
+#' @examples
+#' CC_BarPlot(Results.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool")
+#'
+
 # Ref(Bar Chart): https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
 # Ref(Color): http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html
 

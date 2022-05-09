@@ -1,4 +1,18 @@
-# Ref(Bar Chart): https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
+#' A function for plotting Lineplot from dataframe
+#'
+#' This function allows you to plot Lineplot from dataframe.
+#' @param Results.df A dataframe for plotting Lineplot.
+#' @param XValue X-axis setting.
+#' @param Metrics Y-axis setting. Usually represent the metrics.
+#' @param Group Group setting.
+#' @keywords Lineplot
+#' @export
+#' @examples
+#' CC_Lineplot(Results.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool")
+#'
+
+
+# Ref(Line Chart):
 # Ref(Color): http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html
 
 
