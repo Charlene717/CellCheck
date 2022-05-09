@@ -21,7 +21,7 @@
   #   - [ ] LinePlot with SD
   #   - [ ] LinePlot with pvalue
 
-  # - [ ] Save tsv files
+  # - [x] Save tsv files
 
 ## Discrete Multiple data
   # - [x] Confusion matrix
@@ -29,7 +29,10 @@
   #   - [x] Beautify
   #   - [ ] Create CM function by myself
 
+  # - [ ] More Metrics
+
   # - [x] Annotation table
+
 
   # - [ ] Compare different conditions
   #   - [x] BarPlot
@@ -39,7 +42,7 @@
   #   - [ ] LinePlot with SD
   #   - [ ] LinePlot with pvalue
 
-  # - [ ] Save tsv files
+  # - [x] Save tsv files
 
 ## Continuous data
   # - [x] Basic Accuracy value
@@ -57,7 +60,7 @@
   #   - [ ] LinePlot with SD
   #   - [ ] LinePlot with pvalue
 
-  # - [ ] Save tsv files
+  # - [x] Save tsv files
 
 ## Beautify Figures
   # - [x] BarPlotChart
