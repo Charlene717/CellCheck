@@ -350,7 +350,7 @@
       Metrics_DisMult.set <- colnames(Sum_DisMult_All.df)[6:(ncol(Sum_DisMult_All.df)-(ncol(Simu_Anno.df)-1))]
 
       pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine_All.pdf"),
-          width = 7,  height = 7)
+          width = 10,  height = 7)
       for (i in 1:length(Metrics_DisMult.set)) {
         p <- CC_LinePlot(Sum_DisMult_All.df,
                          XValue = LineMetricSet.lt[["XValue"]],
