@@ -44,6 +44,7 @@
   # - [ ] Function for adjusting detail
   # - [ ] Load package
 
+## Modify the simulated dataframe
 
 
 ##### Presetting ######
@@ -93,25 +94,25 @@
 
     #### For one prediction ####
     ## Set two comparisons
-    OnePredSet.lt <- list(Actual = "Actual",
+    CMPredSet.lt <- list(Actual = "Actual",
                           Predict = "Predict2")
 
     ## Build CM
-    cm_Bi <- confusionMatrix(data = Simu_Bi.df[,OnePredSet.lt[["Actual"]]] %>% as.factor(),
-                             reference = Simu_Bi.df[,OnePredSet.lt[["Predict"]]] %>% as.factor())
+    cm_Bi.df <- confusionMatrix(data = Simu_Bi.df[,CMPredSet.lt[["Actual"]]] %>% as.factor(),
+                             reference = Simu_Bi.df[,CMPredSet.lt[["Predict"]]] %>% as.factor())
 
     ## Plot CM
-    p1 <- Draw_CM(cm_Bi)
-    p2 <- draw_confusion_matrix(cm_Bi)
+    p1 <- Draw_CM(cm_Bi.df)
+    p2 <- draw_confusion_matrix(cm_Bi.df)
 
     ## Export CM PDF
-    pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMax_",OnePredSet.lt[["Predict"]],".pdf"),
+    pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMax_",CMPredSet.lt[["Predict"]],".pdf"),
         width = 17,  height = 12
     )
-      Draw_CM(cm_Bi)
-      draw_confusion_matrix(cm_Bi)
+      Draw_CM(cm_Bi.df)
+      draw_confusion_matrix(cm_Bi.df)
     dev.off()
-    rm(p1,p2,OnePredSet.lt,cm_Bi)
+    rm(p1,p2,CMPredSet.lt,cm_Bi.df)
 
     #### For all predictions ####
     ## Build list for all CM
@@ -124,32 +125,33 @@
     rm(i)
 
     ## Extract one CM form the CM list
-    cm_Bi <- cm_Bi.lt[["Predict2"]]
+    cm_Bi.df <- cm_Bi.lt[["Predict2"]]
 
     ## Draw Confusion matrix
     source("Fun_Draw_ConfuMax.R")
-    draw_confusion_matrix(cm_Bi)
-    Draw_CM(cm_Bi)
-    rm(cm_Bi)
+    draw_confusion_matrix(cm_Bi.df)
+    Draw_CM(cm_Bi.df)
+    rm(cm_Bi.df)
 
     ## Build summarize dataframe
     Sum_Bi.df <- Summarize_BiCM(cm_Bi.lt, Anno.df)
 
       #### For one Metrics ####
       ## Plot by Designated Metric
-      OneMetricSet.lt <- list(XValue = "Type", Metrics = "Accuracy", Group = "Tool")
+      BarMetricSet.lt <- list(XValue = "Type", Metrics = "Accuracy", Group = "Tool")
 
-      p1 <- CC_BarPlot(Sum_Bi.df, XValue = OneMetricSet.lt[["XValue"]],
-                       Metrics = OneMetricSet.lt[["Metrics"]],
-                       OneMetricSet.lt[["Group"]])
+      p1 <- CC_BarPlot(Sum_Bi.df,
+                       XValue = BarMetricSet.lt[["XValue"]],
+                       Metrics = BarMetricSet.lt[["Metrics"]],
+                       Group = BarMetricSet.lt[["Group"]])
 
       ## Export MetricBar PDF
-      pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar_",OneMetricSet.lt[["Metrics"]],".pdf"),
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar_",BarMetricSet.lt[["Metrics"]],".pdf"),
           width = 7,  height = 7
       )
         p1
       dev.off()
-      rm(p1, OneMetricSet.lt)
+      rm(p1)
 
     #### Export all MetricBar PDF ####
       Metrics_Bi.set <- colnames(Sum_Bi.df)[2:(ncol(Sum_Bi.df)-(ncol(Anno.df)-1))]
@@ -157,11 +159,14 @@
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar.pdf"),
           width = 7,  height = 7)
         for (i in 1:length(Metrics_Bi.set)) {
-          p <- CC_BarPlot(Sum_Bi.df, XValue = "Type", Metrics = Metrics_Bi.set[i], Group = "Tool")
+          p <- CC_BarPlot(Sum_Bi.df,
+                          XValue = BarMetricSet.lt[["XValue"]],
+                          Metrics = Metrics_Bi.set[i],
+                          Group = BarMetricSet.lt[["Group"]])
           p
         }
       dev.off() # graphics.off()
-      rm(p, i, Metrics_Bi.set)
+      rm(p, i, Metrics_Bi.set, BarMetricSet.lt)
 
     #### Export all CM PDF ####
       ## Full version
@@ -173,8 +178,7 @@
 
           Draw_CM(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
         }
-        dev.off()
-        #graphics.off()
+        dev.off() #graphics.off()
       rm(i)
 
       ## Simple version
@@ -186,9 +190,30 @@
 
           draw_confusion_matrix(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
         }
-      dev.off()
-      #graphics.off()
+        dev.off() #graphics.off()
       rm(i)
+
+    #### Export all MetricsLine PDF ####
+      ## Extract one CM form the CM list
+      Sum_Bi.df$PARM <- factor(Sum_Bi.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
+
+      LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Accuracy", Group = "Type")
+      p <- CC_LinePlot(Sum_Bi.df, XValue = LineMetricSet.lt[["XValue"]],
+                       Metrics = LineMetricSet.lt[["Metrics"]],
+                       Group = LineMetricSet.lt[["Group"]])
+
+
+      Sum_Bi.set <- colnames(Sum_Bi.df)[2:(ncol(Sum_Bi.df)-ncol(Anno.df)+1)]
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsLine.pdf"),
+          width = 12,  height = 7)
+      for (i in 1:length(Sum_Bi.set)) {
+        p <- CC_LinePlot(Sum_Bi.df, XValue = LineMetricSet.lt[["XValue"]],
+                         Metrics = Sum_Bi.set[i],
+                         Group = LineMetricSet.lt[["Group"]])
+        p
+      }
+      dev.off() #graphics.off()
+      rm(p, i, LineMetricSet.lt, Sum_Bi.set)
 
 
 #####------------------------------------------------------------------------------------#####
@@ -347,16 +372,13 @@
       MA.df$PARM <- factor(MA.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
       p <- CC_LinePlot(MA.df, XValue = "PARM", Metrics = "RMSE", Group = "Type")
 
-
-      #### Export BarPlot PDF ####
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsLine.pdf"),
           width = 12,  height = 7)
         for (i in 1:length(MA.set)) {
           p <- CC_LinePlot(MA.df, XValue = "PARM", Metrics = MA.set[i], Group = "Type")
           p
         }
-      # dev.off()
-      graphics.off()
+      dev.off() #graphics.off()
       rm(p,i)
 
 
