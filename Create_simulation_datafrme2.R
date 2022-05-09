@@ -134,10 +134,10 @@
                                Predict14 = c(Actual3[1:2],sample(c(0:100), 98, replace = TRUE)),
                                Predict15 = sample(c(0:100), 100, replace = TRUE))
 
-  rm(Actual1_1, Actual1_2, Actual2_1, Actual2_2, Actual3, Word.set)
 
 ##### Save the RData #####
-  save.image("Create_simulation_datafrme.RData")
+  rm(Actual1_1, Actual1_2, Actual2_1, Actual2_2, Actual3, Word.set)
+  save.image("Create_simulation_datafrme2.RData")
 
 
 
