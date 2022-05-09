@@ -22,12 +22,13 @@
 
 ##### Function setting #####
   ## Call function
-  source("Fun_Draw_ConfuMax.R")
-  source("FUN_Draw_ConfuMatrix.R")
-  source("FUN_Summarize_BiCM.R")
+  source("Fun_Bi_Draw_ConfuMax.R")
+  source("FUN_Bi_Draw_ConfuMatrix.R")
+  source("FUN_Bi_SummarizeCM.R")
   source("FUN_CC_BarPlot.R")
   source("FUN_CC_LinePlot.R")
-  source("FUN_Measure_Accuracy.R")
+  source("FUN_Conti_Measure_Accuracy.R")
+  source("FUN_DiscMult_ACC_ER.R")
 
 ##### Current path and new folder setting*  #####
   ProjectName = "CC"
@@ -83,7 +84,7 @@
       # cm_Bi.df <- cm_Bi.lt[["Predict2"]]
       #
       # ## Draw Confusion matrix
-      # source("Fun_Draw_ConfuMax.R")
+      # source("Fun_Bi_Draw_ConfuMax.R")
       # draw_confusion_matrix(cm_Bi.df)
       # Draw_CM(cm_Bi.df)
       # rm(cm_Bi.df)
@@ -185,7 +186,7 @@
 #####------------------------------------------------------------------------------------#####
 ##### Discrete data: Multiple data #####
   ##### Calculate Accuracy(ACC) and Misclassification rate (Error Rate, ER) #####
-    source("FUN_ACC_ER_DiscMult.R")
+    source("FUN_DiscMult_ACC_ER.R")
     Sum_DisMult.df <- AccEr_DiscMult(Simu_DisMult.df, Simu_Anno.df)
 
     #### Export MetricBar PDF ####
@@ -304,7 +305,7 @@
 #########################################################################################################
 
       library(DescTools)
-      source("FUN_Measure_Accuracy.R")
+      source("FUN_Conti_Measure_Accuracy.R")
 
       # MA.df <- Measure_Accuracy(Simu_Conti.df$Actual,Simu_Conti.df$Predict2)
 
