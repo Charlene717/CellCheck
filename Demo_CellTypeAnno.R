@@ -182,7 +182,7 @@
     rm(p, i, LineMetricSet.lt, Sum_Bi.set)
 
 
-#####--------------------------(Discrete data: Multiple data)--------------------------#####
+#####--------------------------(Discrete Multiple data)--------------------------#####
 ##### Calculate Accuracy(ACC) and Misclassification rate (Error Rate, ER) #####
   source("FUN_DiscMult_ACC_ER.R")
   Sum_DisMult.df <- AccEr_DiscMult(Simu_DisMult.df, Simu_Anno.df)
