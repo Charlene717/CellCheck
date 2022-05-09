@@ -86,82 +86,112 @@
 ##### Load simulation datafrme #####
   load("Create_simulation_datafrme.RData")
 
-
+#####------------------------------------------------------------------------------------#####
 ##### Binary data #####
-  #### calculate the confusion matrix ####
+  #### calculate the confusion matrix(CM) ####
     library(caret)
 
-    cm.lt <- list()
-    for (i in 1:(ncol(Simu_Bi.df)-1)) {
-      cm.lt[[i]] <- confusionMatrix(data = Simu_Bi.df[,1] %>% as.factor(),
-                                    reference = Simu_Bi.df[,1+i] %>% as.factor())
-      names(cm.lt)[[i]] <- colnames(Simu_Bi.df)[i+1]
+    #### For one prediction ####
+    ## Set two comparisons
+    OnePredSet.lt <- list(Actual = "Actual",
+                          Predict = "Predict2")
 
+    ## Build CM
+    cm_Bi <- confusionMatrix(data = Simu_Bi.df[,OnePredSet.lt[["Actual"]]] %>% as.factor(),
+                             reference = Simu_Bi.df[,OnePredSet.lt[["Predict"]]] %>% as.factor())
+
+    ## Plot CM
+    p1 <- Draw_CM(cm_Bi)
+    p2 <- draw_confusion_matrix(cm_Bi)
+
+    ## Export CM PDF
+    pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMax_",OnePredSet.lt[["Predict"]],".pdf"),
+        width = 17,  height = 12
+    )
+      Draw_CM(cm_Bi)
+      draw_confusion_matrix(cm_Bi)
+    dev.off()
+    rm(p1,p2,OnePredSet.lt,cm_Bi)
+
+    #### For all predictions ####
+    ## Build list for all CM
+    cm_Bi.lt <- list()
+    for (i in 1:(ncol(Simu_Bi.df)-1)) {
+      cm_Bi.lt[[i]] <- confusionMatrix(data = Simu_Bi.df[,1] %>% as.factor(),
+                                       reference = Simu_Bi.df[,1+i] %>% as.factor())
+      names(cm_Bi.lt)[[i]] <- colnames(Simu_Bi.df)[i+1]
     }
     rm(i)
 
-    # cm <- confusionMatrix(data = Simu_Bi.df$Actual %>% as.factor(),
-    #                       reference = Simu_Bi.df$Predict1 %>% as.factor())
+    ## Extract one CM form the CM list
+    cm_Bi <- cm_Bi.lt[["Predict2"]]
 
-  ####  Plot Result by Bar chart of Metrics ####
-    ## Result dataframe
-    Results_Bi.df <- Summarize_BiCM(cm.lt, Anno.df)
+    ## Draw Confusion matrix
+    source("Fun_Draw_ConfuMax.R")
+    draw_confusion_matrix(cm_Bi)
+    Draw_CM(cm_Bi)
+    rm(cm_Bi)
 
-    ## Plot by group
-    p1 <- CC_BarPlot(Results_Bi.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool")
-    p2 <- CC_BarPlot(Results_Bi.df, XValue = "Type", Metrics = "Kappa", Group = "Tool")
-    rm(p1,p2)
+    ## Build summarize dataframe
+    Sum_Bi.df <- Summarize_BiCM(cm_Bi.lt, Anno.df)
 
-    Metrics_Bi.set <- colnames(Results_Bi.df)[2:(ncol(Results_Bi.df)-(ncol(Anno.df)-1))]
+      #### For one Metrics ####
+      ## Plot by Designated Metric
+      OneMetricSet.lt <- list(XValue = "Type", Metrics = "Accuracy", Group = "Tool")
 
-    #### Export BarPlot PDF ####
-    pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar.pdf"),
-      width = 7,  height = 7)
-      for (i in 1:length(Metrics_Bi.set)) {
-          p <- CC_BarPlot(Results_Bi.df, XValue = "Type", Metrics = Metrics_Bi.set[i], Group = "Tool")
+      p1 <- CC_BarPlot(Sum_Bi.df, XValue = OneMetricSet.lt[["XValue"]],
+                       Metrics = OneMetricSet.lt[["Metrics"]],
+                       OneMetricSet.lt[["Group"]])
+
+      ## Export MetricBar PDF
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar_",OneMetricSet.lt[["Metrics"]],".pdf"),
+          width = 7,  height = 7
+      )
+        p1
+      dev.off()
+      rm(p1, OneMetricSet.lt)
+
+    #### Export all MetricBar PDF ####
+      Metrics_Bi.set <- colnames(Sum_Bi.df)[2:(ncol(Sum_Bi.df)-(ncol(Anno.df)-1))]
+
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar.pdf"),
+          width = 7,  height = 7)
+        for (i in 1:length(Metrics_Bi.set)) {
+          p <- CC_BarPlot(Sum_Bi.df, XValue = "Type", Metrics = Metrics_Bi.set[i], Group = "Tool")
           p
-      }
-    # dev.off()
-    graphics.off()
-    rm(p,i)
+        }
+      dev.off() # graphics.off()
+      rm(p, i, Metrics_Bi.set)
 
-  ##### Plot Confusion matrix #####
-      ## Extract the confusion matrix
-        cm <- cm.lt[["Predict2"]]
+    #### Export all CM PDF ####
+      ## Full version
+      pdf(
+        file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMax.pdf"),
+        width = 17,  height = 12
+      )
+        for (i in 1:length(cm_Bi.lt)) {
 
-      ## Draw Confusion matrix
-        source("Fun_Draw_ConfuMax.R")
-        draw_confusion_matrix(cm)
-        Draw_CM(cm)
+          Draw_CM(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
+        }
+        dev.off()
+        #graphics.off()
+      rm(i)
 
-        ## Full version
-          pdf(
-            file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMax.pdf"),
-            width = 17,  height = 12
-          )
-            for (i in 1:length(cm.lt)) {
+      ## Simple version
+      pdf(
+        file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMaxSimp.pdf"),
+        width = 10,  height = 7
+      )
+        for (i in 1:length(cm_Bi.lt)) {
 
-              Draw_CM(cm.lt[[i]],names(cm.lt[i]))
-            }
-          dev.off()
-          #graphics.off()
-          rm(i)
-
-        ## Simple version
-          pdf(
-            file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMaxSimp.pdf"),
-            width = 10,  height = 7
-          )
-          for (i in 1:length(cm.lt)) {
-
-            draw_confusion_matrix(cm.lt[[i]],names(cm.lt[i]))
-          }
-          dev.off()
-          #graphics.off()
-          rm(i)
+          draw_confusion_matrix(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
+        }
+      dev.off()
+      #graphics.off()
+      rm(i)
 
 
-#########################################################################################################
+#####------------------------------------------------------------------------------------#####
   ##### Misclassification rate (error rate) #####
     # Simu_DisMult.df$Correctness1 <- ""
 
