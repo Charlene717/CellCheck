@@ -12,7 +12,8 @@ CC_BarPlot <- function(Results.df, XValue = "Type", Metrics = "Accuracy", Group 
   p <- ggplot(data = Results.df, aes(x = Results.df[,Xvalue], y = Results.df[,metrics],
                                      fill = Results.df[,group]))+
     geom_bar(stat = "identity", position = position_dodge(), color="black",lwd=0.7)+
-    theme_bw()+theme(panel.grid=element_blank(),panel.border=element_blank(),axis.line=element_line(size=0,colour="black")) # White background and remove grid
+    theme_bw()+theme(panel.grid=element_blank(),panel.border=element_blank(),
+                     axis.line=element_line(size=0,colour="black")) # White background and remove grid
 
   p2 <- p + scale_fill_brewer(palette = "Spectral")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
         labs(#title = colnames(Results.df)[metrics],  # Change title in ggplot
