@@ -3,7 +3,7 @@
 #' This function allows you to plot Barplot from dataframe.
 #' @param Results.df A dataframe for plotting Barplot.
 #' @param XValue X-axis setting.
-#' @param Metrics Y-axis setting. Usually represent the metrics.
+#' @param Metrics Y-axis setting. Usually represent the Metrics.
 #' @param Group Group setting.
 #' @keywords Barplot
 #' @export
@@ -17,22 +17,18 @@
 
 CC_BarPlot <- function(Results.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool") {
 
-  Xvalue = which(colnames(Results.df) == XValue)
-  metrics = which(colnames(Results.df) == Metrics)
-  group = which(colnames(Results.df) == Group)
-
-  ## Plot by group
-  p <- ggplot(data = Results.df, aes(x = Results.df[,Xvalue], y = Results.df[,metrics],
-                                     fill = Results.df[,group]))+
+  ## Plot by Group
+  p <- ggplot(data = Results.df, aes(x = Results.df[,XValue], y = Results.df[,Metrics],
+                                     fill = Results.df[,Group]))+
     geom_bar(stat = "identity", position = position_dodge(), color="black",lwd=0.7)+
     theme_bw()+theme(panel.grid=element_blank(),panel.border=element_blank(),
                      axis.line=element_line(size=0,colour="black")) # White background and remove grid
 
   p2 <- p + scale_fill_brewer(palette = "Spectral")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
-        labs(#title = colnames(Results.df)[metrics],  # Change title in ggplot
-          x = colnames(Results.df)[Xvalue],      # Change title of x axis in ggplot
-          y = colnames(Results.df)[metrics],       # Change title of y axis in ggplot
-          fill= colnames(Results.df)[group]     # Change legend title in ggplot
+        labs(#title = colnames(Results.df)[Metrics],  # Change title in ggplot
+          x = colnames(Results.df)[XValue],      # Change title of x axis in ggplot
+          y = colnames(Results.df)[Metrics],       # Change title of y axis in ggplot
+          fill= colnames(Results.df)[Group]     # Change legend title in ggplot
         )+
         theme(panel.border = element_rect(fill=NA,color="black", size= 2, linetype="solid"))+ # Outline
         theme(axis.text.x = element_text(color="black",face="bold",  size = 17,angle = 45, hjust = 1, vjust = .99), # Change the size along the x axis
