@@ -3,7 +3,7 @@
 #' This function allows you to plot Lineplot from dataframe.
 #' @param Results.df A dataframe for plotting Lineplot.
 #' @param XValue X-axis setting.
-#' @param Metrics Y-axis setting. Usually represent the Metrics.
+#' @param Metrics Y-axis setting. Usually represent the metrics.
 #' @param Group Group setting.
 #' @keywords Lineplot
 #' @export
@@ -18,26 +18,26 @@
 
 CC_LinePlot <- function(Results.df, XValue = "PARM", Metrics = "RMSE", Group = "Type") {
 
-  XValue = which(colnames(Results.df) == XValue)
-  Metrics = which(colnames(Results.df) == Metrics)
-  Group = which(colnames(Results.df) == Group)
+  Xvalue = which(colnames(Results.df) == XValue)
+  metrics = which(colnames(Results.df) == Metrics)
+  group = which(colnames(Results.df) == Group)
 
-  ## Plot by Group
-  p <- ggplot(Results.df, aes(x = Results.df[,XValue],
-                              y = Results.df[,Metrics], Group = Results.df[,Group])) +
-    geom_line(aes(color = Results.df[,Group]), size = 2, alpha = 0.8)+
-    geom_point(aes(color= Results.df[,Group], shape = Results.df[,Group]), size = 5, alpha = 0.8)+
+  ## Plot by group
+  p <- ggplot(Results.df, aes(x = Results.df[,Xvalue],
+                              y = Results.df[,metrics], group = Results.df[,group])) +
+    geom_line(aes(color = Results.df[,group]), size = 2, alpha = 0.8)+
+    geom_point(aes(color= Results.df[,group], shape = Results.df[,group]), size = 5, alpha = 0.8)+
     theme_bw() + theme(panel.grid.major = element_blank(),
                        panel.grid.minor = element_blank())+
     scale_colour_brewer(palette = "Set1")
 
 
   p2 <- p + # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
-    labs(#title = colnames(Results.df)[Metrics],  # Change title in ggplot
-      x = colnames(Results.df)[XValue],      # Change title of x axis in ggplot
-      y = colnames(Results.df)[Metrics],       # Change title of y axis in ggplot
-      color = colnames(Results.df)[Group],     # Change legend title in ggplot
-      shape = colnames(Results.df)[Group]     # Change legend title in ggplot
+    labs(#title = colnames(Results.df)[metrics],  # Change title in ggplot
+      x = colnames(Results.df)[Xvalue],      # Change title of x axis in ggplot
+      y = colnames(Results.df)[metrics],       # Change title of y axis in ggplot
+      color = colnames(Results.df)[group],     # Change legend title in ggplot
+      shape = colnames(Results.df)[group]     # Change legend title in ggplot
     )+
     theme(panel.border = element_rect(fill=NA,color="black", size= 2.5, linetype="solid"))+ # Outline
     theme(axis.text.x = element_text(color="black",face="bold",  size = 17,angle = 0, hjust = 1, vjust = .99), # Change the size along the x axis
