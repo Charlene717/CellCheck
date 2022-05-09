@@ -5,30 +5,22 @@
 
 ##### Load Packages #####
   ## Check whether the installation of the package is required
-  Package.set <- c("tidyverse","caret","cvms","DescTools")
+  Package.set <- c("tidyverse","caret","cvms","DescTools","devtools")
   for (i in 1:length(Package.set)) {
     if (!requireNamespace(Package.set[i], quietly = TRUE)){
       install.packages(Package.set[i])
     }
   }
-  rm(Package.set,i)
 
   ## Load Packages
   # library(Seurat)
-  library(tidyverse)
-  library(caret) # Confusion matrix
-  library(cvms) # Confusion matrix for Multi-Class Classification
-  library(DescTools) # Measures of Accuracy
+  lapply(Package.set, library, character.only = TRUE)
+  rm(Package.set,i)
 
-##### Function setting #####
-  ## Call function
-  source("Fun_Bi_Draw_ConfuMax.R")
-  source("FUN_Bi_Draw_ConfuMatrix.R")
-  source("FUN_Bi_SummarizeCM.R")
-  source("FUN_CC_BarPlot.R")
-  source("FUN_CC_LinePlot.R")
-  source("FUN_Conti_Measure_Accuracy.R")
-  source("FUN_DiscMult_ACC_ER.R")
+  ## install CellCheck
+  # Install the CellCheck package
+  install_github("Charlene717/CellCheck")
+  library(CellCheck)
 
 ##### Current path and new folder setting*  #####
   ProjectName = "CC"
