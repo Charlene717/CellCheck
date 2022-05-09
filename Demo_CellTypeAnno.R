@@ -4,14 +4,13 @@
   memory.limit(150000)
 
 ##### Load Packages #####
-  ## Check whether the installation of the package is required
+  ## Check whether the installation of those packages is required
   Package.set <- c("tidyverse","caret","cvms","DescTools","devtools")
   for (i in 1:length(Package.set)) {
     if (!requireNamespace(Package.set[i], quietly = TRUE)){
       install.packages(Package.set[i])
     }
   }
-
   ## Load Packages
   # library(Seurat)
   lapply(Package.set, library, character.only = TRUE)
@@ -19,7 +18,9 @@
 
   ## install CellCheck
   # Install the CellCheck package
+  detach("package:CellCheck", unload = TRUE)
   devtools::install_github("Charlene717/CellCheck")
+  ## Load CellCheck
   library(CellCheck)
 
 ##### Current path and new folder setting*  #####
@@ -170,6 +171,9 @@
     dev.off() #graphics.off()
     rm(p, i, LineMetricSet.lt, Sum_Bi.set)
 
+    #### Export tsv files ####
+    write.table(Sum_Bi.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_Bi.tsv"),sep="\t",
+                row.names=F, quote = FALSE)
 
 #####--------------------------(Discrete Multiple data)--------------------------#####
 ##### Calculate Accuracy(ACC) and Misclassification rate (Error Rate, ER) #####
@@ -287,6 +291,9 @@
       dev.off()
       rm(p1,p2)
 
+      #### Export tsv files ####
+      write.table(Sum_DisMult.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_DisMult.tsv"),sep="\t",
+                  row.names=F, quote = FALSE)
 
 #####---------------------------------(Continuous data)---------------------------------#####
 
@@ -372,6 +379,11 @@
   dev.off() #graphics.off()
   rm(p,i)
 
+  #### Export tsv files ####
+  write.table(MA.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_Conti.tsv"),sep="\t",
+              row.names=F, quote = FALSE)
 
+#### Export RData files ####
+save.image(paste0(Save.Path,"/",ProjectName,"Demo_CellTypeAnno.RData"))
 
 
