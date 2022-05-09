@@ -8,7 +8,7 @@
   library(tidyverse)
 
 ##### Create annotation data #####
-  Anno.df <- data.frame(TestID = c("Predict1","Predict2","Predict3","Predict4","Predict5",
+  Simu_Anno.df <- data.frame(TestID = c("Predict1","Predict2","Predict3","Predict4","Predict5",
                                    "Predict6","Predict7","Predict8","Predict9","Predict10",
                                    "Predict11","Predict12","Predict13","Predict14","Predict15",
                                    "Predict16","Predict17","Predict18","Predict19","Predict20",
