@@ -86,7 +86,7 @@
     rm(cm_Bi.df)
 
     ## Build summarize dataframe
-    Sum_Bi.df <- Summarize_BiCM(cm_Bi.lt, Anno.df)
+    Sum_Bi.df <- Summarize_BiCM(cm_Bi.lt, Simu_Anno.df)
 
       #### For one Metrics ####
       ## Plot by Designated Metric
@@ -106,7 +106,7 @@
       rm(p1)
 
     #### Export all MetricBar PDF ####
-      Metrics_Bi.set <- colnames(Sum_Bi.df)[2:(ncol(Sum_Bi.df)-(ncol(Anno.df)-1))]
+      Metrics_Bi.set <- colnames(Sum_Bi.df)[2:(ncol(Sum_Bi.df)-(ncol(Simu_Anno.df)-1))]
 
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar.pdf"),
           width = 7,  height = 7)
@@ -153,9 +153,15 @@
       p <- CC_LinePlot(Sum_Bi.df, XValue = LineMetricSet.lt[["XValue"]],
                        Metrics = LineMetricSet.lt[["Metrics"]],
                        Group = LineMetricSet.lt[["Group"]])
+      ## Export MetricBar PDF
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsLine_",LineMetricSet.lt[["Metrics"]],".pdf"),
+          width = 12,  height = 7
+      )
+        p
+      dev.off()
+      rm(p)
 
-
-      Sum_Bi.set <- colnames(Sum_Bi.df)[2:(ncol(Sum_Bi.df)-ncol(Anno.df)+1)]
+      Sum_Bi.set <- colnames(Sum_Bi.df)[2:(ncol(Sum_Bi.df)-ncol(Simu_Anno.df)+1)]
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsLine.pdf"),
           width = 12,  height = 7)
       for (i in 1:length(Sum_Bi.set)) {
@@ -197,14 +203,14 @@
 
     ####  Plot Result by Bar chart of Metrics ####
       ## Result dataframe
-      Results_DisMult.df <- left_join(Results_DisMult.df, Anno.df)
+      Results_DisMult.df <- left_join(Results_DisMult.df, Simu_Anno.df)
 
       ## Plot by group
       p1 <- CC_BarPlot(Results_DisMult.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool")
       p1
       rm(p1)
 
-      Metrics_DisMult.set <- colnames(Results_DisMult.df)[2:(ncol(Results_DisMult.df)-(ncol(Anno.df)-1))]
+      Metrics_DisMult.set <- colnames(Results_DisMult.df)[2:(ncol(Results_DisMult.df)-(ncol(Simu_Anno.df)-1))]
 
       #### Export BarPlot PDF ####
       pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar.pdf"),
@@ -305,8 +311,8 @@
       rm(i,MA_New.df)
 
       MA.df <- data.frame(TestID=row.names(MA.df), MA.df)
-      MA.df <- left_join(MA.df, Anno.df)
-      MA.set <- colnames(MA.df)[2:(ncol(MA.df)-ncol(Anno.df)+1)]
+      MA.df <- left_join(MA.df, Simu_Anno.df)
+      MA.set <- colnames(MA.df)[2:(ncol(MA.df)-ncol(Simu_Anno.df)+1)]
 
       #### Export BarPlot PDF ####
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsBar.pdf"),
