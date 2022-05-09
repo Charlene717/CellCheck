@@ -206,8 +206,12 @@
     ##### calculate the confusion matrix for Multi-Class Classification #####
     ## Ref: https://www.researchgate.net/figure/Confusion-matrix-for-60-training-and-40-testing-strategy_fig4_338909223
     ## Ref: https://cran.r-project.org/web/packages/cvms/vignettes/Creating_a_confusion_matrix.html
-      # install.packages("cvms")
+      ## Check whether the installation of the package is required
+      if (!requireNamespace("cvms", quietly = TRUE)){
+        install.packages("cvms")
+      }
       library(cvms)
+
       ##
       conf_mat <- confusion_matrix(targets = Simu_DisMult.df$Actual,
                                    predictions = Simu_DisMult.df$Predict1)
