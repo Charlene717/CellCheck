@@ -11,7 +11,7 @@ CC_BarPlot(Results.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool")
 
 \item{XValue}{X-axis setting.}
 
-\item{Metrics}{Y-axis setting. Usually represent the metrics.}
+\item{Metrics}{Y-axis setting. Usually represent the Metrics.}
 
 \item{Group}{Group setting.}
 }

@@ -11,7 +11,7 @@ CC_LinePlot(Results.df, XValue = "PARM", Metrics = "RMSE", Group = "Type")
 
 \item{XValue}{X-axis setting.}
 
-\item{Metrics}{Y-axis setting. Usually represent the metrics.}
+\item{Metrics}{Y-axis setting. Usually represent the Metrics.}
 
 \item{Group}{Group setting.}
 }
