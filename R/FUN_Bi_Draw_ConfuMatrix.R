@@ -1,3 +1,14 @@
+#' #' A function for drawing confusion matrix
+#' #'
+#' #' This function allows you to draw confusion matrix for binary data.
+#' #' @param cm Dataframe of confusion matrix.
+#' #' @param TestID For the title of the plot.
+#' #' @keywords confusion matrix
+#' #' @export
+#' #' @examples
+#' #' Draw_Bi_CM(cm,TestID = "Predict1")
+#'
+
 ## Ref: https://stackoverflow.com/questions/23891140/r-how-to-visualize-confusion-matrix-using-the-caret-package
 ## @Cybernetic  ## https://stackoverflow.com/users/1639594/cybernetic
 
@@ -5,7 +16,7 @@
 ## Ref: https://cran.r-project.org/web/packages/ConfusionTableR/vignettes/ConfusionTableR.html
 
 
-Draw_CM <- function(cm,TestID = "Predict1") {
+Draw_Bi_CM <- function(cm,TestID = "Predict1") {
 
   layout(matrix(c(1,1,2)))
   par(mar=c(2,2,2,2))
