@@ -18,13 +18,10 @@
 
 CC_LinePlot <- function(Results.df, XValue = "PARM", Metrics = "RMSE", Group = "Type") {
 
-  XValue = which(colnames(Results.df) == XValue)
-  Metrics = which(colnames(Results.df) == Metrics)
-  Group = which(colnames(Results.df) == Group)
 
   ## Plot by Group
   p <- ggplot(Results.df, aes(x = Results.df[,XValue],
-                              y = Results.df[,Metrics], Group = Results.df[,Group])) +
+                              y = Results.df[,Metrics], group = Results.df[,Group])) +
     geom_line(aes(color = Results.df[,Group]), size = 2, alpha = 0.8)+
     geom_point(aes(color= Results.df[,Group], shape = Results.df[,Group]), size = 5, alpha = 0.8)+
     theme_bw() + theme(panel.grid.major = element_blank(),
@@ -34,10 +31,10 @@ CC_LinePlot <- function(Results.df, XValue = "PARM", Metrics = "RMSE", Group = "
 
   p2 <- p + # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
     labs(#title = colnames(Results.df)[Metrics],  # Change title in ggplot
-      x = colnames(Results.df)[XValue],      # Change title of x axis in ggplot
-      y = colnames(Results.df)[Metrics],       # Change title of y axis in ggplot
-      color = colnames(Results.df)[Group],     # Change legend title in ggplot
-      shape = colnames(Results.df)[Group]     # Change legend title in ggplot
+      x = XValue,      # Change title of x axis in ggplot
+      y = Metrics,       # Change title of y axis in ggplot
+      color = Group,     # Change legend title in ggplot
+      shape = Group     # Change legend title in ggplot
     )+
     theme(panel.border = element_rect(fill=NA,color="black", size= 2.5, linetype="solid"))+ # Outline
     theme(axis.text.x = element_text(color="black",face="bold",  size = 17,angle = 0, hjust = 1, vjust = .99), # Change the size along the x axis

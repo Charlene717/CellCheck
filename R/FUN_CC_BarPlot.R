@@ -26,9 +26,9 @@ CC_BarPlot <- function(Results.df, XValue = "Type", Metrics = "Accuracy", Group 
 
   p2 <- p + scale_fill_brewer(palette = "Spectral")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
         labs(#title = colnames(Results.df)[Metrics],  # Change title in ggplot
-          x = colnames(Results.df)[XValue],      # Change title of x axis in ggplot
-          y = colnames(Results.df)[Metrics],       # Change title of y axis in ggplot
-          fill= colnames(Results.df)[Group]     # Change legend title in ggplot
+          x = XValue,      # Change title of x axis in ggplot
+          y = Metrics,       # Change title of y axis in ggplot
+          fill= Group     # Change legend title in ggplot
         )+
         theme(panel.border = element_rect(fill=NA,color="black", size= 2, linetype="solid"))+ # Outline
         theme(axis.text.x = element_text(color="black",face="bold",  size = 17,angle = 45, hjust = 1, vjust = .99), # Change the size along the x axis
