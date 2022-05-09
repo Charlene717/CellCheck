@@ -14,7 +14,6 @@
 # Ref(Bar Chart): https://officeguide.cc/r-ggplot2-bar-plot-tutorial-examples/
 # Ref(Color): http://rstudio-pubs-static.s3.amazonaws.com/5312_98fc1aba2d5740dd849a5ab797cc2c8d.html
 
-
 CC_BarPlot <- function(Results.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool") {
 
   ## Plot by Group
