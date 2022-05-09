@@ -115,7 +115,8 @@
 
 
     #### Export MetricBar PDF ####
-      #### Export Designated one MetricBar PDF ####
+      source("FUN_CC_BarPlot.R")
+      #### Export one Designated MetricBar PDF ####
       ## Plot by Designated Metric
       BarMetricSet.lt <- list(XValue = "Type", Metrics = "Accuracy", Group = "Tool")
 
@@ -149,13 +150,17 @@
 
 
     #### Export MetricsLine PDF ####
+      source("FUN_CC_LinePlot.R")
       Sum_Bi.df$PARM <- factor(Sum_Bi.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
 
+      #### Export one Designated MetricLine PDF ####
+      ## Plot by Designated Metric
       LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Accuracy", Group = "Type")
       p <- CC_LinePlot(Sum_Bi.df, XValue = LineMetricSet.lt[["XValue"]],
                        Metrics = LineMetricSet.lt[["Metrics"]],
                        Group = LineMetricSet.lt[["Group"]])
-      #### Export one Designated MetricLine PDF ####
+
+      ## Export MetricBar PDF
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsLine_",LineMetricSet.lt[["Metrics"]],".pdf"),
           width = 12,  height = 7
       )
@@ -183,27 +188,56 @@
     source("FUN_ACC_ER_DiscMult.R")
     Sum_DisMult.df <- AccEr_DiscMult(Simu_DisMult.df, Simu_Anno.df)
 
-    ####  Plot Result by Bar chart of Metrics ####
-
-
-      ## Plot by group
-      p1 <- CC_BarPlot(Results_DisMult.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool")
-      p1
+    #### Export MetricBar PDF ####
+      source("FUN_CC_BarPlot.R")
+      ## Plot one Designated MetricBar
+      BarMetricSet.lt <- list(XValue = "Type", Metrics = "Accuracy", Group = "Tool")
+      p1 <- CC_BarPlot(Sum_DisMult.df,
+                       XValue = BarMetricSet.lt[["XValue"]],
+                       Metrics = BarMetricSet.lt[["Metrics"]],
+                       Group = BarMetricSet.lt[["Group"]])
       rm(p1)
 
-      Metrics_DisMult.set <- colnames(Results_DisMult.df)[2:(ncol(Results_DisMult.df)-(ncol(Simu_Anno.df)-1))]
+      Metrics_DisMult.set <- colnames(Sum_DisMult.df)[2:(ncol(Sum_DisMult.df)-(ncol(Simu_Anno.df)-1))]
 
-      #### Export BarPlot PDF ####
+      #### Export all MetricBar PDF ####
       pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar.pdf"),
           width = 7,  height = 7)
+        for (i in 1:length(Metrics_DisMult.set)) {
+          p <- CC_BarPlot(Sum_DisMult.df,
+                          XValue = BarMetricSet.lt[["XValue"]],
+                          Metrics = Metrics_DisMult.set[i],
+                          Group = BarMetricSet.lt[["Group"]])
+          p
+        }
+      dev.off() # graphics.off()
+      rm(p,i,BarMetricSet.lt)
+
+    #### Export MetricLine PDF ####
+      source("FUN_CC_LinePlot.R")
+      Sum_DisMult.df$PARM <- factor(Sum_DisMult.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
+
+      ## Plot by Designated Metric
+      LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Accuracy", Group = "Type")
+      p <- CC_LinePlot(Sum_DisMult.df, XValue = LineMetricSet.lt[["XValue"]],
+                       Metrics = LineMetricSet.lt[["Metrics"]],
+                       Group = LineMetricSet.lt[["Group"]])
+
+      #### Export all MetricLine PDF ####
+      Metrics_DisMult.set <- colnames(Sum_DisMult.df)[2:(ncol(Sum_DisMult.df)-(ncol(Simu_Anno.df)-1))]
+
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine.pdf"),
+          width = 7,  height = 7)
       for (i in 1:length(Metrics_DisMult.set)) {
-        p <- CC_BarPlot(Results_DisMult.df, XValue = "Type",
-                        Metrics = Metrics_DisMult.set[i], Group = "Tool")
+        p <- CC_LinePlot(Sum_DisMult.df,
+                        XValue = LineMetricSet.lt[["XValue"]],
+                        Metrics = Metrics_DisMult.set[i],
+                        Group = LineMetricSet.lt[["Group"]])
         p
       }
-      dev.off()
-      #graphics.off()
-      rm(p,i)
+      dev.off() # graphics.off()
+      rm(p,i,LineMetricSet.lt)
+
 
     ##### calculate the confusion matrix for Multi-Class Classification #####
     ## Ref: https://www.researchgate.net/figure/Confusion-matrix-for-60-training-and-40-testing-strategy_fig4_338909223
