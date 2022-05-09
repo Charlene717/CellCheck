@@ -5,13 +5,13 @@
 
 ##### Load Packages #####
   ## Check whether the installation of the package is required
-  Package.lt <- c("tidyverse","caret","cvms","DescTools")
-  for (i in 1:length(Package.lt)) {
-    if (!requireNamespace(Package.lt[i], quietly = TRUE)){
-      install.packages(Package.lt[i])
+  Package.set <- c("tidyverse","caret","cvms","DescTools")
+  for (i in 1:length(Package.set)) {
+    if (!requireNamespace(Package.set[i], quietly = TRUE)){
+      install.packages(Package.set[i])
     }
   }
-  rm(Package.lt,i)
+  rm(Package.set,i)
 
   ## Load Packages
   # library(Seurat)
