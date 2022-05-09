@@ -4,37 +4,56 @@
   #   - [x] Basic version
   #   - [ ] Formula
   #   - [ ] Beautify
+
   # - [ ] Confusion matrix (Full version)
   #   - [x] Basic version
   #   - [x] Formula
-  #   - [ ] Create CM function by myself
   #   - [x] Beautify
+  #   - [ ] Create CM function by myself
 
   # - [x] Annotation table
+
   # - [x] Compare different conditions
-  #   - [x] Bar
-  #   - [ ] Bar with SD
-  #   - [ ] Bar with pvalue
+  #   - [x] BarPlot
+  #   - [ ] BarPlot with SD
+  #   - [ ] BarPlot with pvalue
+  #   - [x] LinePlot
+  #   - [ ] LinePlot with SD
+  #   - [ ] LinePlot with pvalue
+
 ## Discrete data: Multiple data
   # - [x] Confusion matrix
   #   - [x] Basic version
   #   - [x] Beautify
+  #   - [ ] Create CM function by myself
+
   # - [x] Annotation table
+
   # - [ ] Compare different conditions
-  #   - [x] Bar
-  #   - [ ] Bar with SD
-  #   - [ ] Bar with pvalue
+  #   - [x] BarPlot
+  #   - [ ] BarPlot with SD
+  #   - [ ] BarPlot with pvalue
+  #   - [x] LinePlot
+  #   - [ ] LinePlot with SD
+  #   - [ ] LinePlot with pvalue
 
 ## Continuous data
   # - [x] RMSD Basic
+
   # - [ ] More Metrics
+    # - [ ] R value
+    # - [ ] R value plot
+
   # - [ ] Compare different conditions
-  #   - [x] Bar
-  #   - [ ] Bar with SD
-  #   - [ ] Bar with pvalue
+  #   - [x] BarPlot
+  #   - [ ] BarPlot with SD
+  #   - [ ] BarPlot with pvalue
+  #   - [x] LinePlot
+  #   - [ ] LinePlot with SD
+  #   - [ ] LinePlot with pvalue
 
 ## Beautify Figures
-  # - [x] BarChart
+  # - [x] BarPlotChart
   # - [x] LineChart
   # - [ ] Various templates
   # - [ ] TIFF, PNG
