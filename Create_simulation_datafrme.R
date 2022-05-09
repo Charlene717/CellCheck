@@ -8,15 +8,15 @@
   library(tidyverse)
 
 ##### Create annotation data #####
-  Anno.df <- data.frame(TestID = c("Predict1","Predict2","Predict3","Predict4","Predict5",
-                                   "Predict6","Predict7","Predict8","Predict9","Predict10",
-                                   "Predict11","Predict12","Predict13","Predict14","Predict15"),
-                        Tool = c("ToolA","ToolA","ToolA","ToolB","ToolB","ToolB","ToolC","ToolC","ToolC",
-                                 "ToolD","ToolD","ToolD","ToolE","ToolE","ToolE"),
-                        Type = c("Type1","Type2","Type3","Type1","Type2","Type3",
-                                 "Type1","Type2","Type3","Type1","Type2","Type3",
-                                 "Type1","Type2","Type3"),
-                        PARM = seq(1:15))
+  Simu_Anno.df <- data.frame(TestID = c("Predict1","Predict2","Predict3","Predict4","Predict5",
+                                        "Predict6","Predict7","Predict8","Predict9","Predict10",
+                                        "Predict11","Predict12","Predict13","Predict14","Predict15"),
+                             Tool = c("ToolA","ToolA","ToolA","ToolB","ToolB","ToolB","ToolC","ToolC","ToolC",
+                                      "ToolD","ToolD","ToolD","ToolE","ToolE","ToolE"),
+                             Type = c("Type1","Type2","Type3","Type1","Type2","Type3",
+                                      "Type1","Type2","Type3","Type1","Type2","Type3",
+                                      "Type1","Type2","Type3"),
+                             PARM = seq(1:15))
 
 ##### Create simulation datafrme #####
   #### Binary data ####
