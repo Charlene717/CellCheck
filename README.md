@@ -30,7 +30,29 @@ CellCheck runs in the R statistical computing environment. You will need R versi
   # Install the CellCheck package
   detach("package:CellCheck", unload = TRUE)
   devtools::install_github("Charlene717/CellCheck")
-  ## Load CellCheck
+  # Load CellCheck
   library(CellCheck)
+```
+
+## Usage
+
+Load the Demo RData
+```{r, eval = FALSE}
+## Load simulation datafrme ##
+  load("Create_simulation_datafrme.RData")
+```
+
+### Binary data
+#### Calculate the confusion matrix(CM) ####
+```{r, eval = FALSE}
+  library(caret)
+
+  #### For one prediction ####
+  ## Set two comparisons
+  CMPredSet.lt <- list(Actual = "Actual",
+                       Predict = "Predict2")
+  ## Build CM
+  cm_Bi.df <- confusionMatrix(data = Simu_Bi.df[,CMPredSet.lt[["Actual"]]] %>% as.factor(),
+                           reference = Simu_Bi.df[,CMPredSet.lt[["Predict"]]] %>% as.factor())
 ```
 
