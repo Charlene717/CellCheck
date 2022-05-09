@@ -112,7 +112,8 @@
                                Predict15 = sample(c(0:100), 100, replace = TRUE))
 
 ##### Save the RData #####
-  save.image("D:/Dropbox/##_GitHub/##_CAESAR/CellCheck/Create_simulation_datafrme.RData")
+  rm(Actual1_1, Actual1_2, Actual2_1, Actual2_2, Actual3, Word.set)
+  save.image("Create_simulation_datafrme.RData")
 
 
 
