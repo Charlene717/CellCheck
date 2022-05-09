@@ -19,7 +19,7 @@
 
   ## install CellCheck
   # Install the CellCheck package
-  install_github("Charlene717/CellCheck")
+  devtools::install_github("Charlene717/CellCheck")
   library(CellCheck)
 
 ##### Current path and new folder setting*  #####
@@ -75,7 +75,6 @@
     # cm_Bi.df <- cm_Bi.lt[["Predict2"]]
     #
     # ## Draw Confusion matrix
-    # source("Fun_Bi_Draw_ConfuMax.R")
     # draw_confusion_matrix(cm_Bi.df)
     # Draw_Bi_CM(cm_Bi.df)
     # rm(cm_Bi.df)
@@ -107,7 +106,6 @@
 
 
   #### Export MetricBar PDF ####
-    source("FUN_CC_BarPlot.R")
     #### Export one Designated MetricBar PDF ####
     ## Plot by Designated Metric
     BarMetricSet.lt <- list(XValue = "Type", Metrics = "Accuracy", Group = "Tool")
@@ -142,7 +140,6 @@
 
 
   #### Export MetricsLine PDF ####
-    source("FUN_CC_LinePlot.R")
     Sum_Bi.df$PARM <- factor(Sum_Bi.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
 
     #### Export one Designated MetricLine PDF ####
@@ -176,11 +173,9 @@
 
 #####--------------------------(Discrete Multiple data)--------------------------#####
 ##### Calculate Accuracy(ACC) and Misclassification rate (Error Rate, ER) #####
-  source("FUN_DiscMult_ACC_ER.R")
   Sum_DisMult.df <- AccEr_DiscMult(Simu_DisMult.df, Simu_Anno.df)
 
   #### Export MetricBar PDF ####
-    source("FUN_CC_BarPlot.R")
     ## Plot one Designated MetricBar
     BarMetricSet.lt <- list(XValue = "Type", Metrics = "Accuracy", Group = "Tool")
     p1 <- CC_BarPlot(Sum_DisMult.df,
@@ -205,7 +200,6 @@
     rm(p,i,BarMetricSet.lt)
 
   #### Export MetricLine PDF ####
-    source("FUN_CC_LinePlot.R")
     Sum_DisMult.df$PARM <- factor(Sum_DisMult.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
 
     ## Plot by Designated Metric
@@ -297,7 +291,6 @@
 #####---------------------------------(Continuous data)---------------------------------#####
 
   library(DescTools)
-  source("FUN_Conti_Measure_Accuracy.R")
 
   # MA.df <- Measure_Accuracy(Simu_Conti.df$Actual,Simu_Conti.df$Predict2)
 
@@ -322,7 +315,6 @@
   MA.df <- left_join(MA.df, Simu_Anno.df)
 
   #### Export MetricBar PDF ####
-  source("FUN_CC_BarPlot.R")
     #### Export one Designated MetricBar PDF ####
     ## Plot by Designated Metric
     BarMetricSet.lt <- list(XValue = "Type", Metrics = "RMSE", Group = "Tool")
@@ -350,11 +342,10 @@
         p
       }
     dev.off()  #graphics.off()
-    rm(p,iBarMetricSet.lt,MA.set)
+    rm(p,i,BarMetricSet.lt,MA.set)
 
 
   #### Export MetricsLine PDF ####
-  source("FUN_CC_LinePlot.R")
   MA.df$PARM <- factor(MA.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
 
   #### Export one Designated MetricLine PDF ####
