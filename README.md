@@ -36,23 +36,26 @@ CellCheck runs in the R statistical computing environment. You will need R versi
 
 ## Usage
 
-Load the Demo RData
+#### Load the Demo RData ####
 ```{r, eval = FALSE}
 ## Load simulation datafrme ##
   load("Create_simulation_datafrme.RData")
 ```
-
-### Binary data
-#### Calculate the confusion matrix(CM) ####
+#### Run the Demo script ####
 ```{r, eval = FALSE}
-  library(caret)
-
-  #### For one prediction ####
-  ## Set two comparisons
-  CMPredSet.lt <- list(Actual = "Actual",
-                       Predict = "Predict2")
-  ## Build CM
-  cm_Bi.df <- confusionMatrix(data = Simu_Bi.df[,CMPredSet.lt[["Actual"]]] %>% as.factor(),
-                           reference = Simu_Bi.df[,CMPredSet.lt[["Predict"]]] %>% as.factor())
+## Load simulation datafrme ##
+source("Demo_CellTypeAnno.R", echo = TRUE, max.deparse.length=10000, encoding="utf-8",
+       print.eval = TRUE) 
 ```
+
+## Export files
+#### Binary data
+<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data.jpg">
+
+#### Discrete multiple data
+<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data.jpg">
+
+#### Continuous data
+<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data.jpg">
+
 
