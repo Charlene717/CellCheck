@@ -51,7 +51,17 @@
   memory.limit(150000)
 
 ##### Load Packages #####
-  library(Seurat)
+  ## Check whether the installation of the package is required
+  Package.lt <- c("tidyverse","caret","cvms","DescTools")
+  for (i in 1:length(Package.lt)) {
+    if (!requireNamespace(Package.lt[i], quietly = TRUE)){
+      install.packages(Package.lt[i])
+    }
+  }
+  rm(Package.lt,i)
+
+  ## Load Packages
+  # library(Seurat)
   library(tidyverse)
   library(caret) # Confusion matrix
   library(cvms) # Confusion matrix for Multi-Class Classification
@@ -68,14 +78,13 @@
 
 ##### Current path and new folder setting*  #####
   ProjectName = "CC"
-
-  Version = paste0(Sys.Date(),"_","CC_Demo")
+  Version = paste0(Sys.Date(),"_",ProjectName,"_Demo")
   Save.Path = paste0(getwd(),"/",Version)
-  dir.create(Save.Path)
+  dir.create(Save.Path)  # Create folder
 
 
 ##### Load simulation datafrme #####
-  load("D:/Dropbox/##_GitHub/##_CAESAR/CellCheck/Create_simulation_datafrme.RData")
+  load("Create_simulation_datafrme.RData")
 
 
 ##### Binary data #####
@@ -83,10 +92,9 @@
     library(caret)
 
     cm.lt <- list()
-
     for (i in 1:(ncol(Simu_Bi.df)-1)) {
       cm.lt[[i]] <- confusionMatrix(data = Simu_Bi.df[,1] %>% as.factor(),
-                            reference = Simu_Bi.df[,1+i] %>% as.factor())
+                                    reference = Simu_Bi.df[,1+i] %>% as.factor())
       names(cm.lt)[[i]] <- colnames(Simu_Bi.df)[i+1]
 
     }
@@ -206,10 +214,6 @@
     ##### calculate the confusion matrix for Multi-Class Classification #####
     ## Ref: https://www.researchgate.net/figure/Confusion-matrix-for-60-training-and-40-testing-strategy_fig4_338909223
     ## Ref: https://cran.r-project.org/web/packages/cvms/vignettes/Creating_a_confusion_matrix.html
-      ## Check whether the installation of the package is required
-      if (!requireNamespace("cvms", quietly = TRUE)){
-        install.packages("cvms")
-      }
       library(cvms)
 
       ##
@@ -270,7 +274,7 @@
 
 
 #########################################################################################################
-      # install.packages("DescTools")
+
       library(DescTools)
       source("FUN_Measure_Accuracy.R")
 
