@@ -41,7 +41,7 @@
 
 #####------------------------------------------------------------------------------------#####
 ##### Binary data #####
-  #### calculate the confusion matrix(CM) ####
+  #### Calculate the confusion matrix(CM) ####
     library(caret)
 
     #### For one prediction ####
@@ -76,19 +76,46 @@
     }
     rm(i)
 
-    ## Extract one CM form the CM list
-    cm_Bi.df <- cm_Bi.lt[["Predict2"]]
-
-    ## Draw Confusion matrix
-    source("Fun_Draw_ConfuMax.R")
-    draw_confusion_matrix(cm_Bi.df)
-    Draw_CM(cm_Bi.df)
-    rm(cm_Bi.df)
-
     ## Build summarize dataframe
     Sum_Bi.df <- Summarize_BiCM(cm_Bi.lt, Simu_Anno.df)
 
-      #### For one Metrics ####
+      # ## Extract one CM form the CM list
+      # cm_Bi.df <- cm_Bi.lt[["Predict2"]]
+      #
+      # ## Draw Confusion matrix
+      # source("Fun_Draw_ConfuMax.R")
+      # draw_confusion_matrix(cm_Bi.df)
+      # Draw_CM(cm_Bi.df)
+      # rm(cm_Bi.df)
+
+    #### Export all CM PDF ####
+      ## Full version
+      pdf(
+        file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMax.pdf"),
+        width = 17,  height = 12
+      )
+      for (i in 1:length(cm_Bi.lt)) {
+
+        Draw_CM(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
+      }
+      dev.off() #graphics.off()
+      rm(i)
+
+      ## Simple version
+      pdf(
+        file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMaxSimp.pdf"),
+        width = 10,  height = 7
+      )
+      for (i in 1:length(cm_Bi.lt)) {
+
+        draw_confusion_matrix(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
+      }
+      dev.off() #graphics.off()
+      rm(i)
+
+
+    #### Export MetricBar PDF ####
+      #### Export Designated one MetricBar PDF ####
       ## Plot by Designated Metric
       BarMetricSet.lt <- list(XValue = "Type", Metrics = "Accuracy", Group = "Tool")
 
@@ -101,11 +128,11 @@
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar_",BarMetricSet.lt[["Metrics"]],".pdf"),
           width = 7,  height = 7
       )
-        p1
+      p1
       dev.off()
       rm(p1)
 
-    #### Export all MetricBar PDF ####
+      #### Export all MetricBar PDF ####
       Metrics_Bi.set <- colnames(Sum_Bi.df)[2:(ncol(Sum_Bi.df)-(ncol(Simu_Anno.df)-1))]
 
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar.pdf"),
@@ -120,40 +147,15 @@
       dev.off() # graphics.off()
       rm(p, i, Metrics_Bi.set, BarMetricSet.lt)
 
-    #### Export all CM PDF ####
-      ## Full version
-      pdf(
-        file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMax.pdf"),
-        width = 17,  height = 12
-      )
-        for (i in 1:length(cm_Bi.lt)) {
 
-          Draw_CM(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
-        }
-        dev.off() #graphics.off()
-      rm(i)
-
-      ## Simple version
-      pdf(
-        file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMaxSimp.pdf"),
-        width = 10,  height = 7
-      )
-        for (i in 1:length(cm_Bi.lt)) {
-
-          draw_confusion_matrix(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
-        }
-        dev.off() #graphics.off()
-      rm(i)
-
-    #### Export all MetricsLine PDF ####
-      ## Extract one CM form the CM list
+    #### Export MetricsLine PDF ####
       Sum_Bi.df$PARM <- factor(Sum_Bi.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
 
       LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Accuracy", Group = "Type")
       p <- CC_LinePlot(Sum_Bi.df, XValue = LineMetricSet.lt[["XValue"]],
                        Metrics = LineMetricSet.lt[["Metrics"]],
                        Group = LineMetricSet.lt[["Group"]])
-      ## Export MetricBar PDF
+      #### Export one Designated MetricLine PDF ####
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsLine_",LineMetricSet.lt[["Metrics"]],".pdf"),
           width = 12,  height = 7
       )
@@ -161,6 +163,7 @@
       dev.off()
       rm(p)
 
+      #### Export all MetricLine PDF ####
       Sum_Bi.set <- colnames(Sum_Bi.df)[2:(ncol(Sum_Bi.df)-ncol(Simu_Anno.df)+1)]
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsLine.pdf"),
           width = 12,  height = 7)
@@ -175,35 +178,13 @@
 
 
 #####------------------------------------------------------------------------------------#####
-  ##### Misclassification rate (error rate) #####
-    # Simu_DisMult.df$Correctness1 <- ""
-
-    Simu_DisMult_Res.df <- data.frame(matrix("",0,(ncol(Simu_DisMult.df)-1)))
-    colnames(Simu_DisMult_Res.df) <- colnames(Simu_DisMult.df)[2:ncol(Simu_DisMult.df)]
-
-    # MissRate: Misclassification rate
-      cm_DisMult.lt <- list()
-      for (j in 1:(ncol(Simu_DisMult.df)-1)) {
-
-        for (i in 1:nrow(Simu_DisMult.df)) {
-          if(Simu_DisMult.df[i,1] == Simu_DisMult.df[i,j+1]){
-            Simu_DisMult_Res.df[i,j] = 0
-          }else{
-            Simu_DisMult_Res.df[i,j] = 1
-          }
-        }
-        cm_DisMult.lt[j] <- sum(Simu_DisMult_Res.df[,j] == 1)/nrow(Simu_DisMult_Res.df)
-        names(cm_DisMult.lt)[j] <- colnames(Simu_DisMult_Res.df)[j]
-      }
-
-      rm(i,j,Simu_DisMult_Res.df)
-      Results_DisMult.df <- data.frame(TestID = colnames(Simu_DisMult.df)[2:ncol(Simu_DisMult.df)],
-                                       Misclass = unlist(cm_DisMult.lt),
-                                       Accuracy = 1-unlist(cm_DisMult.lt))
+##### Discrete data: Multiple data #####
+  ##### Calculate Accuracy(ACC) and Misclassification rate (Error Rate, ER) #####
+    source("FUN_ACC_ER_DiscMult.R")
+    Sum_DisMult.df <- AccEr_DiscMult(Simu_DisMult.df, Simu_Anno.df)
 
     ####  Plot Result by Bar chart of Metrics ####
-      ## Result dataframe
-      Results_DisMult.df <- left_join(Results_DisMult.df, Simu_Anno.df)
+
 
       ## Plot by group
       p1 <- CC_BarPlot(Results_DisMult.df, XValue = "Type", Metrics = "Accuracy", Group = "Tool")
