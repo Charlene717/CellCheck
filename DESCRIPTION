@@ -1,10 +1,10 @@
 Package: CellCheck
-Title: What the Package Does (One Line, Title Case)
+Title: A toolkit for validating single-cell analysis with visualization
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person("Charlene", "Chang", , "q2330416@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-0977-8743"))
+Description: A toolkit for validating single-cell analysis with visualization.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
