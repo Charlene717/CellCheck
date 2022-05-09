@@ -42,3 +42,5 @@
   # - [ ] Load package
 
 ## Modify the simulated dataframe
+  # - [ ] Better example
+  # - [ ] scRNA example
