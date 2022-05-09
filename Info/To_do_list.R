@@ -38,11 +38,12 @@
   #   - [ ] LinePlot with pvalue
 
 ## Continuous data
-  # - [x] RMSD Basic
+  # - [x] Basic Accuracy value
 
   # - [ ] More Metrics
     # - [ ] R value
     # - [ ] R value plot
+    # - [ ] ...
 
   # - [ ] Compare different conditions
   #   - [x] BarPlot
