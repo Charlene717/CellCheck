@@ -21,7 +21,9 @@
   #   - [ ] LinePlot with SD
   #   - [ ] LinePlot with pvalue
 
-## Discrete data: Multiple data
+  # - [ ] Save tsv files
+
+## Discrete Multiple data
   # - [x] Confusion matrix
   #   - [x] Basic version
   #   - [x] Beautify
@@ -36,6 +38,8 @@
   #   - [x] LinePlot
   #   - [ ] LinePlot with SD
   #   - [ ] LinePlot with pvalue
+
+  # - [ ] Save tsv files
 
 ## Continuous data
   # - [x] Basic Accuracy value
@@ -53,6 +57,8 @@
   #   - [ ] LinePlot with SD
   #   - [ ] LinePlot with pvalue
 
+  # - [ ] Save tsv files
+
 ## Beautify Figures
   # - [x] BarPlotChart
   # - [x] LineChart
@@ -64,3 +70,6 @@
 ## Modify the simulated dataframe
   # - [ ] Better example
   # - [ ] scRNA example
+
+
+
