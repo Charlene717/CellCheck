@@ -5,7 +5,7 @@
 
 ##### Load Packages #####
   ## Check whether the installation of those packages is required
-  Package.set <- c("tidyverse","caret","cvms","DescTools","devtools")
+  Package.set <- c("tidyverse","caret","cvms","DescTools","devtools","ggthemes")
   for (i in 1:length(Package.set)) {
     if (!requireNamespace(Package.set[i], quietly = TRUE)){
       install.packages(Package.set[i])
@@ -40,24 +40,24 @@
   #### For one prediction ####
   ## Set two comparisons
   CMPredSet.lt <- list(Actual = "Actual",
-                        Predict = "Predict2")
+                       Predict = "Predict2")
 
   ## Build CM
-  cm_Bi.df <- confusionMatrix(data = Simu_Bi.df[,CMPredSet.lt[["Actual"]]] %>% as.factor(),
+  cm_Bi <- confusionMatrix(data = Simu_Bi.df[,CMPredSet.lt[["Actual"]]] %>% as.factor(),
                            reference = Simu_Bi.df[,CMPredSet.lt[["Predict"]]] %>% as.factor())
 
   ## Plot CM
-  p1 <- Draw_Bi_CM(cm_Bi.df)
-  p2 <- draw_confusion_matrix(cm_Bi.df)
+  p1 <- Draw_Bi_CM(cm_Bi)
+  p2 <- draw_confusion_matrix(cm_Bi)
 
   ## Export CM PDF
   pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMax_",CMPredSet.lt[["Predict"]],".pdf"),
       width = 17,  height = 12
   )
-    Draw_Bi_CM(cm_Bi.df)
-    draw_confusion_matrix(cm_Bi.df)
+    Draw_Bi_CM(cm_Bi)
+    draw_confusion_matrix(cm_Bi)
   dev.off()
-  rm(p1,p2,CMPredSet.lt,cm_Bi.df)
+  rm(p1,p2,CMPredSet.lt,cm_Bi)
 
   #### For all predictions ####
   ## Build list for all CM
@@ -73,12 +73,12 @@
   Sum_Bi.df <- Summarize_BiCM(cm_Bi.lt, Simu_Anno.df)
 
     # ## Extract one CM form the CM list
-    # cm_Bi.df <- cm_Bi.lt[["Predict2"]]
+    # cm_Bi <- cm_Bi.lt[["Predict2"]]
     #
     # ## Draw Confusion matrix
-    # draw_confusion_matrix(cm_Bi.df)
-    # Draw_Bi_CM(cm_Bi.df)
-    # rm(cm_Bi.df)
+    # draw_confusion_matrix(cm_Bi)
+    # Draw_Bi_CM(cm_Bi)
+    # rm(cm_Bi)
 
   #### Export all CM PDF ####
     ## Full version
@@ -227,6 +227,9 @@
     dev.off() # graphics.off()
     rm(p,i,LineMetricSet.lt)
 
+    #### Export tsv files ####
+    write.table(Sum_DisMult.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_DisMult.tsv"),sep="\t",
+                row.names=F, quote = FALSE)
 
   ##### calculate the confusion matrix for Multi-Class Classification #####
   ## Ref: https://www.researchgate.net/figure/Confusion-matrix-for-60-training-and-40-testing-strategy_fig4_338909223
@@ -291,9 +294,78 @@
       dev.off()
       rm(p1,p2)
 
+      #### Build summarize dataframe for all condition ####
+      for (i in 1:length(conf_mat.lt)) {
+        if(i==1){
+          Sum_DisMult_All.df <- data.frame(TestID =  names(conf_mat.lt[i]),
+                                conf_mat.lt[[i]][["Class Level Results"]] %>% as.data.frame())
+        }else{
+          Sum_DisMult_All_New.df <- data.frame(TestID =  names(conf_mat.lt[i]),
+                                               conf_mat.lt[[i]][["Class Level Results"]] %>% as.data.frame())
+          Sum_DisMult_All.df <- rbind(Sum_DisMult_All.df, Sum_DisMult_All_New.df)
+        }
+      }
+
+      rm(i,Sum_DisMult_All_New.df)
+      ## Add annotation dataframe
+      Sum_DisMult_All.df <- left_join(Sum_DisMult_All.df, Simu_Anno.df)
+
+      ## Remove in the future
+      Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df$Type == "Type1",]
+
+      #### Export MetricBar PDF ####
+      ## Plot one Designated MetricBar
+      BarMetricSet.lt <- list(XValue = "Tool", Metrics = "Balanced.Accuracy", Group = "Class")
+      p1 <- CC_BarPlot(Sum_DisMult_All.df,
+                       XValue = BarMetricSet.lt[["XValue"]],
+                       Metrics = BarMetricSet.lt[["Metrics"]],
+                       Group = BarMetricSet.lt[["Group"]])
+      rm(p1)
+
+      Metrics_DisMult.set <- colnames(Sum_DisMult_All.df)[6:(ncol(Sum_DisMult_All.df)-(ncol(Simu_Anno.df)-1))]
+
+      #### Export all MetricBar PDF ####
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar_All.pdf"),
+          width = 7,  height = 7)
+      for (i in 1:length(Metrics_DisMult.set)) {
+        p <- CC_BarPlot(Sum_DisMult_All.df,
+                        XValue = BarMetricSet.lt[["XValue"]],
+                        Metrics = Metrics_DisMult.set[i],
+                        Group = BarMetricSet.lt[["Group"]])
+        p
+      }
+      dev.off() # graphics.off()
+      rm(p,i,BarMetricSet.lt)
+
+      #### Export MetricLine PDF ####
+      Sum_DisMult_All.df$PARM <- factor(Sum_DisMult_All.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
+
+      ## Plot by Designated Metric
+      LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Balanced.Accuracy", Group = "Class")
+      p <- CC_LinePlot(Sum_DisMult_All.df, XValue = LineMetricSet.lt[["XValue"]],
+                       Metrics = LineMetricSet.lt[["Metrics"]],
+                       Group = LineMetricSet.lt[["Group"]])
+
+      #### Export all MetricLine PDF ####
+      Metrics_DisMult.set <- colnames(Sum_DisMult_All.df)[6:(ncol(Sum_DisMult_All.df)-(ncol(Simu_Anno.df)-1))]
+
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine_All.pdf"),
+          width = 7,  height = 7)
+      for (i in 1:length(Metrics_DisMult.set)) {
+        p <- CC_LinePlot(Sum_DisMult_All.df,
+                         XValue = LineMetricSet.lt[["XValue"]],
+                         Metrics = Metrics_DisMult.set[i],
+                         Group = LineMetricSet.lt[["Group"]])
+        p
+      }
+      dev.off() # graphics.off()
+      rm(p,i,LineMetricSet.lt)
+
       #### Export tsv files ####
-      write.table(Sum_DisMult.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_DisMult.tsv"),sep="\t",
+      write.table(Sum_DisMult_All.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_DisMult_All.tsv"),sep="\t",
                   row.names=F, quote = FALSE)
+
+
 
 #####---------------------------------(Continuous data)---------------------------------#####
 
