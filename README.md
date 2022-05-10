@@ -49,7 +49,7 @@ source("Demo_CellTypeAnno.R", echo = TRUE, max.deparse.length=10000, encoding="u
 ```
 ## Annotation table
 The format of annotation table for each prediction is like this:
-<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Annotation%20table.jpg">
+<p style="text-align:center;"><img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Annotation%20table.jpg">
 
 ## Export files
 ### Binary data
@@ -59,14 +59,14 @@ The format of input binary data can be number or character:
 The outputs binary data has confusion matrix(CM), barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data.jpg">
 
-#### Discrete multiple data
+## Discrete multiple data
 The format of input discrete multiple data can be number or character:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data_Input.jpg">
 
 The outputs discrete multiple data has confusion matrix(CM), barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data.jpg">
 
-#### Continuous data
+## Continuous data
 The format of input continuous data would be number:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data_Input.jpg">
 
