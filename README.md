@@ -51,7 +51,7 @@ source("Demo_CellTypeAnno.R", echo = TRUE, max.deparse.length=10000, encoding="u
 The format of annotation table for each prediction is like this:
 <p style="text-align:center;"><img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Annotation%20table.jpg">
 
-## Export files
+## Input and export files
 ### Binary data
 The format of input binary data can be number or character:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data_Input.jpg">
