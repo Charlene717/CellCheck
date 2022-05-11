@@ -4,7 +4,6 @@
 ## Overview
 CellCheck is a toolkit for validating single-cell analysis with visualization.
 <br> It can also be applied to other use. For example, it can be extended to find biomarkers or gene signatures from the database such as TCGA
-<br> You can manipulate three types of data with CellCheck: binary data, multiple discrete data, and continuous data.
 
 
 ## Required software
@@ -35,11 +34,12 @@ CellCheck runs in the R statistical computing environment. You will need R versi
 ```
 
 ## Usage
-
+<br> You can manipulate three types of data with CellCheck: binary data, multiple discrete data, and continuous data.
+<br> You can try to load the following demo RData to run the whole function in CellCheck.
 #### Load the Demo RData ####
 ```{r, eval = FALSE}
 ## Load simulation datafrme ##
-  load("Create_simulation_datafrme.RData")
+  load("Create_simulation_datafrme3.RData")
 ```
 #### Run the Demo script ####
 ```{r, eval = FALSE}
