@@ -12,7 +12,7 @@
 ## https://stackoverflow.com/questions/23891140/r-how-to-visualize-confusion-matrix-using-the-caret-package
 ## @Cybernetic  ## https://stackoverflow.com/users/1639594/cybernetic
 
-draw_confusion_matrix <- function(cm,TestID = "Predict1") {
+Bi_CMPlotSim <- function(cm,TestID = "Predict1") {
 
   layout(matrix(c(1,1,2)))
   par(mar=c(2,2,2,2))

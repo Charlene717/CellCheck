@@ -47,14 +47,14 @@
 
   ## Plot CM
   p1 <- Bi_CMPlot(cm_Bi)
-  p2 <- draw_confusion_matrix(cm_Bi)
+  p2 <- Bi_CMPlotSim(cm_Bi)
 
   ## Export CM PDF
   pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMax_",CMPredSet.lt[["Predict"]],".pdf"),
       width = 17,  height = 12
   )
     Bi_CMPlot(cm_Bi)
-    draw_confusion_matrix(cm_Bi)
+    Bi_CMPlotSim(cm_Bi)
   dev.off()
   rm(p1,p2,CMPredSet.lt,cm_Bi)
 
@@ -75,7 +75,7 @@
     # cm_Bi <- cm_Bi.lt[["Predict2"]]
     #
     # ## Draw Confusion matrix
-    # draw_confusion_matrix(cm_Bi)
+    # Bi_CMPlotSim(cm_Bi)
     # Bi_CMPlot(cm_Bi)
     # rm(cm_Bi)
 
@@ -99,7 +99,7 @@
     )
     for (i in 1:length(cm_Bi.lt)) {
 
-      draw_confusion_matrix(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
+      Bi_CMPlotSim(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
     }
     dev.off() #graphics.off()
     rm(i)
