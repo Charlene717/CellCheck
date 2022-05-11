@@ -4,8 +4,10 @@
 ## Overview
 CellCheck is a toolkit for validating single-cell analysis with visualization.
 <br> You can use CellCheck to verify malignancy annotation, cell type annotation, scoring, and deconvolution results from the different conditions. For example, you can compare the performance of different scRNA-seq analysis tools, or different improved algorithms. You can also optimize the parameters used in these tools.
-<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/CellCheck_Overview.jpg">
 <br> It can also be applied to other use. For example, it can be extended to find biomarkers or gene signatures from the database such as TCGA.
+<br> 
+<br> 
+<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/CellCheck_Overview.jpg">
 
 ## Required software
 CellCheck runs in the R statistical computing environment. You will need R version 3.6.3 or to have access to the latest features.
