@@ -48,9 +48,6 @@ You can manipulate three types of data with CellCheck: binary data, multiple dis
 source("Demo_CellTypeAnno.R", echo = TRUE, max.deparse.length=10000, encoding="utf-8",
        print.eval = TRUE) 
 ```
-## Annotation table
-The format of annotation table for each prediction is like this:
-<p style="text-align:center;"><img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Annotation%20table.jpg">
 
 ## Input and export files
 ### Binary data
