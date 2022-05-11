@@ -24,13 +24,13 @@
 
 ##### Current path and new folder setting*  #####
   ProjectName = "CC"
-  Version = paste0(Sys.Date(),"_",ProjectName,"_Demo")
+  Version = paste0(Sys.Date(),"_",ProjectName,"_Demo3")
   Save.Path = paste0(getwd(),"/",Version)
   dir.create(Save.Path)  # Create folder
 
 
 ##### Load simulation datafrme* #####
-  load("Create_simulation_datafrme.RData")
+  load("Create_simulation_datafrme3.RData")
 
 #####-----------------------------------(Binary data)-----------------------------------#####
 #### Calculate the confusion matrix(CM) ####
@@ -136,7 +136,7 @@
 
     #### Export one Designated MetricLine PDF ####
     ## Plot by Designated Metric
-    LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Accuracy", Group = "Type")
+    LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Accuracy", Group = "Tool")
     p <- CC_LinePlot(Sum_Bi.df, XValue = LineMetricSet.lt[["XValue"]],
                      Metrics = LineMetricSet.lt[["Metrics"]],
                      Group = LineMetricSet.lt[["Group"]])
@@ -249,7 +249,7 @@
     Sum_DisMult_All.df <- left_join(Sum_DisMult_All.df, Simu_Anno.df)
 
     ## Remove in the future
-    Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df$Type == "Type1",]
+    Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df$Tool == "ToolA",]
 
       #### Export MetricBar PDF ####
       ## Plot one Designated MetricBar
@@ -300,8 +300,8 @@
       rm(p,i,LineMetricSet.lt)
 
       #### Export tsv files ####
-    write.table(Sum_DisMult_All.df[,-4:-5], file=paste0(Save.Path,"/",ProjectName,"_Sum_DisMult_All.tsv"),sep="\t",
-                row.names=F, quote = FALSE)
+      write.table(Sum_DisMult_All.df[,-4:-5], file=paste0(Save.Path,"/",ProjectName,"_Sum_DisMult_All.tsv"),sep="\t",
+                  row.names=F, quote = FALSE)
 
     #### Build summarize dataframe ####
     for (i in 1:length(conf_mat.lt)) {
@@ -337,7 +337,7 @@
         Sum_DisMult2.df$PARM <- factor(Sum_DisMult2.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
 
         ## Plot by Designated Metric
-        LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Balanced.Accuracy", Group = "Type")
+        LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Balanced.Accuracy", Group = "Tool")
         p <- CC_LinePlot(Sum_DisMult2.df, XValue = LineMetricSet.lt[["XValue"]],
                          Metrics = LineMetricSet.lt[["Metrics"]],
                          Group = LineMetricSet.lt[["Group"]])
@@ -421,13 +421,13 @@
   Sum_Conti.df$PARM <- factor(Sum_Conti.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
 
     #### Export one Designated MetricLine PDF ####
-    ## Plot by Designated Metric
-    BarMetricSet.lt <- list(XValue = "PARM", Metrics = "RMSE", Group = "Type")
+    ## Plot by Designated Metrics
+    BarMetricSet.lt <- list(XValue = "PARM", Metrics = "RMSE", Group = "Tool")
     p <- CC_LinePlot(Sum_Conti.df,
                      XValue = BarMetricSet.lt[["XValue"]],
                      Metrics = BarMetricSet.lt[["Metrics"]],
                      Group = BarMetricSet.lt[["Group"]])
-    rm(p,BarMetricSet.lt)
+    rm(p)
 
     #### Export all MetricLine PDF ####
     MA.set <- colnames(Sum_Conti.df)[2:(ncol(Sum_Conti.df)-ncol(Simu_Anno.df)+1)]
@@ -436,13 +436,13 @@
         width = 12,  height = 7)
       for (i in 1:length(MA.set)) {
         p <- CC_LinePlot(Sum_Conti.df,
-                         XValue = "PARM",
+                         XValue = BarMetricSet.lt[["XValue"]],
                          Metrics = MA.set[i],
-                         Group = "Type")
+                         Group = BarMetricSet.lt[["Group"]])
         p
       }
     dev.off() #graphics.off()
-    rm(p,i)
+    rm(p,i,BarMetricSet.lt)
 
   #### Export tsv files ####
   write.table(Sum_Conti.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_Conti.tsv"),sep="\t",
