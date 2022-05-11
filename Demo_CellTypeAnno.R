@@ -249,7 +249,8 @@
     Sum_DisMult_All.df <- left_join(Sum_DisMult_All.df, Simu_Anno.df)
 
     ## Remove in the future
-    Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df$Tool == "ToolA",]
+    # Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df$Tool == "ToolA",]
+    Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df$Type == "LUAD",]
 
       #### Export MetricBar PDF ####
       ## Plot one Designated MetricBar
