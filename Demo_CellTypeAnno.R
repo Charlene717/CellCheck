@@ -38,8 +38,7 @@
 
   #### For one prediction ####
   ## Set two comparisons
-  CMPredSet.lt <- list(Actual = "Actual",
-                       Predict = "Predict2")
+  CMPredSet.lt <- list(Actual = "Actual", Predict = "Predict2")
 
   ## Build CM
   cm_Bi <- confusionMatrix(data = Simu_Bi.df[,CMPredSet.lt[["Actual"]]] %>% as.factor(),
@@ -71,13 +70,6 @@
   ## Build summarize dataframe
   Sum_Bi.df <- Bi_SummarizeCM(cm_Bi.lt, Simu_Anno.df)
 
-    # ## Extract one CM form the CM list
-    # cm_Bi <- cm_Bi.lt[["Predict2"]]
-    #
-    # ## Draw Confusion matrix
-    # Bi_CMPlotSim(cm_Bi)
-    # Bi_CMPlot(cm_Bi)
-    # rm(cm_Bi)
 
   #### Export all CM PDF ####
     ## Full version
@@ -119,7 +111,7 @@
     pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar_",BarMetricSet.lt[["Metrics"]],".pdf"),
         width = 7,  height = 7
     )
-    p1
+      p1
     dev.off()
     rm(p1)
 
@@ -180,6 +172,7 @@
 ## Ref: https://www.researchgate.net/figure/Confusion-matrix-for-60-training-and-40-testing-strategy_fig4_338909223
 ## Ref: https://cran.r-project.org/web/packages/cvms/vignettes/Creating_a_confusion_matrix.html
   library(cvms)
+
   #### For one prediction ####
   DisMultCM.set <- "Predict2"
   conf_mat <- confusion_matrix(targets = Simu_DisMult.df$Actual,
@@ -258,55 +251,55 @@
     ## Remove in the future
     Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df$Type == "Type1",]
 
-    #### Export MetricBar PDF ####
-    ## Plot one Designated MetricBar
-    BarMetricSet.lt <- list(XValue = "Tool", Metrics = "Balanced.Accuracy", Group = "Class")
-    p1 <- CC_BarPlot(Sum_DisMult_All.df,
-                     XValue = BarMetricSet.lt[["XValue"]],
-                     Metrics = BarMetricSet.lt[["Metrics"]],
-                     Group = BarMetricSet.lt[["Group"]])
-    rm(p1)
+      #### Export MetricBar PDF ####
+      ## Plot one Designated MetricBar
+      BarMetricSet.lt <- list(XValue = "Tool", Metrics = "Balanced.Accuracy", Group = "Class")
+      p1 <- CC_BarPlot(Sum_DisMult_All.df,
+                       XValue = BarMetricSet.lt[["XValue"]],
+                       Metrics = BarMetricSet.lt[["Metrics"]],
+                       Group = BarMetricSet.lt[["Group"]])
+      rm(p1)
 
-    Metrics_DisMult.set <- colnames(Sum_DisMult_All.df)[6:(ncol(Sum_DisMult_All.df)-(ncol(Simu_Anno.df)-1))]
+      Metrics_DisMult.set <- colnames(Sum_DisMult_All.df)[6:(ncol(Sum_DisMult_All.df)-(ncol(Simu_Anno.df)-1))]
 
-    #### Export all MetricBar PDF ####
-    pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar_All.pdf"),
-        width = 7,  height = 7)
-    for (i in 1:length(Metrics_DisMult.set)) {
-      p <- CC_BarPlot(Sum_DisMult_All.df,
-                      XValue = BarMetricSet.lt[["XValue"]],
-                      Metrics = Metrics_DisMult.set[i],
-                      Group = BarMetricSet.lt[["Group"]])
-      p
-    }
-    dev.off() # graphics.off()
-    rm(p,i,BarMetricSet.lt)
+      #### Export all MetricBar PDF ####
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar_All.pdf"),
+          width = 7,  height = 7)
+      for (i in 1:length(Metrics_DisMult.set)) {
+        p <- CC_BarPlot(Sum_DisMult_All.df,
+                        XValue = BarMetricSet.lt[["XValue"]],
+                        Metrics = Metrics_DisMult.set[i],
+                        Group = BarMetricSet.lt[["Group"]])
+        p
+      }
+      dev.off() # graphics.off()
+      rm(p,i,BarMetricSet.lt)
 
-    #### Export MetricLine PDF ####
-    Sum_DisMult_All.df$PARM <- factor(Sum_DisMult_All.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
+      #### Export MetricLine PDF ####
+      Sum_DisMult_All.df$PARM <- factor(Sum_DisMult_All.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
 
-    ## Plot by Designated Metric
-    LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Balanced.Accuracy", Group = "Class")
-    p <- CC_LinePlot(Sum_DisMult_All.df, XValue = LineMetricSet.lt[["XValue"]],
-                     Metrics = LineMetricSet.lt[["Metrics"]],
-                     Group = LineMetricSet.lt[["Group"]])
-
-    #### Export all MetricLine PDF ####
-    Metrics_DisMult.set <- colnames(Sum_DisMult_All.df)[6:(ncol(Sum_DisMult_All.df)-(ncol(Simu_Anno.df)-1))]
-
-    pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine_All.pdf"),
-        width = 10,  height = 7)
-    for (i in 1:length(Metrics_DisMult.set)) {
-      p <- CC_LinePlot(Sum_DisMult_All.df,
-                       XValue = LineMetricSet.lt[["XValue"]],
-                       Metrics = Metrics_DisMult.set[i],
+      ## Plot by Designated Metric
+      LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Balanced.Accuracy", Group = "Class")
+      p <- CC_LinePlot(Sum_DisMult_All.df, XValue = LineMetricSet.lt[["XValue"]],
+                       Metrics = LineMetricSet.lt[["Metrics"]],
                        Group = LineMetricSet.lt[["Group"]])
-      p
-    }
-    dev.off() # graphics.off()
-    rm(p,i,LineMetricSet.lt)
 
-    #### Export tsv files ####
+      #### Export all MetricLine PDF ####
+      Metrics_DisMult.set <- colnames(Sum_DisMult_All.df)[6:(ncol(Sum_DisMult_All.df)-(ncol(Simu_Anno.df)-1))]
+
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine_All.pdf"),
+          width = 10,  height = 7)
+      for (i in 1:length(Metrics_DisMult.set)) {
+        p <- CC_LinePlot(Sum_DisMult_All.df,
+                         XValue = LineMetricSet.lt[["XValue"]],
+                         Metrics = Metrics_DisMult.set[i],
+                         Group = LineMetricSet.lt[["Group"]])
+        p
+      }
+      dev.off() # graphics.off()
+      rm(p,i,LineMetricSet.lt)
+
+      #### Export tsv files ####
     write.table(Sum_DisMult_All.df[,-4:-5], file=paste0(Save.Path,"/",ProjectName,"_Sum_DisMult_All.tsv"),sep="\t",
                 row.names=F, quote = FALSE)
 
@@ -326,105 +319,48 @@
     ## Add annotation dataframe
     Sum_DisMult2.df <- left_join(Sum_DisMult2.df, Simu_Anno.df)
 
-  #### Export all MetricBar PDF ####
-    Metrics_DisMult.set <- colnames(Sum_DisMult2.df)[5:(ncol(Sum_DisMult2.df)-(ncol(Simu_Anno.df)-1))]
-    BarMetricSet.lt <- list(XValue = "Tool", Metrics = "Balanced.Accuracy", Group = "Type")
-    pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar.pdf"),
-        width = 7,  height = 7)
-    for (i in 1:length(Metrics_DisMult.set)) {
-      p <- CC_BarPlot(Sum_DisMult2.df,
-                      XValue = BarMetricSet.lt[["XValue"]],
-                      Metrics = Metrics_DisMult.set[i],
-                      Group = BarMetricSet.lt[["Group"]])
-      p
-    }
-    dev.off() # graphics.off()
-    rm(p, i, BarMetricSet.lt, Metrics_DisMult.set)
-  #### Export MetricLine PDF ####
-    Sum_DisMult2.df$PARM <- factor(Sum_DisMult2.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
+      #### Export all MetricBar PDF ####
+        Metrics_DisMult.set <- colnames(Sum_DisMult2.df)[5:(ncol(Sum_DisMult2.df)-(ncol(Simu_Anno.df)-1))]
+        BarMetricSet.lt <- list(XValue = "Tool", Metrics = "Balanced.Accuracy", Group = "Type")
+        pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar.pdf"),
+            width = 7,  height = 7)
+        for (i in 1:length(Metrics_DisMult.set)) {
+          p <- CC_BarPlot(Sum_DisMult2.df,
+                          XValue = BarMetricSet.lt[["XValue"]],
+                          Metrics = Metrics_DisMult.set[i],
+                          Group = BarMetricSet.lt[["Group"]])
+          p
+        }
+        dev.off() # graphics.off()
+        rm(p, i, BarMetricSet.lt, Metrics_DisMult.set)
+      #### Export MetricLine PDF ####
+        Sum_DisMult2.df$PARM <- factor(Sum_DisMult2.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
 
-    ## Plot by Designated Metric
-    LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Balanced.Accuracy", Group = "Type")
-    p <- CC_LinePlot(Sum_DisMult2.df, XValue = LineMetricSet.lt[["XValue"]],
-                     Metrics = LineMetricSet.lt[["Metrics"]],
-                     Group = LineMetricSet.lt[["Group"]])
+        ## Plot by Designated Metric
+        LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Balanced.Accuracy", Group = "Type")
+        p <- CC_LinePlot(Sum_DisMult2.df, XValue = LineMetricSet.lt[["XValue"]],
+                         Metrics = LineMetricSet.lt[["Metrics"]],
+                         Group = LineMetricSet.lt[["Group"]])
 
-    #### Export all MetricLine PDF ####
-    Metrics_DisMult.set <- colnames(Sum_DisMult2.df)[5:(ncol(Sum_DisMult2.df)-(ncol(Simu_Anno.df)-1))]
+      #### Export all MetricLine PDF ####
+      Metrics_DisMult.set <- colnames(Sum_DisMult2.df)[5:(ncol(Sum_DisMult2.df)-(ncol(Simu_Anno.df)-1))]
 
-    pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine.pdf"),
-        width = 10,  height = 7)
-    for (i in 1:length(Metrics_DisMult.set)) {
-      p <- CC_LinePlot(Sum_DisMult2.df,
-                       XValue = LineMetricSet.lt[["XValue"]],
-                       Metrics = Metrics_DisMult.set[i],
-                       Group = LineMetricSet.lt[["Group"]])
-      p
-    }
-    dev.off() # graphics.off()
-    rm(p,i,LineMetricSet.lt)
+      pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine.pdf"),
+          width = 10,  height = 7)
+      for (i in 1:length(Metrics_DisMult.set)) {
+        p <- CC_LinePlot(Sum_DisMult2.df,
+                         XValue = LineMetricSet.lt[["XValue"]],
+                         Metrics = Metrics_DisMult.set[i],
+                         Group = LineMetricSet.lt[["Group"]])
+        p
+      }
+      dev.off() # graphics.off()
+      rm(p,i,LineMetricSet.lt)
 
-    #### Export tsv files ####
-    write.table(Sum_DisMult2.df[,-2:-4], file=paste0(Save.Path,"/",ProjectName,"_Sum_DisMult.tsv"),sep="\t",
-                row.names=F, quote = FALSE)
+     #### Export tsv files ####
+      write.table(Sum_DisMult2.df[,-2:-4], file=paste0(Save.Path,"/",ProjectName,"_Sum_DisMult.tsv"),sep="\t",
+                  row.names=F, quote = FALSE)
 
-
-
-# ##### Calculate Accuracy(ACC) and Misclassification rate (Error Rate, ER) #####
-#   Sum_DisMult.df <- DiscMult_AccEr(Simu_DisMult.df, Simu_Anno.df)
-#
-#   #### Export MetricBar PDF ####
-#   ## Plot one Designated MetricBar
-#   BarMetricSet.lt <- list(XValue = "Type", Metrics = "Accuracy", Group = "Tool")
-#   p1 <- CC_BarPlot(Sum_DisMult.df,
-#                    XValue = BarMetricSet.lt[["XValue"]],
-#                    Metrics = BarMetricSet.lt[["Metrics"]],
-#                    Group = BarMetricSet.lt[["Group"]])
-#   rm(p1)
-#
-#   Metrics_DisMult.set <- colnames(Sum_DisMult.df)[2:(ncol(Sum_DisMult.df)-(ncol(Simu_Anno.df)-1))]
-#
-#   #### Export all MetricBar PDF ####
-#   pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar.pdf"),
-#       width = 7,  height = 7)
-#   for (i in 1:length(Metrics_DisMult.set)) {
-#     p <- CC_BarPlot(Sum_DisMult.df,
-#                     XValue = BarMetricSet.lt[["XValue"]],
-#                     Metrics = Metrics_DisMult.set[i],
-#                     Group = BarMetricSet.lt[["Group"]])
-#     p
-#   }
-#   dev.off() # graphics.off()
-#   rm(p,i,BarMetricSet.lt)
-#
-#   #### Export MetricLine PDF ####
-#   Sum_DisMult.df$PARM <- factor(Sum_DisMult.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
-#
-#   ## Plot by Designated Metric
-#   LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Accuracy", Group = "Type")
-#   p <- CC_LinePlot(Sum_DisMult.df, XValue = LineMetricSet.lt[["XValue"]],
-#                    Metrics = LineMetricSet.lt[["Metrics"]],
-#                    Group = LineMetricSet.lt[["Group"]])
-#
-#   #### Export all MetricLine PDF ####
-#   Metrics_DisMult.set <- colnames(Sum_DisMult.df)[2:(ncol(Sum_DisMult.df)-(ncol(Simu_Anno.df)-1))]
-#
-#   pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine.pdf"),
-#       width = 7,  height = 7)
-#   for (i in 1:length(Metrics_DisMult.set)) {
-#     p <- CC_LinePlot(Sum_DisMult.df,
-#                      XValue = LineMetricSet.lt[["XValue"]],
-#                      Metrics = Metrics_DisMult.set[i],
-#                      Group = LineMetricSet.lt[["Group"]])
-#     p
-#   }
-#   dev.off() # graphics.off()
-#   rm(p,i,LineMetricSet.lt)
-#
-#   #### Export tsv files ####
-#   write.table(Sum_DisMult.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_DisMult.tsv"),sep="\t",
-#               row.names=F, quote = FALSE)
-#
 
 #####---------------------------------(Continuous data)---------------------------------#####
 
@@ -436,20 +372,18 @@
   for (i in 1:(ncol(Simu_Conti.df)-1)) {
     if(i==1){
       MA.df <- Conti_Accuracy(Simu_Conti.df[,1],
-                                Simu_Conti.df[,1+i])
+                              Simu_Conti.df[,1+i])
       row.names(MA.df) <- colnames(Simu_Conti.df)[i+1]
     }else{
       MA_New.df <- Conti_Accuracy(Simu_Conti.df[,1],
-                                Simu_Conti.df[,1+i])
+                                  Simu_Conti.df[,1+i])
       row.names(MA_New.df) <- colnames(Simu_Conti.df)[i+1]
       MA.df <- rbind(MA.df, MA_New.df)
-
     }
-
   }
   rm(i,MA_New.df)
 
-  MA.df <- data.frame(TestID=row.names(MA.df), MA.df)
+  MA.df <- data.frame(TestID = row.names(MA.df), MA.df)
   MA.df <- left_join(MA.df, Simu_Anno.df)
 
   #### Export MetricBar PDF ####
@@ -486,29 +420,29 @@
   #### Export MetricsLine PDF ####
   MA.df$PARM <- factor(MA.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
 
-  #### Export one Designated MetricLine PDF ####
-  ## Plot by Designated Metric
-  BarMetricSet.lt <- list(XValue = "PARM", Metrics = "RMSE", Group = "Type")
-  p <- CC_LinePlot(MA.df,
-                   XValue = BarMetricSet.lt[["XValue"]],
-                   Metrics = BarMetricSet.lt[["Metrics"]],
-                   Group = BarMetricSet.lt[["Group"]])
-  rm(p)
+    #### Export one Designated MetricLine PDF ####
+    ## Plot by Designated Metric
+    BarMetricSet.lt <- list(XValue = "PARM", Metrics = "RMSE", Group = "Type")
+    p <- CC_LinePlot(MA.df,
+                     XValue = BarMetricSet.lt[["XValue"]],
+                     Metrics = BarMetricSet.lt[["Metrics"]],
+                     Group = BarMetricSet.lt[["Group"]])
+    rm(p)
 
-  #### Export all MetricLine PDF ####
-  MA.set <- colnames(MA.df)[2:(ncol(MA.df)-ncol(Simu_Anno.df)+1)]
+    #### Export all MetricLine PDF ####
+    MA.set <- colnames(MA.df)[2:(ncol(MA.df)-ncol(Simu_Anno.df)+1)]
 
-  pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsLine.pdf"),
-      width = 12,  height = 7)
-    for (i in 1:length(MA.set)) {
-      p <- CC_LinePlot(MA.df,
-                       XValue = "PARM",
-                       Metrics = MA.set[i],
-                       Group = "Type")
-      p
-    }
-  dev.off() #graphics.off()
-  rm(p,i)
+    pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsLine.pdf"),
+        width = 12,  height = 7)
+      for (i in 1:length(MA.set)) {
+        p <- CC_LinePlot(MA.df,
+                         XValue = "PARM",
+                         Metrics = MA.set[i],
+                         Group = "Type")
+        p
+      }
+    dev.off() #graphics.off()
+    rm(p,i)
 
   #### Export tsv files ####
   write.table(MA.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_Conti.tsv"),sep="\t",
