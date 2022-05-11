@@ -3,7 +3,8 @@
 
 ## Overview
 CellCheck is a toolkit for validating single-cell analysis with visualization.
-<br> It can also be applied to other use. For example, it can be extended to find biomarkers or gene signatures from the database such as TCGA
+<br> It can also be applied to other use. For example, it can be extended to find biomarkers or gene signatures from the database such as TCGA.
+<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/CellCheck_Overview.jpg">
 
 
 ## Required software
