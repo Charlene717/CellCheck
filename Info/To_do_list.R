@@ -59,6 +59,7 @@
   #   - [x] LinePlot
   #   - [ ] LinePlot with SD
   #   - [ ] LinePlot with pvalue
+  #   - [ ] Heatmap
 
   # - [x] Save tsv files
 
