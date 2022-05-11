@@ -2,7 +2,6 @@
 ## A toolkit for validating single-cell analysis with visualization
 
 ## Overview
-
 CellCheck is a toolkit for validating single-cell analysis with visualization.
 You can manipulate three types of data with CellCheck: binary data, discrete Multiple data, and continuous data.
 
