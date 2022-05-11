@@ -322,7 +322,7 @@
 
       #### Export all MetricBar PDF ####
         Metrics_DisMult.set <- colnames(Sum_DisMult2.df)[5:(ncol(Sum_DisMult2.df)-(ncol(Simu_Anno.df)-1))]
-        BarMetricSet.lt <- list(XValue = "Tool", Metrics = "Balanced.Accuracy", Group = "Type")
+        BarMetricSet.lt <- list(XValue = "Type", Metrics = "Balanced.Accuracy", Group = "Tool")
         pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar.pdf"),
             width = 7,  height = 7)
         for (i in 1:length(Metrics_DisMult.set)) {

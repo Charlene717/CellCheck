@@ -34,7 +34,7 @@ CellCheck runs in the R statistical computing environment. You will need R versi
 ```
 
 ## Usage
-<br> You can manipulate three types of data with CellCheck: binary data, multiple discrete data, and continuous data.
+You can manipulate three types of data with CellCheck: binary data, multiple discrete data, and continuous data.
 <br> You can try to load the following demo RData to run the whole function in CellCheck.
 #### Load the Demo RData ####
 ```{r, eval = FALSE}
