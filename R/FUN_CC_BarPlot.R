@@ -19,11 +19,12 @@ CC_BarPlot <- function(Results.df, XValue = "Type", Metrics = "Accuracy", Group 
   ## Plot by Group
   p <- ggplot(data = Results.df, aes(x = Results.df[,XValue], y = Results.df[,Metrics],
                                      fill = Results.df[,Group]))+
-    geom_bar(stat = "identity", position = position_dodge(), color="black",lwd=0.7)+
+    geom_bar(stat = "identity", position = position_dodge(), color="black",lwd=0.7, alpha = 0.8)+
+    scale_fill_ptol(Group)+
     theme_bw()+theme(panel.grid=element_blank(),panel.border=element_blank(),
                      axis.line=element_line(size=0,colour="black")) # White background and remove grid
 
-  p2 <- p + scale_fill_brewer(palette = "Spectral")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
+  p2 <- p + #scale_fill_brewer(palette = "Spectral")+ # scale_fill_manual(values = c("#999999", "#E69F00", "#56B4E9"))
         labs(#title = colnames(Results.df)[Metrics],  # Change title in ggplot
           x = XValue,      # Change title of x axis in ggplot
           y = Metrics,       # Change title of y axis in ggplot
