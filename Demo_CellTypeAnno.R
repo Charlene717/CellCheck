@@ -5,14 +5,13 @@
 
 ##### Load Packages #####
   ## Check whether the installation of those packages is required
-  Package.set <- c("tidyverse","caret","cvms","DescTools","devtools","ggthemes")
+  Package.set <- c("tidyverse","caret","cvms","DescTools","devtools","ggthemes") # library(Seurat)
   for (i in 1:length(Package.set)) {
     if (!requireNamespace(Package.set[i], quietly = TRUE)){
       install.packages(Package.set[i])
     }
   }
   ## Load Packages
-  # library(Seurat)
   lapply(Package.set, library, character.only = TRUE)
   rm(Package.set,i)
 
@@ -30,7 +29,7 @@
   dir.create(Save.Path)  # Create folder
 
 
-##### Load simulation datafrme #####
+##### Load simulation datafrme* #####
   load("Create_simulation_datafrme.RData")
 
 #####-----------------------------------(Binary data)-----------------------------------#####
@@ -47,14 +46,14 @@
                            reference = Simu_Bi.df[,CMPredSet.lt[["Predict"]]] %>% as.factor())
 
   ## Plot CM
-  p1 <- Draw_Bi_CM(cm_Bi)
+  p1 <- Bi_CMPlot(cm_Bi)
   p2 <- draw_confusion_matrix(cm_Bi)
 
   ## Export CM PDF
   pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMax_",CMPredSet.lt[["Predict"]],".pdf"),
       width = 17,  height = 12
   )
-    Draw_Bi_CM(cm_Bi)
+    Bi_CMPlot(cm_Bi)
     draw_confusion_matrix(cm_Bi)
   dev.off()
   rm(p1,p2,CMPredSet.lt,cm_Bi)
@@ -70,14 +69,14 @@
   rm(i)
 
   ## Build summarize dataframe
-  Sum_Bi.df <- Summarize_BiCM(cm_Bi.lt, Simu_Anno.df)
+  Sum_Bi.df <- Bi_SummarizeCM(cm_Bi.lt, Simu_Anno.df)
 
     # ## Extract one CM form the CM list
     # cm_Bi <- cm_Bi.lt[["Predict2"]]
     #
     # ## Draw Confusion matrix
     # draw_confusion_matrix(cm_Bi)
-    # Draw_Bi_CM(cm_Bi)
+    # Bi_CMPlot(cm_Bi)
     # rm(cm_Bi)
 
   #### Export all CM PDF ####
@@ -88,7 +87,7 @@
     )
     for (i in 1:length(cm_Bi.lt)) {
 
-      Draw_Bi_CM(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
+      Bi_CMPlot(cm_Bi.lt[[i]],names(cm_Bi.lt[i]))
     }
     dev.off() #graphics.off()
     rm(i)
@@ -96,7 +95,7 @@
     ## Simple version
     pdf(
       file = paste0(Save.Path,"/",ProjectName,"_Bi_ConfuMaxSimp.pdf"),
-      width = 10,  height = 7
+      width = 12,  height = 8
     )
     for (i in 1:length(cm_Bi.lt)) {
 
@@ -372,7 +371,7 @@
 
 
 # ##### Calculate Accuracy(ACC) and Misclassification rate (Error Rate, ER) #####
-#   Sum_DisMult.df <- AccEr_DiscMult(Simu_DisMult.df, Simu_Anno.df)
+#   Sum_DisMult.df <- DiscMult_AccEr(Simu_DisMult.df, Simu_Anno.df)
 #
 #   #### Export MetricBar PDF ####
 #   ## Plot one Designated MetricBar
@@ -431,16 +430,16 @@
 
   library(DescTools)
 
-  # MA.df <- Measure_Accuracy(Simu_Conti.df$Actual,Simu_Conti.df$Predict2)
+  # MA.df <- Conti_Accuracy(Simu_Conti.df$Actual,Simu_Conti.df$Predict2)
 
   #### Create Measure accuracy dataframe (MA.df) ####
   for (i in 1:(ncol(Simu_Conti.df)-1)) {
     if(i==1){
-      MA.df <- Measure_Accuracy(Simu_Conti.df[,1],
+      MA.df <- Conti_Accuracy(Simu_Conti.df[,1],
                                 Simu_Conti.df[,1+i])
       row.names(MA.df) <- colnames(Simu_Conti.df)[i+1]
     }else{
-      MA_New.df <- Measure_Accuracy(Simu_Conti.df[,1],
+      MA_New.df <- Conti_Accuracy(Simu_Conti.df[,1],
                                 Simu_Conti.df[,1+i])
       row.names(MA_New.df) <- colnames(Simu_Conti.df)[i+1]
       MA.df <- rbind(MA.df, MA_New.df)

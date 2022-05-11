@@ -6,11 +6,11 @@
 #' @keywords summarize the confusion matrix
 #' @export
 #' @examples
-#' Summarize_BiCM(cm.lt, Anno.df)
+#' Bi_SummarizeCM(cm.lt, Anno.df)
 #'
 
 
-Summarize_BiCM <- function(cm.lt, Anno.df) {
+Bi_SummarizeCM <- function(cm.lt, Anno.df) {
 
   ## Summary of result dataframe
   # CM_Summary.df <- ""

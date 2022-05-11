@@ -12,7 +12,7 @@
 
 ##### Calculate Accuracy(ACC) and Misclassification rate (Error Rate, ER) #####
 
-AccEr_DiscMult <- function(Simu_DisMult.df, Simu_Anno.df) {
+DiscMult_AccEr <- function(Simu_DisMult.df, Simu_Anno.df) {
 
   # Simu_DisMult.df$Correctness1 <- ""
 
