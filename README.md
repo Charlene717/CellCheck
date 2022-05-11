@@ -5,7 +5,6 @@
 CellCheck is a toolkit for validating single-cell analysis with visualization.
 <br> You can use CellCheck to verify malignancy annotation, cell type annotation, scoring, and deconvolution results from the different conditions. For example, you can compare the performance of different scRNA-seq analysis tools, or different improved algorithms. You can also optimize the parameters used in these tools.
 <br> 
-<br> 
 <br> It can also be applied to other use. For example, it can be extended to find biomarkers or gene signatures from the database such as TCGA.
 <br> 
 <br> 
@@ -57,23 +56,29 @@ source("Demo_CellTypeAnno.R", echo = TRUE, max.deparse.length=10000, encoding="u
 
 ## Input and export files
 ### Binary data
+<br> 
 The format of input binary data can be number or character:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data_Input.jpg">
-
+<br> 
+<br> 
 The outputs binary data has confusion matrix(CM), barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data.jpg">
 
 ## Discrete multiple data
+<br> 
 The format of input discrete multiple data can be number or character:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data_Input.jpg">
-
+<br> 
+<br> 
 The outputs discrete multiple data has confusion matrix(CM), barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data.jpg">
 
 ## Continuous data
+<br> 
 The format of input continuous data would be number:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data_Input.jpg">
-
+<br> 
+<br> 
 The outputs continuous data has barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data.jpg">
 
