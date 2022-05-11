@@ -4,7 +4,11 @@
 ## Overview
 CellCheck is a toolkit for validating single-cell analysis with visualization.
 <br> You can use CellCheck to verify malignancy annotation, cell type annotation, scoring, and deconvolution results from the different conditions. For example, you can compare the performance of different scRNA-seq analysis tools, or different improved algorithms. You can also optimize the parameters used in these tools.
+<br> 
+<br> 
 <br> It can also be applied to other use. For example, it can be extended to find biomarkers or gene signatures from the database such as TCGA.
+<br> 
+<br> 
 <br> 
 <br> 
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/CellCheck_Overview.jpg">
