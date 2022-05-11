@@ -1,6 +1,5 @@
 # CellCheck <img src="Figures/CellCheck2.png" align="right" width="120" />
 ## A toolkit for validating single-cell analysis with visualization
-<br> 
 
 ## Overview
 CellCheck is a toolkit for validating single-cell analysis with visualization.
