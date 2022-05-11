@@ -3,7 +3,8 @@
 
 ## Overview
 CellCheck is a toolkit for validating single-cell analysis with visualization.
-You can manipulate three types of data with CellCheck: binary data, discrete Multiple data, and continuous data.
+\n It can also be applied to other use. For example, it can be extended to find biomarkers or gene signatures from the database such as TCGA
+\n You can manipulate three types of data with CellCheck: binary data, multiple discrete data, and continuous data.
 
 
 ## Required software
