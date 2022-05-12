@@ -15,7 +15,6 @@ CellCheck is a toolkit for validating single-cell analysis with visualization.
 <br>
 
 
-
 ## Required software
 CellCheck runs in the R statistical computing environment. You will need R version 3.6.3 or to have access to the latest features.
 
