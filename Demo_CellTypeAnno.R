@@ -34,17 +34,17 @@
   # load("Create_simulation_datafrme3.RData")
   # write.table(Simu_Anno.df, file=paste0(Save.Path,"/",ProjectName,"_Simu_Anno.tsv"),sep="\t",
   #             row.names=F, quote = FALSE)
-  # write.table(Simu_Bi2.df, file=paste0(Save.Path,"/",ProjectName,"_Simu_Bi.df"),sep="\t",
+  # write.table(Simu_Bi2.df, file=paste0(Save.Path,"/",ProjectName,"_Simu_Bi.tsv"),sep="\t",
   #             row.names=F, quote = FALSE)
-  # write.table(Simu_DisMult.df, file=paste0(Save.Path,"/",ProjectName,"_Simu_DisMult.df"),sep="\t",
+  # write.table(Simu_DisMult.df, file=paste0(Save.Path,"/",ProjectName,"_Simu_DisMult.tsv"),sep="\t",
   #             row.names=F, quote = FALSE)
-  # write.table(Simu_Conti.df, file=paste0(Save.Path,"/",ProjectName,"_Simu_Conti.df"),sep="\t",
+  # write.table(Simu_Conti.df, file=paste0(Save.Path,"/",ProjectName,"_Simu_Conti.tsv"),sep="\t",
   #             row.names=F, quote = FALSE)
   #####
   Simu_Anno.df <-read.delim(file=paste0("./#_Input_Simu/",ProjectName,"_Simu_Anno.tsv"),sep="\t")
-  Simu_Bi2.df <-read.delim(file=paste0("./#_Input_Simu/",ProjectName,"_Simu_Bi.df"),sep="\t")
-  Simu_DisMult.df <-read.delim(file=paste0("./#_Input_Simu/",ProjectName,"_Simu_DisMult.df"),sep="\t")
-  Simu_Conti.df <-read.delim(file=paste0("./#_Input_Simu/",ProjectName,"_Simu_Conti.df"),sep="\t")
+  Simu_Bi2.df <-read.delim(file=paste0("./#_Input_Simu/",ProjectName,"_Simu_Bi.tsv"),sep="\t")
+  Simu_DisMult.df <-read.delim(file=paste0("./#_Input_Simu/",ProjectName,"_Simu_DisMult.tsv"),sep="\t")
+  Simu_Conti.df <-read.delim(file=paste0("./#_Input_Simu/",ProjectName,"_Simu_Conti.tsv"),sep="\t")
 
 #####-----------------------------------(Binary data)-----------------------------------#####
 #### Calculate the confusion matrix(CM) ####
