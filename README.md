@@ -1,4 +1,4 @@
-# CellCheck <img src="Figures/CellCheck2.png" align="right" width="120" />
+# CellCheck <img src="Figures/CellCheck.png" align="right" width="120" />
 ## A toolkit for validating single-cell analysis with visualization
 
 ## Overview
