@@ -48,9 +48,10 @@
 
 #####-----------------------------------(Binary data)-----------------------------------#####
 #### Calculate the confusion matrix(CM) ####
-  ## Test Function
   CMPredSet.lt <- list(Actual = "Actual", Predict = "Predict2")
-  Sum_Bi.df <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "", CMPredSet.lt, # Mode = c("One","Multiple")
+  cm_Bi.lt <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "One", CMPredSet.lt,
+                            Save.Path = Save.Path, ProjectName = ProjectName)
+  Sum_Bi.df <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple", CMPredSet.lt,
                             Save.Path = Save.Path, ProjectName = ProjectName)
 
 

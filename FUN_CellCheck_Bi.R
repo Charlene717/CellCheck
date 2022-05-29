@@ -25,7 +25,8 @@ CellCheck_Bi <- function(Simu_Bi.df, Simu_Anno.df, Mode = "One", CMPredSet.lt, #
     Bi_CMPlot(cm_Bi) %>% print()
     Bi_CMPlotSim(cm_Bi) %>% print()
     dev.off()
-    rm(CMPredSet.lt,cm_Bi)
+    
+    return(cm_Bi)
     
   }else{
     #### For all predictions ####
