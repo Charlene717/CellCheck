@@ -5,7 +5,7 @@ CellCheck_Bi <- function(Simu_Bi.df, Simu_Anno.df, Mode = "One", CMPredSet.lt, #
   #### Calculate the confusion matrix(CM) ####
   library(caret)
   
-  # #### For one prediction ####
+  #### For one prediction ####
   # ## Set two comparisons
   # CMPredSet.lt <- list(Actual = "Actual", Predict = "Predict2")
   
