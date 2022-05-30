@@ -56,6 +56,7 @@ CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
     )
     p1 %>% print()
     dev.off()
+
     rm(p1)
 
   }else{
@@ -71,6 +72,8 @@ CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
       p %>% print()
     }
     dev.off()  #graphics.off()
+    p %>% print()
+
     rm(p,i,BarMetricSet.lt,MA.set)
 
 
