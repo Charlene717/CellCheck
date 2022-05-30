@@ -59,6 +59,12 @@ source("Demo_CellCheck.R", echo = TRUE, max.deparse.length=10000, encoding="utf-
 
 ## Input and export files
 ### Binary data
+<br> 
+The format of input binary data can be number or character:
+<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data_Input.jpg">
+<br>
+
+Run the code:
 ```{r, eval = FALSE}
   ## For one prediction
   CMPredSet.lt <- list(Actual = "Actual", Predict = "Predict2")
@@ -68,15 +74,18 @@ source("Demo_CellCheck.R", echo = TRUE, max.deparse.length=10000, encoding="utf-
   Sum_Bi.df <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple",
                             Save.Path = Save.Path, ProjectName = ProjectName)
 ```
-<br> 
-The format of input binary data can be number or character:
-<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data_Input.jpg">
-<br> 
+
 <br> 
 The outputs binary data has confusion matrix(CM), barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data.jpg">
 
 ## Discrete multiple data
+<br> 
+The format of input discrete multiple data can be number or character:
+<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data_Input.jpg">
+<br>
+
+Run the code:
 ```{r, eval = FALSE}
   ## For one prediction
   DisMultCM.lt <- list(Actual = "Actual", Predict = "Predict2")
@@ -86,15 +95,18 @@ The outputs binary data has confusion matrix(CM), barplot, and lineplot:
   Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple",
                                       Save.Path = Save.Path, ProjectName = ProjectName)
 ```
-<br> 
-The format of input discrete multiple data can be number or character:
-<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data_Input.jpg">
-<br> 
+
 <br> 
 The outputs discrete multiple data has confusion matrix(CM), barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data.jpg">
 
 ## Continuous data
+<br> 
+The format of input continuous data would be number:
+<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data_Input.jpg">
+<br> 
+
+Run the code:
 ```{r, eval = FALSE}
   ## For one index
   BarMetricSet.lt <- list(XValue = "Type", Metrics = "RMSE", Group = "Tool")
@@ -104,10 +116,7 @@ The outputs discrete multiple data has confusion matrix(CM), barplot, and linepl
   Sum_Conti.df <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple",BarMetricSet.lt,
                                   Save.Path = Save.Path, ProjectName = ProjectName)
 ```
-<br> 
-The format of input continuous data would be number:
-<img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data_Input.jpg">
-<br> 
+
 <br> 
 The outputs continuous data has barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data.jpg">
