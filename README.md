@@ -101,7 +101,6 @@ The outputs discrete multiple data has confusion matrix(CM), barplot, and linepl
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data.jpg">
 <br> 
 
-
 ## Continuous data
 The format of input continuous data would be number:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data_Input.jpg">
