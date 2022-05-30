@@ -1,29 +1,49 @@
+#' A function for creating summarize results of multiple discrete data.
+#'
+#' This function allows you to create summarize results from multiple discrete data.
+#' @param DisMult.df A multiple discrete dataframe of answers and results.
+#' @param Anno.df  A dataframe of annotation.
+#' @param Mode one of 'One' or 'Multiple'. Chose Mode = "One" will export the confusion matrix of chosen prediction result by the setting of DisMultCM.lt, and chose Mode = "Multiple" will export all predictions and integrated results.
+#' @param DisMultCM.lt Set correct answers and predicted results for subsequent comparison in Mode = "one".
+#' @param Save.Path The setting of the saving path.Defaults to the path of the scripts folder.
+#' @param ProjectName The naming of project Name.
+#' @keywords Summarize results of multiple discrete data.
+#' @export
+#' @examples
+#' CellCheck_Bi(Simu_DisMult.df, Simu_Anno.df,
+#'              Mode = "Multiple", DisMultCM.lt,
+#'              Save.Path="", ProjectName="")
+#'
+
+
 ##### calculate the confusion matrix for Multi-Class Classification #####
 ## Ref: https://www.researchgate.net/figure/Confusion-matrix-for-60-training-and-40-testing-strategy_fig4_338909223
 ## Ref: https://cran.r-project.org/web/packages/cvms/vignettes/Creating_a_confusion_matrix.html
 
-CellCheck_DisMult <- function(Simu_DisMult, Simu_Anno.df, Mode = "Multiple", DisMultCM.set, # Mode = c("One","Multiple")
+CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple", DisMultCM.lt, # Mode = c("One","Multiple")
                               Save.Path="", ProjectName="") {
   library(cvms)
 
   if(Mode == "One"){
     #### For one prediction ####
-    # DisMultCM.set <- "Predict2"
-    conf_mat <- confusion_matrix(targets = Simu_DisMult.df[,1], # Simu_DisMult.df$Actual
-                                 predictions = Simu_DisMult.df[,DisMultCM.set])
+    # ## Set two comparisons
+    # DisMultCM.lt <- list(Actual = "Actual", Predict = "Predict2")
+
+    conf_mat <- confusion_matrix(targets = Simu_DisMult.df[,DisMultCM.lt[["Actual"]]], # Simu_DisMult.df$Actual
+                                 predictions = Simu_DisMult.df[,DisMultCM.lt[["Predict"]]])
 
     conf_mat
 
     plot_confusion_matrix(conf_mat$`Confusion Matrix`[[1]],
                           add_sums = TRUE)
     pdf(
-      file = paste0(Save.Path,"/",ProjectName,"_DisMult_ConfuMax_",DisMultCM.set,".pdf"),
+      file = paste0(Save.Path,"/",ProjectName,"_DisMult_ConfuMax_",DisMultCM.lt,".pdf"),
       width = 10,  height = 10
     )
     p1 <- plot_confusion_matrix(conf_mat$`Confusion Matrix`[[1]],
                                 add_sums = TRUE)
 
-    p1 + ggtitle(DisMultCM.set)+
+    p1 + ggtitle(DisMultCM.lt)+
       theme(axis.text.x = element_text(face="bold", color="#3d3d3d", size=12), #plot.margin = unit(c(2,3,3,4),"cm")
             axis.text.y = element_text(face="bold", color="#3d3d3d", size=12,angle=0),
             axis.title.x = element_text(face="bold", color="#3d3d3d", size=18),

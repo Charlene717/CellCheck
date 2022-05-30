@@ -1,4 +1,22 @@
-CellCheck_Conti <- function(Sum_Conti.df, Simu_Anno.df, Mode = "Multiple", # Mode = c("One","Multiple")
+#' A function for creating summarize results of continuous data.
+#'
+#' This function allows you to create summarize results from continuous data.
+#' @param Conti.df.df A dataframe of continuous answers and results.
+#' @param Anno.df  A dataframe of annotation.
+#' @param Mode one of 'One' or 'Multiple'. Chose Mode = "One" will export the result of the chosen index by the setting of BarMetricSet.lt, and chose Mode = "Multiple" will export all indexes and integrated results.
+#' @param BarMetricSet.lt Set the index for subsequent comparison in Mode = "one".
+#' @param Save.Path The setting of the saving path.Defaults to the path of the scripts folder.
+#' @param ProjectName The naming of project Name.
+#' @keywords Summarize results of continuous data.
+#' @export
+#' @examples
+#' CellCheck_Conti(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
+#'                 Mode = "Multiple", BarMetricSet.lt,
+#'                 Save.Path="", ProjectName="")
+#'
+
+CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
+                            Mode = "Multiple", # Mode = c("One","Multiple")
                             BarMetricSet.lt,
                             Save.Path="", ProjectName="") {
   library(DescTools)

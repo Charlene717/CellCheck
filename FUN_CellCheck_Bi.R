@@ -1,5 +1,21 @@
+#' A function for creating summarize results of binary data.
+#'
+#' This function allows you to create summarize results from binary data.
+#' @param Bi.df A binary dataframe of answers and results.
+#' @param Anno.df  A dataframe of annotation.
+#' @param Mode one of 'One' or 'Multiple'. Chose Mode = "One" will export the confusion matrix of chosen prediction result by the setting of CMPredSet.lt, and chose Mode = "Multiple" will export all predictions and integrated results.
+#' @param CMPredSet.lt Set correct answers and predicted results for subsequent comparison in Mode = "one".
+#' @param Save.Path The setting of the saving path.Defaults to the path of the scripts folder.
+#' @param ProjectName The naming of project Name.
+#' @keywords Summarize results of binary data.
+#' @export
+#' @examples
+#' CellCheck_Bi(Simu_Bi.df, Simu_Anno.df,
+#'              Mode = "Multiple", CMPredSet.lt,
+#'              Save.Path="", ProjectName="")
+#'
 
-CellCheck_Bi <- function(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple", CMPredSet.lt, # Mode = c("One","Multiple")
+CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df, Mode = "Multiple", CMPredSet.lt, # Mode = c("One","Multiple")
                          Save.Path="", ProjectName="") {
   #####-----------------------------------(Binary data)-----------------------------------#####
   #### Calculate the confusion matrix(CM) ####
