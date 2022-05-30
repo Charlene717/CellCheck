@@ -53,12 +53,21 @@ You can manipulate three types of data with CellCheck: binary data, multiple dis
 #### Run the Demo script ####
 ```{r, eval = FALSE}
 ## Load simulation datafrme ##
-source("Demo_CellTypeAnno.R", echo = TRUE, max.deparse.length=10000, encoding="utf-8",
+source("Demo_CellCheck.R", echo = TRUE, max.deparse.length=10000, encoding="utf-8",
        print.eval = TRUE) 
 ```
 
 ## Input and export files
 ### Binary data
+```{r, eval = FALSE}
+  ## For one prediction
+  CMPredSet.lt <- list(Actual = "Actual", Predict = "Predict2")
+  cm_Bi.lt <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "One", CMPredSet.lt,
+                            Save.Path = Save.Path, ProjectName = ProjectName)
+  ## For multiple prediction
+  Sum_Bi.df <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple",
+                            Save.Path = Save.Path, ProjectName = ProjectName)
+```
 <br> 
 The format of input binary data can be number or character:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data_Input.jpg">
@@ -68,6 +77,15 @@ The outputs binary data has confusion matrix(CM), barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data.jpg">
 
 ## Discrete multiple data
+```{r, eval = FALSE}
+  ## For one prediction
+  DisMultCM.lt <- list(Actual = "Actual", Predict = "Predict2")
+  cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "One", DisMultCM.lt,
+                                   Save.Path = Save.Path, ProjectName = ProjectName)
+  ## For multiple prediction
+  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple",
+                                      Save.Path = Save.Path, ProjectName = ProjectName)
+```
 <br> 
 The format of input discrete multiple data can be number or character:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data_Input.jpg">
@@ -77,6 +95,15 @@ The outputs discrete multiple data has confusion matrix(CM), barplot, and linepl
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data.jpg">
 
 ## Continuous data
+```{r, eval = FALSE}
+  ## For one index
+  BarMetricSet.lt <- list(XValue = "Type", Metrics = "RMSE", Group = "Tool")
+  cm_Conti.lt <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df, Mode = "One", BarMetricSet.lt,
+                                 Save.Path = Save.Path, ProjectName = ProjectName)
+  ## For multiple index
+  Sum_Conti.df <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple",BarMetricSet.lt,
+                                  Save.Path = Save.Path, ProjectName = ProjectName)
+```
 <br> 
 The format of input continuous data would be number:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data_Input.jpg">
