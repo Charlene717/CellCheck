@@ -59,7 +59,6 @@ source("Demo_CellCheck.R", echo = TRUE, max.deparse.length=10000, encoding="utf-
 
 ## Input and export files
 ### Binary data
-<br> 
 The format of input binary data can be number or character:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data_Input.jpg">
 <br>
@@ -78,9 +77,10 @@ Run the code:
 <br> 
 The outputs binary data has confusion matrix(CM), barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Binary_data.jpg">
+<br> 
+
 
 ## Discrete multiple data
-<br> 
 The format of input discrete multiple data can be number or character:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data_Input.jpg">
 <br>
@@ -99,9 +99,10 @@ Run the code:
 <br> 
 The outputs discrete multiple data has confusion matrix(CM), barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Discrete_multiple_data.jpg">
+<br> 
+
 
 ## Continuous data
-<br> 
 The format of input continuous data would be number:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data_Input.jpg">
 <br> 
@@ -120,5 +121,5 @@ Run the code:
 <br> 
 The outputs continuous data has barplot, and lineplot:
 <img src="https://github.com/Charlene717/CellCheck/blob/main/Figures/Continuous_data.jpg">
-
+<br> 
 
