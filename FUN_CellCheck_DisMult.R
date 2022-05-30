@@ -34,8 +34,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple", 
 
     conf_mat
 
-    plot_confusion_matrix(conf_mat$`Confusion Matrix`[[1]],
-                          add_sums = TRUE)
+
     pdf(
       file = paste0(Save.Path,"/",ProjectName,"_DisMult_ConfuMax_",DisMultCM.lt,".pdf"),
       width = 10,  height = 10
@@ -51,6 +50,8 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple", 
             title = element_text(face="bold", color="#3d3d3d", size=18)) -> p2
     print(p2)
     dev.off()
+
+    print(p2)
     rm(p1,p2)
 
     return(conf_mat)
