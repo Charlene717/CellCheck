@@ -3,7 +3,7 @@
 #' This function allows you to create summarize results from continuous data.
 #' @param Conti.df.df A dataframe of continuous answers and results.
 #' @param Anno.df  A dataframe of annotation.
-#' @param Mode one of 'One' or 'Multiple'. Chose Mode = "One" will export the result of the chosen index by the setting of BarMetricSet.lt, and chose Mode = "Multiple" will export all indexes and integrated results.
+#' @param Mode one of 'One' or 'Multiple'. Chose Mode = "One" will export the result of the chosen index by the setting of BarMetricSet.lt, and chose Mode = "Multiple" will export all indexes in the dataframe and integrated results.
 #' @param BarMetricSet.lt Set the index for subsequent comparison in Mode = "one".
 #' @param Save.Path The setting of the saving path.Defaults to the path of the scripts folder.
 #' @param ProjectName The naming of project Name.

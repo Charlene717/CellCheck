@@ -3,7 +3,7 @@
 #' This function allows you to create summarize results from multiple discrete data.
 #' @param DisMult.df A multiple discrete dataframe of answers and results.
 #' @param Anno.df  A dataframe of annotation.
-#' @param Mode one of 'One' or 'Multiple'. Chose Mode = "One" will export the confusion matrix of chosen prediction result by the setting of DisMultCM.lt, and chose Mode = "Multiple" will export all predictions and integrated results.
+#' @param Mode one of 'One' or 'Multiple'. Chose Mode = "One" will export the confusion matrix of chosen prediction result by the setting of DisMultCM.lt, and chose Mode = "Multiple" will export all predictions in the dataframe and integrated results.
 #' @param DisMultCM.lt Set correct answers and predicted results for subsequent comparison in Mode = "one".
 #' @param Save.Path The setting of the saving path.Defaults to the path of the scripts folder.
 #' @param ProjectName The naming of project Name.
