@@ -50,15 +50,15 @@
   CMPredSet.lt <- list(Actual = "Actual", Predict = "Predict2")
   cm_Bi.lt <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "One", CMPredSet.lt,
                             Save.Path = Save.Path, ProjectName = ProjectName)
-  Sum_Bi.df <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple", CMPredSet.lt,
+  Sum_Bi.df <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple",
                             Save.Path = Save.Path, ProjectName = ProjectName)
 
 
 #####--------------------------(Discrete Multiple data)--------------------------#####
-  DisMultCM.set <- "Predict2"
-  cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult, Simu_Anno.df, Mode = "One", DisMultCM.set,
+  DisMultCM.lt <- list(Actual = "Actual", Predict = "Predict2")
+  cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "One", DisMultCM.lt,
                                    Save.Path = Save.Path, ProjectName = ProjectName)
-  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult, Simu_Anno.df, Mode = "Multiple", DisMultCM.set,
+  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple",
                                       Save.Path = Save.Path, ProjectName = ProjectName)
 
 
@@ -66,7 +66,7 @@
   BarMetricSet.lt <- list(XValue = "Type", Metrics = "RMSE", Group = "Tool")
   cm_Conti.lt <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df, Mode = "One", BarMetricSet.lt,
                                  Save.Path = Save.Path, ProjectName = ProjectName)
-  Sum_Conti.df <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple", BarMetricSet.lt,
+  Sum_Conti.df <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple",BarMetricSet.lt,
                                   Save.Path = Save.Path, ProjectName = ProjectName)
 
 
