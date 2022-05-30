@@ -47,7 +47,6 @@
   Simu_Conti.df <-read.delim(file=paste0("./#_Input_Simu/",ProjectName,"_Simu_Conti.tsv"),sep="\t")
 
 #####-----------------------------------(Binary data)-----------------------------------#####
-#### Calculate the confusion matrix(CM) ####
   CMPredSet.lt <- list(Actual = "Actual", Predict = "Predict2")
   cm_Bi.lt <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "One", CMPredSet.lt,
                             Save.Path = Save.Path, ProjectName = ProjectName)
@@ -56,8 +55,6 @@
 
 
 #####--------------------------(Discrete Multiple data)--------------------------#####
-
-##### calculate the confusion matrix for Multi-Class Classification #####
   DisMultCM.set <- "Predict2"
   cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult, Simu_Anno.df, Mode = "One", DisMultCM.set,
                                    Save.Path = Save.Path, ProjectName = ProjectName)
@@ -66,90 +63,12 @@
 
 
 #####---------------------------------(Continuous data)---------------------------------#####
+  BarMetricSet.lt <- list(XValue = "Type", Metrics = "RMSE", Group = "Tool")
+  cm_Conti.lt <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df, Mode = "One", BarMetricSet.lt,
+                                 Save.Path = Save.Path, ProjectName = ProjectName)
+  Sum_Conti.df <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple", BarMetricSet.lt,
+                                  Save.Path = Save.Path, ProjectName = ProjectName)
 
-  library(DescTools)
-
-  # Sum_Conti.df <- Conti_Accuracy(Simu_Conti.df$Actual,Simu_Conti.df$Predict2)
-
-  #### Create Measure accuracy dataframe (Sum_Conti.df) ####
-  for (i in 1:(ncol(Simu_Conti.df)-1)) {
-    if(i==1){
-      Sum_Conti.df <- Conti_Accuracy(Simu_Conti.df[,1],
-                              Simu_Conti.df[,1+i])
-      row.names(Sum_Conti.df) <- colnames(Simu_Conti.df)[i+1]
-    }else{
-      MA_New.df <- Conti_Accuracy(Simu_Conti.df[,1],
-                                  Simu_Conti.df[,1+i])
-      row.names(MA_New.df) <- colnames(Simu_Conti.df)[i+1]
-      Sum_Conti.df <- rbind(Sum_Conti.df, MA_New.df)
-    }
-  }
-  rm(i,MA_New.df)
-
-  Sum_Conti.df <- data.frame(TestID = row.names(Sum_Conti.df), Sum_Conti.df)
-  Sum_Conti.df <- left_join(Sum_Conti.df, Simu_Anno.df)
-
-  #### Export MetricBar PDF ####
-    #### Export one Designated MetricBar PDF ####
-    ## Plot by Designated Metric
-    BarMetricSet.lt <- list(XValue = "Type", Metrics = "RMSE", Group = "Tool")
-    p1 <- CC_BarPlot(Sum_Conti.df,
-                     XValue = BarMetricSet.lt[["XValue"]],
-                     Metrics = BarMetricSet.lt[["Metrics"]],
-                     Group = BarMetricSet.lt[["Group"]])
-    ## Export MetricBar PDF
-    pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsBar_",BarMetricSet.lt[["Metrics"]],".pdf"),
-        width = 7,  height = 7
-    )
-      p1
-    dev.off()
-    rm(p1)
-
-    #### Export all MetricBar PDF ####
-    MA.set <- colnames(Sum_Conti.df)[2:(ncol(Sum_Conti.df)-ncol(Simu_Anno.df)+1)]
-    pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsBar.pdf"),
-        width = 7,  height = 7)
-      for (i in 1:length(MA.set)) {
-        p <- CC_BarPlot(Sum_Conti.df,
-                        XValue = BarMetricSet.lt[["XValue"]],
-                        Metrics = MA.set[i],
-                        Group = BarMetricSet.lt[["Group"]])
-        p
-      }
-    dev.off()  #graphics.off()
-    rm(p,i,BarMetricSet.lt,MA.set)
-
-
-  #### Export MetricsLine PDF ####
-  Sum_Conti.df$PARM <- factor(Sum_Conti.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
-
-    #### Export one Designated MetricLine PDF ####
-    ## Plot by Designated Metrics
-    BarMetricSet.lt <- list(XValue = "PARM", Metrics = "RMSE", Group = "Tool")
-    p <- CC_LinePlot(Sum_Conti.df,
-                     XValue = BarMetricSet.lt[["XValue"]],
-                     Metrics = BarMetricSet.lt[["Metrics"]],
-                     Group = BarMetricSet.lt[["Group"]])
-    rm(p)
-
-    #### Export all MetricLine PDF ####
-    MA.set <- colnames(Sum_Conti.df)[2:(ncol(Sum_Conti.df)-ncol(Simu_Anno.df)+1)]
-
-    pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsLine.pdf"),
-        width = 12,  height = 7)
-      for (i in 1:length(MA.set)) {
-        p <- CC_LinePlot(Sum_Conti.df,
-                         XValue = BarMetricSet.lt[["XValue"]],
-                         Metrics = MA.set[i],
-                         Group = BarMetricSet.lt[["Group"]])
-        p
-      }
-    dev.off() #graphics.off()
-    rm(p,i,BarMetricSet.lt)
-
-  #### Export tsv files ####
-  write.table(Sum_Conti.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_Conti.tsv"),sep="\t",
-              row.names=F, quote = FALSE)
 
 #### Export RData files ####
 save.image(paste0(Save.Path,"/",ProjectName,"Demo_CellTypeAnno.RData"))
