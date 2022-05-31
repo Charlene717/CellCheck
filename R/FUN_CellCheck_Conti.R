@@ -69,7 +69,7 @@ CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
                       XValue = BarMetricSet.lt[["XValue"]],
                       Metrics = MA.set[i],
                       Group = BarMetricSet.lt[["Group"]])
-      p %>% print()
+      p
     }
     dev.off()  #graphics.off()
     p %>% print()
@@ -99,7 +99,7 @@ CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
                        XValue = BarMetricSet.lt[["XValue"]],
                        Metrics = MA.set[i],
                        Group = BarMetricSet.lt[["Group"]])
-      p %>% print()
+      p
     }
     dev.off() #graphics.off()
     rm(p,i,BarMetricSet.lt)
