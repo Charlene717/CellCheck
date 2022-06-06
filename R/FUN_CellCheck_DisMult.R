@@ -109,7 +109,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple", 
 
     ## Remove in the future
     # Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df$Tool == "ToolA",]
-    Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df$Type == "LUAD",]
+    Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df[,DisMultCM.lt[["Type1"]]] == DisMultCM.lt[["Type2"]]]
 
     #### Export MetricBar PDF ####
     ## Plot one Designated MetricBar
