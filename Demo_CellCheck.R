@@ -1,3 +1,12 @@
+##### To-do list ######
+# - [ ] Multiple lineplot
+# - [ ] BeautifyPlots: Modify color in different group
+# - [ ] R, RMSDm mAD
+# - [ ] Anova, T-test
+#
+# - [ ] Goodness of fit index(GFI)
+# - [ ] Clean up the code
+
 
 ##### Presetting ######
   rm(list = ls()) # Clean variable
