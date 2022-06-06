@@ -189,7 +189,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple", 
                       XValue = BarMetricSet.lt[["XValue"]],
                       Metrics = Metrics_DisMult.set[i],
                       Group = BarMetricSet.lt[["Group"]])
-      p %>% print()
+      p
     }
     dev.off() # graphics.off()
     rm(p, i, BarMetricSet.lt, Metrics_DisMult.set)
@@ -212,7 +212,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple", 
                        XValue = LineMetricSet.lt[["XValue"]],
                        Metrics = Metrics_DisMult.set[i],
                        Group = LineMetricSet.lt[["Group"]])
-      p %>% print()
+      p
     }
     dev.off() # graphics.off()
     rm(p,i,LineMetricSet.lt)
