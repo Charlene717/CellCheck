@@ -76,7 +76,7 @@
   cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "One", DisMultCM.lt=DisMultCM.lt,
                                    Save.Path = Save.Path, ProjectName = ProjectName)
   ## For multiple prediction
-  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple",
+  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple",DisMultCM.lt=DisMultCM.lt,
                                       Save.Path = Save.Path, ProjectName = ProjectName)
 
 
