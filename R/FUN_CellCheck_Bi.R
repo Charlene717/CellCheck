@@ -113,7 +113,7 @@ CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df, Mode = "Mul
                       XValue = BarMetricSet.lt[["XValue"]],
                       Metrics = Metrics_Bi.set[i],
                       Group = BarMetricSet.lt[["Group"]])
-      p %>% print()
+      p
     }
     dev.off() # graphics.off()
     rm(p, i, Metrics_Bi.set, BarMetricSet.lt)
@@ -145,7 +145,7 @@ CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df, Mode = "Mul
       p <- CC_LinePlot(Sum_Bi.df, XValue = LineMetricSet.lt[["XValue"]],
                        Metrics = Sum_Bi.set[i],
                        Group = LineMetricSet.lt[["Group"]])
-      p %>% print()
+      p
     }
     dev.off() #graphics.off()
     rm(p, i, LineMetricSet.lt, Sum_Bi.set)
