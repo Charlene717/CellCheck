@@ -15,6 +15,7 @@
 #'              Save.Path="", ProjectName="")
 #'
 
+
 CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df, Mode = "Multiple", CMPredSet.lt, # Mode = c("One","Multiple")
                          Save.Path="", ProjectName="") {
   #####-----------------------------------(Binary data)-----------------------------------#####
