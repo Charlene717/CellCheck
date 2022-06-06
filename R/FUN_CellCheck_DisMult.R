@@ -37,13 +37,13 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple", 
 
 
     pdf(
-      file = paste0(Save.Path,"/",ProjectName,"_DisMult_ConfuMax_",DisMultCM.lt,".pdf"),
+      file = paste0(Save.Path,"/",ProjectName,"_DisMult_ConfuMax_",DisMultCM.lt[["Predict"]],".pdf"),
       width = 10,  height = 10
     )
     p1 <- plot_confusion_matrix(conf_mat$`Confusion Matrix`[[1]],
                                 add_sums = TRUE)
 
-    p1 + ggtitle(DisMultCM.lt)+
+    p1 + ggtitle(DisMultCM.lt[["Predict"]])+
       theme(axis.text.x = element_text(face="bold", color="#3d3d3d", size=12), #plot.margin = unit(c(2,3,3,4),"cm")
             axis.text.y = element_text(face="bold", color="#3d3d3d", size=12,angle=0),
             axis.title.x = element_text(face="bold", color="#3d3d3d", size=18),
@@ -109,7 +109,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple", 
 
     ## Remove in the future
     # Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df$Tool == "ToolA",]
-    Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df[,DisMultCM.lt[["Type1"]]] == DisMultCM.lt[["Type2"]]]
+    Sum_DisMult_All.df <- Sum_DisMult_All.df[Sum_DisMult_All.df[,DisMultCM.lt[["Type1"]]] == DisMultCM.lt[["Type2"]],]
 
     #### Export MetricBar PDF ####
     ## Plot one Designated MetricBar
