@@ -23,7 +23,7 @@ CellCheck runs in the R statistical computing environment. You will need R versi
 
 ```{r, eval = FALSE}
   ## Check whether the installation of those packages is required 
-  Package.set <- c("tidyverse","caret","cvms","DescTools","devtools")
+  Package.set <- c("tidyverse","caret","cvms","DescTools","devtools","ggthemes")
   for (i in 1:length(Package.set)) {
     if (!requireNamespace(Package.set[i], quietly = TRUE)){
       install.packages(Package.set[i])
