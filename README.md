@@ -87,13 +87,17 @@ The format of input discrete multiple data can be number or character:
 
 Run the code:
 ```{r, eval = FALSE}
+
   ## For one prediction
-  DisMultCM.lt <- list(Actual = "Actual", Predict = "Predict2")
-  cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "One", DisMultCM.lt,
-                                   Save.Path = Save.Path, ProjectName = ProjectName)
+  DisMultCM.lt <- list(Actual = "Actual", Predict = "Predict2", Type1 = "Type", Type2 = "LUAD" )
+  cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "One",
+                                     DisMultCM.lt=DisMultCM.lt,
+                                     Save.Path = Save.Path, ProjectName = ProjectName)
   ## For multiple prediction
-  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple",
+  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, 
+                                      Mode = "Multiple",DisMultCM.lt=DisMultCM.lt,
                                       Save.Path = Save.Path, ProjectName = ProjectName)
+
 ```
 
 <br> 
