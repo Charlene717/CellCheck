@@ -57,6 +57,14 @@ source("Demo_CellCheck.R", echo = TRUE, max.deparse.length=10000, encoding="utf-
        print.eval = TRUE) 
 ```
 
+## Current path and new folder setting
+```{r, eval = FALSE}
+  ProjectName = "CC"
+  Version = paste0(Sys.Date(),"_",ProjectName,"_Demo")
+  Save.Path = paste0(getwd(),"/",Version)
+  dir.create(Save.Path)  # Create folder
+```
+  
 ## Input and export files
 ### Binary data
 The format of input binary data can be number or character:
@@ -67,8 +75,8 @@ Run the code:
 ```{r, eval = FALSE}
   ## For one prediction
   CMSet.lt = list(Mode = "One", Actual = "Actual", Predict = "Predict2" , Remark = "_Predict2") # Mode = c("One","Multiple")
-  BarChartSet.lt = list(Mode = "One",  Metrics = "Accuracy", XValue = "Type", Group = "_Tool", Remark = "_Tool")
-  LinePlotSet.lt = list(Mode = "One", Metrics = "Accuracy", XValue = "PARM", Group = "_Tool", Remark = "_Tool")
+  BarChartSet.lt = list(Mode = "One",  Metrics = "Accuracy", XValue = "Type", Group = "Tool", Remark = "_Tool")
+  LinePlotSet.lt = list(Mode = "One", Metrics = "Accuracy", XValue = "PARM", Group = "Tool", Remark = "_Tool")
   CCR_cm_Bi.lt <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df,
                                CMSet.lt = CMSet.lt,
                                BarChartSet.lt = BarChartSet.lt,
