@@ -1,6 +1,8 @@
 ##### To-do list ######
 # - [ ] 3 Main Function
 # - [ ] Better simulation demo
+# - [ ] Debug: build all metrics
+# - [ ] Debug: CTChose1
 
 # - [ ] Multiple lineplot (Group)
 # - [ ] BeautifyPlots: Modify color in different group
@@ -65,9 +67,9 @@
 
 #####-----------------------------------(Binary data)-----------------------------------#####
   ## For one prediction
-  CMSet.lt = list(Mode = "One", Actual = "Actual", Predict = "Predict2" , Remark = "_Predict2") # Mode = c("One","Multiple")
-  BarChartSet.lt = list(Mode = "One", Metrics = "Accuracy", XValue = "Type", Group = "Tool", Remark = "_Tool")
-  LinePlotSet.lt = list(Mode = "One", Metrics = "Accuracy", XValue = "PARM", Group = "Tool", Remark = "_Tool")
+  CMSet.lt <- list(Mode = "One", Actual = "Actual", Predict = "Predict2" , Remark = "_Predict2") # Mode = c("One","Multiple")
+  BarChartSet.lt <- list(Mode = "One", Metrics = "Accuracy", XValue = "Type", Group = "Tool", Remark = "_Tool")
+  LinePlotSet.lt <- list(Mode = "One", Metrics = "Accuracy", XValue = "PARM", Group = "Tool", Remark = "_Tool")
   CCR_cm_Bi.lt <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df,
                                CMSet.lt = CMSet.lt,
                                BarChartSet.lt = BarChartSet.lt,
@@ -75,9 +77,9 @@
                                Save.Path = Save.Path, ProjectName = ProjectName)
 
   ## For multiple prediction
-  CMSet.lt = list(Mode = "Multiple", Remark = "_All") # Mode = c("One","Multiple")
-  BarChartSet.lt = list(Mode = "Multiple", XValue = "Type", Group = "Tool", Remark = "_All")
-  LinePlotSet.lt = list(Mode = "Multiple", XValue = "PARM", Group = "Tool", Remark = "_All")
+  CMSet.lt <- list(Mode = "Multiple", Remark = "_All") # Mode = c("One","Multiple")
+  BarChartSet.lt <- list(Mode = "Multiple", XValue = "Type", Group = "Tool", Remark = "_All")
+  LinePlotSet.lt <- list(Mode = "Multiple", XValue = "PARM", Group = "Tool", Remark = "_All")
   CCR_Sum_Bi.df <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df,
                                 CMSet.lt = CMSet.lt,
                                 BarChartSet.lt = BarChartSet.lt,
@@ -87,15 +89,22 @@
 
 #####--------------------------(Discrete Multiple data)--------------------------#####
   ## For one prediction
-  DisMultCM.lt <- list(Actual = "Actual", Predict = "Predict2", Type1 = "Type", Type2 = "LUAD" )
-  cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "One", DisMultCM.lt = DisMultCM.lt,
-                                   Save.Path = Save.Path, ProjectName = ProjectName)
+  DisCMSet.lt = list(Mode = "One", Actual = "Actual", Predict = "Predict2" , CTChose1 = "Type", CTChose2 = "LUAD" , Remark = "") # Mode = c("One","Multiple")
+  BarChartSet.lt <- list(Mode = "One", Metrics = "Balanced.Accuracy", XValue = "Type", Group = "Tool", Remark = "")
+  LinePlotSet.lt <- list(Mode = "One", Metrics = "Balanced.Accuracy", XValue = "PARM", Group = "Tool", Remark = "")
+  cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df,
+                                     DisCMSet.lt = DisCMSet.lt,
+                                     BarChartSet.lt = BarChartSet.lt,
+                                     LinePlotSet.lt=LinePlotSet.lt,
+                                     Save.Path = Save.Path, ProjectName = ProjectName)
   ## For multiple prediction
-  BarMetricSet.lt <- list(XValue = "Type", Metrics = "Accuracy", Group = "Tool")
-  LineMetricSet.lt <- list(XValue = "PARM", Metrics = "Accuracy", Group = "Tool")
-  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "Multiple",
-                                      DisMultCM.lt = DisMultCM.lt, BarMetricSet.lt = BarMetricSet.lt,
-                                      LineMetricSet.lt=LineMetricSet.lt,
+  DisCMSet.lt = list(Mode = "Multiple", Actual = "Actual", CTChose1 = "Type", CTChose2 = "LUAD" , Remark = "_All") # Mode = c("One","Multiple")
+  BarChartSet.lt <- list(Mode = "Multiple", XValue = "Type", Group = "Tool", Remark = "_All")
+  LinePlotSet.lt <- list(Mode = "Multiple", XValue = "PARM", Group = "Tool", Remark = "_All")
+  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df,
+                                      DisCMSet.lt = DisCMSet.lt,
+                                      BarChartSet.lt = BarChartSet.lt,
+                                      LinePlotSet.lt=LinePlotSet.lt,
                                       Save.Path = Save.Path, ProjectName = ProjectName)
 
 
