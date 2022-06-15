@@ -7,8 +7,9 @@
 CellCheck_Bi(
   Bi.df = Simu_Bi.df,
   Anno.df = Simu_Anno.df,
-  Mode = "Multiple",
-  CMPredSet.lt,
+  CMSet.lt = "",
+  BarChartSet.lt = "",
+  LinePlotSet.lt = "",
   Save.Path = "",
   ProjectName = ""
 )
@@ -18,9 +19,17 @@ CellCheck_Bi(
 
 \item{Anno.df}{A dataframe of annotation.}
 
-\item{Mode}{one of 'One' or 'Multiple'. Chose Mode = "One" will export the confusion matrix of chosen prediction result by the setting of CMPredSet.lt, and chose Mode = "Multiple" will export all predictions in the dataframe and integrated results.}
+\item{CMSet.lt}{Confusion matrix setting.
+Mode = c("One","Multiple"), Mode = "One": Prediction selection.; Mode = "Multiple": All Predictions.;
+Actual: Correct answer setting.; Predict: Prediction selection in Mode = "One".; Remark = PDF file name setting.}
 
-\item{CMPredSet.lt}{Set correct answers and predicted results for subsequent comparison in Mode = "one".}
+\item{BarChartSet.lt}{Bar Chart setting.
+#' Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting.; Mode = "Multiple": All Metrics.;
+Metric: Metric selection in Mode = "One" for y-axis setting.; XValue: x-axis setting.; Group: Group setting.; Remark = PDF file name setting.}
+
+\item{LinePlotSet.lt}{Line Plot setting.
+#' Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting.; Mode = "Multiple": All Metrics.;
+Metric: Metric selection in Mode = "One" for y-axis setting.; XValue: x-axis setting.; Group: Group setting.; Remark = PDF file name setting.}
 
 \item{Save.Path}{The setting of the saving path.Defaults to the path of the scripts folder.}
 
@@ -31,7 +40,9 @@ This function allows you to create summarize results from binary data.
 }
 \examples{
 CellCheck_Bi(Simu_Bi.df, Simu_Anno.df,
-             Mode = "Multiple", CMPredSet.lt,
+             CMSet.lt = CMSet.lt,
+             BarChartSet.lt = BarChartSet.lt,
+             LinePlotSet.lt = LinePlotSet.lt,
              Save.Path="", ProjectName="")
 
 }
