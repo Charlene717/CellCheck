@@ -109,8 +109,8 @@ Run the code:
 ```{r, eval = FALSE}
 
   ## For one prediction
-  DisCMSet.lt = list(Mode = "One", Actual = "Actual", Predict = "Predict2" , CTChose1 = "Type", CTChose2 = "LUAD" , Remark = "") # Mode = c("One","Multiple")
-  BarChartSet.lt <- list(Mode = "One", Metrics = "Balanced.Accuracy", XValue = "Tool", Group = "Type", Remark = "")
+  DisCMSet.lt = list(Mode = "One", Actual = "Actual", Predict = "Predict2" , CTChose1 = "Tool", CTChose2 = "ToolA" , Remark = "") # Mode = c("One","Multiple")
+  BarChartSet.lt <- list(Mode = "One", Metrics = "Balanced.Accuracy", XValue = "Type", Group = "Tool", Remark = "")
   LinePlotSet.lt <- list(Mode = "One", Metrics = "Balanced.Accuracy", XValue = "PARM", Group = "Tool", Remark = "")
   cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df,
                                      DisCMSet.lt = DisCMSet.lt,
@@ -118,14 +118,15 @@ Run the code:
                                      LinePlotSet.lt=LinePlotSet.lt,
                                      Save.Path = Save.Path, ProjectName = ProjectName)
   ## For multiple prediction
-  DisCMSet.lt = list(Mode = "Multiple", Actual = "Actual", CTChose1 = "Type", CTChose2 = "LUAD" , Remark = "_All") # Mode = c("One","Multiple")
-  BarChartSet.lt <- list(Mode = "Multiple", XValue = "Tool", Group = "Type", Remark = "_All")
+  DisCMSet.lt = list(Mode = "Multiple", Actual = "Actual", CTChose1 = "Tool", CTChose2 = "ToolA" , Remark = "_All") # Mode = c("One","Multiple")
+  BarChartSet.lt <- list(Mode = "Multiple", XValue = "Type", Group = "Tool", Remark = "_All")
   LinePlotSet.lt <- list(Mode = "Multiple", XValue = "PARM", Group = "Tool", Remark = "_All")
   Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df,
                                       DisCMSet.lt = DisCMSet.lt,
                                       BarChartSet.lt = BarChartSet.lt,
                                       LinePlotSet.lt=LinePlotSet.lt,
                                       Save.Path = Save.Path, ProjectName = ProjectName)
+
 
 ```
 

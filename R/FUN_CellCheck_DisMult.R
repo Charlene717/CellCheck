@@ -166,7 +166,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
         p1 <- CC_BarPlot(SumCM_DisMult_All.df,
                          XValue = BarChartSet.lt[["XValue"]],
                          Metrics = BarChartSet.lt[["Metrics"]],
-                         Group = BarChartSet.lt[["Group"]])
+                         Group = "Class")
         ## Export MetricBar PDF
         pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar_AllCT_",BarChartSet.lt[["Metrics"]], BarChartSet.lt[["Remark"]],".pdf"),
             width = 7,  height = 7
@@ -185,7 +185,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
           p <- CC_BarPlot(SumCM_DisMult_All.df,
                           XValue = BarChartSet.lt[["XValue"]],
                           Metrics = Metrics_DisMult.set[i],
-                          Group = BarChartSet.lt[["Group"]])
+                          Group = "Class")
           p
         }
         dev.off() # graphics.off()
@@ -236,8 +236,8 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
       if(LinePlotSet.lt[["Mode"]] == "One"){
         p1 <- CC_LinePlot(SumCM_DisMult_All.df, XValue = LinePlotSet.lt[["XValue"]],
                          Metrics = LinePlotSet.lt[["Metrics"]],
-                         Group = LinePlotSet.lt[["Group"]])
-        ## Export MetricBar PDF
+                         Group = "Class")
+        ## Export Line Plot PDF
         pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine_AllCT_",LinePlotSet.lt[["Metrics"]], LinePlotSet.lt[["Remark"]],".pdf"),
             width = 7,  height = 7
         )
@@ -247,7 +247,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
 
         ### For all Metric all
       }else{
-        ## Plot all MetricBar
+        ## Plot all Line plot
         Metrics_DisMult.set <- colnames(SumCM_DisMult_All.df)[6:(ncol(SumCM_DisMult_All.df)-(ncol(Simu_Anno.df)-1))]
 
         pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine_AllCT", LinePlotSet.lt[["Remark"]],".pdf"),
@@ -256,7 +256,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
             p <- CC_LinePlot(SumCM_DisMult_All.df,
                              XValue = LinePlotSet.lt[["XValue"]],
                              Metrics = Metrics_DisMult.set[i],
-                             Group = LinePlotSet.lt[["Group"]])
+                             Group = "Class")
             p
           }
         dev.off() # graphics.off()
