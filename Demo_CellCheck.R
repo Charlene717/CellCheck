@@ -3,6 +3,7 @@
 # - [ ] Better simulation demo
 # - [ ] Debug: build all metrics
 # - [ ] Debug: CTChose1
+# - [ ] Combine two dataframe
 
 # - [ ] Multiple lineplot (Group)
 # - [ ] BeautifyPlots: Modify color in different group
