@@ -66,12 +66,24 @@ The format of input binary data can be number or character:
 Run the code:
 ```{r, eval = FALSE}
   ## For one prediction
-  CMPredSet.lt <- list(Actual = "Actual", Predict = "Predict2")
-  cm_Bi.lt <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "One", CMPredSet.lt,
-                            Save.Path = Save.Path, ProjectName = ProjectName)
+  CMSet.lt = list(Mode = "One", Actual = "Actual", Predict = "Predict2" , Remark = "_Predict2") # Mode = c("One","Multiple")
+  BarChartSet.lt = list(Mode = "One",  Metrics = "Accuracy", XValue = "Type", Group = "_Tool", Remark = "_Tool")
+  LinePlotSet.lt = list(Mode = "One", Metrics = "Accuracy", XValue = "PARM", Group = "_Tool", Remark = "_Tool")
+  CCR_cm_Bi.lt <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df,
+                               CMSet.lt = CMSet.lt,
+                               BarChartSet.lt = BarChartSet.lt,
+                               LinePlotSet.lt = LinePlotSet.lt,
+                               Save.Path = Save.Path, ProjectName = ProjectName)
+
   ## For multiple prediction
-  Sum_Bi.df <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple",
-                            Save.Path = Save.Path, ProjectName = ProjectName)
+  CMSet.lt = list(Mode = "Multiple", Remark = "_All") # Mode = c("One","Multiple")
+  BarChartSet.lt = list(Mode = "Multiple", XValue = "Type", Group = "Tool", Remark = "_All")
+  LinePlotSet.lt = list(Mode = "Multiple", XValue = "PARM", Group = "Tool", Remark = "_All")
+  CCR_Sum_Bi.df <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df,
+                                CMSet.lt = CMSet.lt,
+                                BarChartSet.lt = BarChartSet.lt,
+                                LinePlotSet.lt=LinePlotSet.lt,
+                                Save.Path = Save.Path, ProjectName = ProjectName)
 ```
 
 <br> 
