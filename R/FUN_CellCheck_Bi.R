@@ -44,7 +44,7 @@ CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df,
     lapply(Package.set, library, character.only = TRUE)
     rm(Package.set,i)
 
-  ##### Confusion matrix(CM) #####
+  ##### Build Confusion matrix(CM) #####
     ## Build list for all CM
     cm_Bi.lt <- list()
     for (i in 1:(ncol(Simu_Bi.df)-1)) {
@@ -58,7 +58,7 @@ CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df,
     ## Build summarize dataframe
     SumCM_Bi.df <- Bi_SummarizeCM(cm_Bi.lt, Simu_Anno.df)
 
-
+  ##### Plot CM #####
   ### For one prediction
   if(CMSet.lt[["Mode"]] == "One"){
     ## Build CM
