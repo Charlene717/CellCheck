@@ -176,12 +176,6 @@ CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df,
     }
   }
 
-    # #### Export MetricsLine PDF ####
-    # SumCM_Bi.df$PARM <- factor(SumCM_Bi.df$PARM,levels = sort(seq(1:15), decreasing = TRUE))
-    #
-    # #### Export one Designated MetricLine PDF ####
-    # ## Plot by Designated Metric
-    # # LinePlotSet.lt <- list(XValue = "PARM", Metrics = "Accuracy", Group = "Tool")
 
   ##### Export Output #####
   if(CMSet.lt[["Mode"]] != "One"){
