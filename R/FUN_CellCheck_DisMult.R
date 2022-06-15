@@ -273,7 +273,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
                           Metrics = LinePlotSet.lt[["Metrics"]],
                           Group = LinePlotSet.lt[["Group"]])
         ## Export MetricBar PDF
-        pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine_",DisCMSet.lt[["Metrics"]], DisCMSet.lt[["Remark"]],".pdf"),
+        pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine_",LinePlotSet.lt[["Metrics"]], LinePlotSet.lt[["Remark"]],".pdf"),
             width = 7,  height = 7
         )
         p1 %>% print()
@@ -285,7 +285,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
         ## Plot all MetricBar
         Metrics_DisMult.set <- colnames(SumCM_DisMult.df)[6:(ncol(SumCM_DisMult.df)-(ncol(Simu_Anno.df)-1))]
 
-        pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine", DisCMSet.lt[["Remark"]],".pdf"),
+        pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine", LinePlotSet.lt[["Remark"]],".pdf"),
             width = 10,  height = 7)
         for (i in 1:length(Metrics_DisMult.set)) {
           p <- CC_LinePlot(SumCM_DisMult.df,

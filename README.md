@@ -109,13 +109,22 @@ Run the code:
 ```{r, eval = FALSE}
 
   ## For one prediction
-  DisMultCM.lt <- list(Actual = "Actual", Predict = "Predict2", Type1 = "Type", Type2 = "LUAD" )
-  cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, Mode = "One",
-                                     DisMultCM.lt=DisMultCM.lt,
+  DisCMSet.lt = list(Mode = "One", Actual = "Actual", Predict = "Predict2" , CTChose1 = "Type", CTChose2 = "LUAD" , Remark = "") # Mode = c("One","Multiple")
+  BarChartSet.lt <- list(Mode = "One", Metrics = "Balanced.Accuracy", XValue = "Tool", Group = "Type", Remark = "")
+  LinePlotSet.lt <- list(Mode = "One", Metrics = "Balanced.Accuracy", XValue = "PARM", Group = "Tool", Remark = "")
+  cm_DisMult.lt <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df,
+                                     DisCMSet.lt = DisCMSet.lt,
+                                     BarChartSet.lt = BarChartSet.lt,
+                                     LinePlotSet.lt=LinePlotSet.lt,
                                      Save.Path = Save.Path, ProjectName = ProjectName)
   ## For multiple prediction
-  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df, 
-                                      Mode = "Multiple",DisMultCM.lt=DisMultCM.lt,
+  DisCMSet.lt = list(Mode = "Multiple", Actual = "Actual", CTChose1 = "Type", CTChose2 = "LUAD" , Remark = "_All") # Mode = c("One","Multiple")
+  BarChartSet.lt <- list(Mode = "Multiple", XValue = "Tool", Group = "Type", Remark = "_All")
+  LinePlotSet.lt <- list(Mode = "Multiple", XValue = "PARM", Group = "Tool", Remark = "_All")
+  Sum_DisMult.df <- CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df,
+                                      DisCMSet.lt = DisCMSet.lt,
+                                      BarChartSet.lt = BarChartSet.lt,
+                                      LinePlotSet.lt=LinePlotSet.lt,
                                       Save.Path = Save.Path, ProjectName = ProjectName)
 
 ```
