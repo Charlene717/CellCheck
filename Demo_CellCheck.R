@@ -1,11 +1,12 @@
 ##### To-do list ######
-# - [ ] 3 Main Function
+# - [x] 3 Main Function
 # - [ ] Better simulation demo
 # - [ ] Debug: build all metrics
-# - [ ] Debug: FilterSet1
+# - [x] Debug: FilterSet1
 # - [ ] Combine two dataframe
 
 # - [ ] Multiple lineplot (Group)
+
 # - [ ] BeautifyPlots: Modify color in different group
 # - [ ] R, RMSDm mAD
 # - [ ] Anova, T-test
