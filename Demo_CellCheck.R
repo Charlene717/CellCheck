@@ -66,7 +66,7 @@
 #####-----------------------------------(Binary data)-----------------------------------#####
   ## For one prediction
   CMSet.lt = list(Mode = "One", Actual = "Actual", Predict = "Predict2" , Remark = "_Predict2") # Mode = c("One","Multiple")
-  BarChartSet.lt = list(Mode = "One",  Metrics = "Accuracy", XValue = "Type", Group = "Tool", Remark = "_Tool")
+  BarChartSet.lt = list(Mode = "One", Metrics = "Accuracy", XValue = "Type", Group = "Tool", Remark = "_Tool")
   LinePlotSet.lt = list(Mode = "One", Metrics = "Accuracy", XValue = "PARM", Group = "Tool", Remark = "_Tool")
   CCR_cm_Bi.lt <- CellCheck_Bi(Simu_Bi.df, Simu_Anno.df,
                                CMSet.lt = CMSet.lt,

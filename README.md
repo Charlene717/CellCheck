@@ -57,7 +57,7 @@ source("Demo_CellCheck.R", echo = TRUE, max.deparse.length=10000, encoding="utf-
        print.eval = TRUE) 
 ```
 
-## Current path and new folder setting
+#### Current path and new folder setting ####
 ```{r, eval = FALSE}
   ProjectName = "CC"
   Version = paste0(Sys.Date(),"_",ProjectName,"_Demo")

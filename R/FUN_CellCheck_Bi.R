@@ -3,10 +3,15 @@
 #' This function allows you to create summarize results from binary data.
 #' @param Bi.df A binary dataframe of answers and results.
 #' @param Anno.df  A dataframe of annotation.
-#' @param Mode one of 'One' or 'Multiple'. Chose Mode = "One" will export the confusion matrix of chosen prediction result by the setting of CMSet.lt, and chose Mode = "Multiple" will export all predictions in the dataframe and integrated results.
-#' @param CMSet.lt Set correct answers and predicted results for subsequent comparison in Mode = "one".
-#' @param BarChartSet.lt Export metricBar setting in Mode = "Multiple".
-#' @param LinePlotSet.lt Export metricLine setting in Mode = "Multiple".
+#' @param CMSet.lt Confusion matrix setting.
+#' Mode = c("One","Multiple"), Mode = "One": Prediction selection.; Mode = "Multiple": All Predictions.;
+#' Actual: Correct answer setting.; Predict: Prediction selection in Mode = "One".; Remark = PDF file name setting.
+#' @param BarChartSet.lt Bar Chart setting.
+#' #' Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting.; Mode = "Multiple": All Metrics.;
+#' Metric: Metric selection in Mode = "One" for y-axis setting.; XValue: x-axis setting.; Group: Group setting.; Remark = PDF file name setting.
+#' @param LinePlotSet.lt Line Plot setting.
+#' #' Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting.; Mode = "Multiple": All Metrics.;
+#' Metric: Metric selection in Mode = "One" for y-axis setting.; XValue: x-axis setting.; Group: Group setting.; Remark = PDF file name setting.
 #' @param Save.Path The setting of the saving path.Defaults to the path of the scripts folder.
 #' @param ProjectName The naming of project Name.
 #' @keywords Summarize results of binary data.
