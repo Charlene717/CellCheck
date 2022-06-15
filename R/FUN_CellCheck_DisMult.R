@@ -29,6 +29,11 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
                               LinePlotSet.lt = "", # LinePlotSet.lt = list(Mode = "Multiple", Metrics = "Accuracy", XValue = "PARM", Group = "Tool", Remark = "")
                               Save.Path="", ProjectName=""){
 
+  ## file name setting
+  if(DisCMSet.lt[["CTChose1"]]!=""){
+    BarChartSet.lt[["Remark"]] <- paste0("_",DisCMSet.lt[["CTChose2"]],BarChartSet.lt[["Remark"]])
+    LinePlotSet.lt[["Remark"]] <- paste0("_",DisCMSet.lt[["CTChose2"]],LinePlotSet.lt[["Remark"]])
+  }
   ##### Load Packages #####
   ### Basic installation
   Package.set <- c("cvms")
@@ -171,10 +176,6 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
         pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar_AllCT_",BarChartSet.lt[["Metrics"]], BarChartSet.lt[["Remark"]],".pdf"),
             width = 7,  height = 7
         )
-          if(DisCMSet.lt[["CTChose1"]]!=""){
-            p1 <- p1+ggtitle(DisCMSet.lt[["CTChose2"]])
-          }
-
           p1 %>% print()
           dev.off()
         rm(p1)
@@ -190,11 +191,6 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
                           XValue = BarChartSet.lt[["XValue"]],
                           Metrics = Metrics_DisMult.set[i],
                           Group = "Class")
-
-          if(DisCMSet.lt[["CTChose1"]]!=""){
-            p <- p+ggtitle(DisCMSet.lt[["CTChose2"]])
-          }
-
           p
         }
         dev.off() # graphics.off()
@@ -250,9 +246,6 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
         pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine_AllCT_",LinePlotSet.lt[["Metrics"]], LinePlotSet.lt[["Remark"]],".pdf"),
             width = 7,  height = 7
         )
-        if(DisCMSet.lt[["CTChose1"]]!=""){
-          p1 <- p1 + ggtitle(DisCMSet.lt[["CTChose2"]])
-        }
           p1 %>% print()
           dev.off()
         rm(p1)
@@ -269,10 +262,6 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
                              XValue = LinePlotSet.lt[["XValue"]],
                              Metrics = Metrics_DisMult.set[i],
                              Group = "Class")
-            if(DisCMSet.lt[["CTChose1"]]!=""){
-              p <- p + ggtitle(DisCMSet.lt[["CTChose2"]])
-            }
-
             p
           }
         dev.off() # graphics.off()
