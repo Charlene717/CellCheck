@@ -7,16 +7,26 @@
 CellCheck_DisMult(
   Simu_DisMult.df,
   Simu_Anno.df,
-  Mode = "Multiple",
-  DisMultCM.lt,
+  DisCMSet.lt = "",
+  BarChartSet.lt = "",
+  LinePlotSet.lt = "",
   Save.Path = "",
   ProjectName = ""
 )
 }
 \arguments{
-\item{Mode}{one of 'One' or 'Multiple'. Chose Mode = "One" will export the confusion matrix of chosen prediction result by the setting of DisMultCM.lt, and chose Mode = "Multiple" will export all predictions in the dataframe and integrated results.}
+\item{DisCMSet.lt}{Confusion matrix setting.
+Mode = c("One","Multiple"), Mode = "One": Prediction selection; Mode = "Multiple": All Predictions;
+FilterSet1 = Select the category; FilterSet2 = Select the type in FilterSet1;
+Actual: Correct answer setting; Predict: Prediction selection in Mode = "One"; Remark = PDF file name setting.}
 
-\item{DisMultCM.lt}{Set correct answers and predicted results for subsequent comparison in Mode = "one".}
+\item{BarChartSet.lt}{Bar Chart setting.
+Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting; Mode = "Multiple": All Metrics;
+Metric: Metric selection in Mode = "One" for y-axis setting; XValue: x-axis setting; Group: Group setting; Remark = PDF file name setting.}
+
+\item{LinePlotSet.lt}{Line Plot setting.
+Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting; Mode = "Multiple": All Metrics;
+Metric: Metric selection in Mode = "One" for y-axis setting; XValue: x-axis setting; Group: Group setting; Remark = PDF file name setting.}
 
 \item{Save.Path}{The setting of the saving path.Defaults to the path of the scripts folder.}
 
@@ -30,9 +40,11 @@ CellCheck_DisMult(
 This function allows you to create summarize results from multiple discrete data.
 }
 \examples{
-CellCheck_Bi(Simu_DisMult.df, Simu_Anno.df,
-             Mode = "Multiple", DisMultCM.lt,
-             Save.Path="", ProjectName="")
+CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df,
+                  DisCMSet.lt  = DisCMSet.lt ,
+                  BarChartSet.lt = BarChartSet.lt,
+                  LinePlotSet.lt = LinePlotSet.lt,
+                  Save.Path="", ProjectName="")
 
 }
 \keyword{Summarize}
