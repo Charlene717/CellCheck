@@ -20,16 +20,16 @@ CellCheck_Bi(
 \item{Anno.df}{A dataframe of annotation.}
 
 \item{CMSet.lt}{Confusion matrix setting.
-Mode = c("One","Multiple"), Mode = "One": Prediction selection.; Mode = "Multiple": All Predictions.;
-Actual: Correct answer setting.; Predict: Prediction selection in Mode = "One".; Remark = PDF file name setting.}
+Mode = c("One","Multiple"), Mode = "One": Prediction selection; Mode = "Multiple": All Predictions;
+Actual: Correct answer setting; Predict: Prediction selection in Mode = "One"; Remark = PDF file name setting.}
 
 \item{BarChartSet.lt}{Bar Chart setting.
-#' Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting.; Mode = "Multiple": All Metrics.;
-Metric: Metric selection in Mode = "One" for y-axis setting.; XValue: x-axis setting.; Group: Group setting.; Remark = PDF file name setting.}
+Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting; Mode = "Multiple": All Metrics;
+Metric: Metric selection in Mode = "One" for y-axis setting; XValue: x-axis setting; Group: Group setting; Remark = PDF file name setting.}
 
 \item{LinePlotSet.lt}{Line Plot setting.
-#' Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting.; Mode = "Multiple": All Metrics.;
-Metric: Metric selection in Mode = "One" for y-axis setting.; XValue: x-axis setting.; Group: Group setting.; Remark = PDF file name setting.}
+Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting; Mode = "Multiple": All Metrics;
+Metric: Metric selection in Mode = "One" for y-axis setting; XValue: x-axis setting; Group: Group setting; Remark = PDF file name setting.}
 
 \item{Save.Path}{The setting of the saving path.Defaults to the path of the scripts folder.}
 
