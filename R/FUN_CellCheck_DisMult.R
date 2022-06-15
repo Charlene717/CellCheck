@@ -3,8 +3,16 @@
 #' This function allows you to create summarize results from multiple discrete data.
 #' @param DisMult.df A multiple discrete dataframe of answers and results.
 #' @param Anno.df  A dataframe of annotation.
-#' @param Mode one of 'One' or 'Multiple'. Chose Mode = "One" will export the confusion matrix of chosen prediction result by the setting of DisCMSet.lt, and chose Mode = "Multiple" will export all predictions in the dataframe and integrated results.
-#' @param DisCMSet.lt Set correct answers and predicted results for subsequent comparison in Mode = "one".
+#' @param DisCMSet.lt  Confusion matrix setting.
+#' Mode = c("One","Multiple"), Mode = "One": Prediction selection; Mode = "Multiple": All Predictions;
+#' FilterSet1 = Select the category; FilterSet2 = Select the type in FilterSet1;
+#' Actual: Correct answer setting; Predict: Prediction selection in Mode = "One"; Remark = PDF file name setting.
+#' @param BarChartSet.lt Bar Chart setting.
+#' Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting; Mode = "Multiple": All Metrics;
+#' Metric: Metric selection in Mode = "One" for y-axis setting; XValue: x-axis setting; Group: Group setting; Remark = PDF file name setting.
+#' @param LinePlotSet.lt Line Plot setting.
+#' Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting; Mode = "Multiple": All Metrics;
+#' Metric: Metric selection in Mode = "One" for y-axis setting; XValue: x-axis setting; Group: Group setting; Remark = PDF file name setting.
 #' @param Save.Path The setting of the saving path.Defaults to the path of the scripts folder.
 #' @param ProjectName The naming of project Name.
 #' @keywords Summarize results of multiple discrete data.
@@ -24,15 +32,15 @@
 ## Ref: https://cran.r-project.org/web/packages/cvms/vignettes/Creating_a_confusion_matrix.html
 
 CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
-                              DisCMSet.lt = "", # DisCMSet.lt = list(Mode = "Multiple", Actual = "Actual", Predict = "Predict2" , CTChose1 = "Type", CTChose2 = "LUAD" , Remark = "Predict2") # Mode = c("One","Multiple")
+                              DisCMSet.lt = "", #   DisCMSet.lt = list(Mode = "One", Actual = "Actual", Predict = "Predict2" , FilterSet1 = "Tool", FilterSet2 = "ToolA" , Remark = "") # Mode = c("One","Multiple")
                               BarChartSet.lt = "", # BarChartSet.lt = list(Mode = "Multiple", Metrics = "Accuracy", XValue = "Type", Group = "Tool", Remark = "")
                               LinePlotSet.lt = "", # LinePlotSet.lt = list(Mode = "Multiple", Metrics = "Accuracy", XValue = "PARM", Group = "Tool", Remark = "")
                               Save.Path="", ProjectName=""){
 
   ## file name setting
-  if(DisCMSet.lt[["CTChose1"]]!=""){
-    BarChartSet.lt[["Remark"]] <- paste0("_",DisCMSet.lt[["CTChose2"]],BarChartSet.lt[["Remark"]])
-    LinePlotSet.lt[["Remark"]] <- paste0("_",DisCMSet.lt[["CTChose2"]],LinePlotSet.lt[["Remark"]])
+  if(DisCMSet.lt[["FilterSet1"]]!=""){
+    BarChartSet.lt[["Remark"]] <- paste0("_",DisCMSet.lt[["FilterSet2"]],BarChartSet.lt[["Remark"]])
+    LinePlotSet.lt[["Remark"]] <- paste0("_",DisCMSet.lt[["FilterSet2"]],LinePlotSet.lt[["Remark"]])
   }
   ##### Load Packages #####
   ### Basic installation
@@ -101,8 +109,8 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
 
     ## Remove in the future
     # SumCM_DisMult_All.df <- SumCM_DisMult_All.df[SumCM_DisMult_All.df$Tool == "ToolA",]
-    if(DisCMSet.lt[["CTChose1"]] != ""){
-      SumCM_DisMult_All.df <- SumCM_DisMult_All.df[SumCM_DisMult_All.df[,DisCMSet.lt[["CTChose1"]]] == DisCMSet.lt[["CTChose2"]],]
+    if(DisCMSet.lt[["FilterSet1"]] != ""){
+      SumCM_DisMult_All.df <- SumCM_DisMult_All.df[SumCM_DisMult_All.df[,DisCMSet.lt[["FilterSet1"]]] == DisCMSet.lt[["FilterSet2"]],]
     }
 
   ##### Plot CM #####
