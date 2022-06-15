@@ -96,7 +96,9 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
 
     ## Remove in the future
     # SumCM_DisMult_All.df <- SumCM_DisMult_All.df[SumCM_DisMult_All.df$Tool == "ToolA",]
-    SumCM_DisMult_All.df <- SumCM_DisMult_All.df[SumCM_DisMult_All.df[,DisCMSet.lt[["CTChose1"]]] == DisCMSet.lt[["CTChose2"]],]
+    if(DisCMSet.lt[["CTChose1"]] != ""){
+      SumCM_DisMult_All.df <- SumCM_DisMult_All.df[SumCM_DisMult_All.df[,DisCMSet.lt[["CTChose1"]]] == DisCMSet.lt[["CTChose2"]],]
+    }
 
   ##### Plot CM #####
   ### For one prediction
