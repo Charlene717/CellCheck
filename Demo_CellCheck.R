@@ -111,11 +111,18 @@
 
 #####---------------------------------(Continuous data)---------------------------------#####
   ## For one index
-  BarMetricSet.lt <- list(XValue = "Type", Metrics = "RMSE", Group = "Tool")
-  cm_Conti.lt <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df, Mode = "One", BarMetricSet.lt,
+  BarChartSet.lt = list(Mode = "One", Metrics = "RMSE", XValue = "Type", Group = "Tool", Remark = "") # Mode = c("One","Multiple")
+  LinePlotSet.lt = list(Mode = "One", Metrics = "RMSE", XValue = "PARM", Group = "Tool", Remark = "")
+  cm_Conti.lt <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df,
+                                 BarChartSet.lt = BarChartSet.lt,
+                                 LinePlotSet.lt =  LinePlotSet.lt,
                                  Save.Path = Save.Path, ProjectName = ProjectName)
   ## For multiple index
-  Sum_Conti.df <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df, Mode = "Multiple",BarMetricSet.lt,
+  BarChartSet.lt <- list(Mode = "Multiple", XValue = "Type", Group = "Tool", Remark = "_All")
+  LinePlotSet.lt <- list(Mode = "Multiple", XValue = "PARM", Group = "Tool", Remark = "_All")
+  Sum_Conti.df <- CellCheck_Conti(Simu_Bi.df, Simu_Anno.df,
+                                  BarChartSet.lt = BarChartSet.lt,
+                                  LinePlotSet.lt =  LinePlotSet.lt,
                                   Save.Path = Save.Path, ProjectName = ProjectName)
 
 

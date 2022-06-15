@@ -7,8 +7,8 @@
 CellCheck_Conti(
   Conti.df = Sum_Conti.df,
   Anno.df = Simu_Anno.df,
-  Mode = "Multiple",
-  BarMetricSet.lt,
+  BarChartSet.lt = "",
+  LinePlotSet.lt = "",
   Save.Path = "",
   ProjectName = ""
 )
@@ -16,9 +16,13 @@ CellCheck_Conti(
 \arguments{
 \item{Anno.df}{A dataframe of annotation.}
 
-\item{Mode}{one of 'One' or 'Multiple'. Chose Mode = "One" will export the result of the chosen index by the setting of BarMetricSet.lt, and chose Mode = "Multiple" will export all indexes in the dataframe and integrated results.}
+\item{BarChartSet.lt}{Bar Chart setting.
+Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting; Mode = "Multiple": All Metrics;
+Metric: Metric selection in Mode = "One" for y-axis setting; XValue: x-axis setting; Group: Group setting; Remark = PDF file name setting.}
 
-\item{BarMetricSet.lt}{Set the index for subsequent comparison in Mode = "one".}
+\item{LinePlotSet.lt}{Line Plot setting.
+Mode = c("One","Multiple"), Mode = "One": Metric selection for y-axis setting; Mode = "Multiple": All Metrics;
+Metric: Metric selection in Mode = "One" for y-axis setting; XValue: x-axis setting; Group: Group setting; Remark = PDF file name setting.}
 
 \item{Save.Path}{The setting of the saving path.Defaults to the path of the scripts folder.}
 
@@ -31,7 +35,8 @@ This function allows you to create summarize results from continuous data.
 }
 \examples{
 CellCheck_Conti(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
-                Mode = "Multiple", BarMetricSet.lt,
+                BarChartSet.lt = BarChartSet.lt,
+                LinePlotSet.lt =  LinePlotSet.lt,
                 Save.Path="", ProjectName="")
 
 }
