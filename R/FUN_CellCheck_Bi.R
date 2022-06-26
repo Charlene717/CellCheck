@@ -49,8 +49,8 @@ CellCheck_Bi <- function(Bi.df , Anno.df,
     cm_Bi.lt <- list()
     for (i in 1:(ncol(Bi.df)-1)) {
       ## Build CM
-      cm_Bi.lt[[i]] <- confusionMatrix(data = Bi.df[,1] %>% as.factor(),
-                                       reference = Bi.df[,1+i] %>% as.factor())
+      cm_Bi.lt[[i]] <- confusionMatrix(data = Bi.df[,1+i] %>% as.factor(),
+                                       reference = Bi.df[,1] %>% as.factor())
       names(cm_Bi.lt)[[i]] <- colnames(Bi.df)[i+1]
     }
     rm(i)
@@ -62,8 +62,8 @@ CellCheck_Bi <- function(Bi.df , Anno.df,
   ### For one prediction
   if(CMSet.lt[["Mode"]] == "One"){
     ## Build CM
-    cm_Bi <- confusionMatrix(data = Bi.df[,CMSet.lt[["Actual"]]] %>% as.factor(),
-                             reference = Bi.df[,CMSet.lt[["Predict"]]] %>% as.factor())
+    cm_Bi <- confusionMatrix(data = Bi.df[,CMSet.lt[["Predict"]]] %>% as.factor(),
+                             reference = Bi.df[,CMSet.lt[["Actual"]]] %>% as.factor())
 
     ## Plot CM
     Bi_CMPlot(cm_Bi)%>% print()
