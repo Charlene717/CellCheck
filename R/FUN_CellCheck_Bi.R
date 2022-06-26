@@ -17,7 +17,7 @@
 #' @keywords Summarize results of binary data.
 #' @export
 #' @examples
-#' CellCheck_Bi(Simu_Bi.df, Simu_Anno.df,
+#' CellCheck_Bi(Bi.df, Anno.df,
 #'              CMSet.lt = CMSet.lt,
 #'              BarChartSet.lt = BarChartSet.lt,
 #'              LinePlotSet.lt = LinePlotSet.lt,
@@ -25,7 +25,7 @@
 #'
 
 
-CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df,
+CellCheck_Bi <- function(Bi.df , Anno.df,
                          CMSet.lt = "", # CMSet.lt = list(Mode = "Multiple", Actual = "Actual", Predict = "Predict2" , Remark = "Predict2") # Mode = c("One","Multiple")
                          BarChartSet.lt = "", # BarChartSet.lt = list(Mode = "Multiple", Metrics = "Accuracy", XValue = "Type", Group = "Tool", Remark = "")
                          LinePlotSet.lt = "", # LinePlotSet.lt = list(Mode = "Multiple", Metrics = "Accuracy", XValue = "PARM", Group = "Tool", Remark = "")
@@ -47,23 +47,23 @@ CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df,
   ##### Build Confusion matrix(CM) #####
     ## Build list for all CM
     cm_Bi.lt <- list()
-    for (i in 1:(ncol(Simu_Bi.df)-1)) {
+    for (i in 1:(ncol(Bi.df)-1)) {
       ## Build CM
-      cm_Bi.lt[[i]] <- confusionMatrix(data = Simu_Bi.df[,1] %>% as.factor(),
-                                       reference = Simu_Bi.df[,1+i] %>% as.factor())
-      names(cm_Bi.lt)[[i]] <- colnames(Simu_Bi.df)[i+1]
+      cm_Bi.lt[[i]] <- confusionMatrix(data = Bi.df[,1] %>% as.factor(),
+                                       reference = Bi.df[,1+i] %>% as.factor())
+      names(cm_Bi.lt)[[i]] <- colnames(Bi.df)[i+1]
     }
     rm(i)
 
     ## Build summarize dataframe
-    SumCM_Bi.df <- Bi_SummarizeCM(cm_Bi.lt, Simu_Anno.df)
+    SumCM_Bi.df <- Bi_SummarizeCM(cm_Bi.lt, Anno.df)
 
   ##### Plot CM #####
   ### For one prediction
   if(CMSet.lt[["Mode"]] == "One"){
     ## Build CM
-    cm_Bi <- confusionMatrix(data = Simu_Bi.df[,CMSet.lt[["Actual"]]] %>% as.factor(),
-                             reference = Simu_Bi.df[,CMSet.lt[["Predict"]]] %>% as.factor())
+    cm_Bi <- confusionMatrix(data = Bi.df[,CMSet.lt[["Actual"]]] %>% as.factor(),
+                             reference = Bi.df[,CMSet.lt[["Predict"]]] %>% as.factor())
 
     ## Plot CM
     Bi_CMPlot(cm_Bi)%>% print()
@@ -127,7 +127,7 @@ CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df,
   ### For all Metric
     }else{
       ## Export all MetricBar PDF
-      Metrics_Bi.set <- colnames(SumCM_Bi.df)[2:(ncol(SumCM_Bi.df)-(ncol(Simu_Anno.df)-1))]
+      Metrics_Bi.set <- colnames(SumCM_Bi.df)[2:(ncol(SumCM_Bi.df)-(ncol(Anno.df)-1))]
 
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsBar", BarChartSet.lt[["Remark"]],".pdf"),
           width = 7,  height = 7)
@@ -161,7 +161,7 @@ CellCheck_Bi <- function(Bi.df = Simu_Bi.df, Anno.df = Simu_Anno.df,
 
     }else{
       #### Export all MetricLine PDF ####
-      Sum_Bi.set <- colnames(SumCM_Bi.df)[2:(ncol(SumCM_Bi.df)-ncol(Simu_Anno.df)+1)]
+      Sum_Bi.set <- colnames(SumCM_Bi.df)[2:(ncol(SumCM_Bi.df)-ncol(Anno.df)+1)]
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Bi_MetricsLine",LinePlotSet.lt[["Remark"]],".pdf"),
           width = 12,  height = 7)
       for (i in 1:length(Sum_Bi.set)) {

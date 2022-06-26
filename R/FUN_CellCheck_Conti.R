@@ -14,13 +14,13 @@
 #' @keywords Summarize results of continuous data.
 #' @export
 #' @examples
-#' CellCheck_Conti(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
+#' CellCheck_Conti(Conti.df, Anno.df,
 #'                 BarChartSet.lt = BarChartSet.lt,
 #'                 LinePlotSet.lt =  LinePlotSet.lt,
 #'                 Save.Path="", ProjectName="")
 #'
 
-CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
+CellCheck_Conti <- function(Conti.df , Anno.df ,
                             BarChartSet.lt = "", # BarChartSet.lt = list(Mode = "Multiple", Metrics = "Accuracy", XValue = "Type", Group = "Tool", Remark = "") # Mode = c("One","Multiple")
                             LinePlotSet.lt = "", # LinePlotSet.lt = list(Mode = "Multiple", Metrics = "Accuracy", XValue = "PARM", Group = "Tool", Remark = "")
                             Save.Path="", ProjectName="") {
@@ -38,24 +38,24 @@ CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
   lapply(Package.set, library, character.only = TRUE)
   rm(Package.set,i)
 
-  ##### Create Measure accuracy dataframe (Sum_Conti.df) #####
-  # Sum_Conti.df <- Conti_Accuracy(Simu_Conti.df$Actual,Simu_Conti.df$Predict2)
+  ##### Create Measure accuracy dataframe (Conti.df) #####
+  # Conti.df <- Conti_Accuracy(Simu_Conti.df$Actual,Simu_Conti.df$Predict2)
   for (i in 1:(ncol(Simu_Conti.df)-1)) {
     if(i==1){
-      Sum_Conti.df <- Conti_Accuracy(Simu_Conti.df[,1],
+      Conti.df <- Conti_Accuracy(Simu_Conti.df[,1],
                                      Simu_Conti.df[,1+i])
-      row.names(Sum_Conti.df) <- colnames(Simu_Conti.df)[i+1]
+      row.names(Conti.df) <- colnames(Simu_Conti.df)[i+1]
     }else{
       MA_New.df <- Conti_Accuracy(Simu_Conti.df[,1],
                                   Simu_Conti.df[,1+i])
       row.names(MA_New.df) <- colnames(Simu_Conti.df)[i+1]
-      Sum_Conti.df <- rbind(Sum_Conti.df, MA_New.df)
+      Conti.df <- rbind(Conti.df, MA_New.df)
     }
   }
   rm(i,MA_New.df)
 
-  Sum_Conti.df <- data.frame(TestID = row.names(Sum_Conti.df), Sum_Conti.df)
-  Sum_Conti.df <- left_join(Sum_Conti.df, Simu_Anno.df)
+  Conti.df <- data.frame(TestID = row.names(Conti.df), Conti.df)
+  Conti.df <- left_join(Conti.df, Anno.df)
 
   ##### Bar Chart #####
   ### For one prediction
@@ -63,7 +63,7 @@ CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
     ### For one Metric
     if(BarChartSet.lt[["Mode"]] == "One"){
       ## Export one Designated MetricBar PDF
-      p1 <- CC_BarPlot(Sum_Conti.df,
+      p1 <- CC_BarPlot(Conti.df,
                        XValue = BarChartSet.lt[["XValue"]],
                        Metrics = BarChartSet.lt[["Metrics"]],
                        Group = BarChartSet.lt[["Group"]])
@@ -79,11 +79,11 @@ CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
     ### For all Metric
     }else{
       ## Export all MetricBar PDF
-      MA.set <- colnames(Sum_Conti.df)[2:(ncol(Sum_Conti.df)-ncol(Simu_Anno.df)+1)]
+      MA.set <- colnames(Conti.df)[2:(ncol(Conti.df)-ncol(Anno.df)+1)]
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsBar", BarChartSet.lt[["Remark"]],".pdf"),
           width = 7,  height = 7)
       for (i in 1:length(MA.set)) {
-        p <- CC_BarPlot(Sum_Conti.df,
+        p <- CC_BarPlot(Conti.df,
                         XValue = BarChartSet.lt[["XValue"]],
                         Metrics = MA.set[i],
                         Group = BarChartSet.lt[["Group"]])
@@ -104,7 +104,7 @@ CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
     if(LinePlotSet.lt[["Mode"]] == "One"){
       ## Export MetricsLine PDF
        ## Plot by Designated Metrics
-      p <- CC_LinePlot(Sum_Conti.df,
+      p <- CC_LinePlot(Conti.df,
                        XValue = LinePlotSet.lt[["XValue"]],
                        Metrics = LinePlotSet.lt[["Metrics"]],
                        Group = LinePlotSet.lt[["Group"]])
@@ -121,11 +121,11 @@ CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
     ### For all Metric
     }else{
       ## Export all MetricBar PDF
-      MA.set <- colnames(Sum_Conti.df)[2:(ncol(Sum_Conti.df)-ncol(Simu_Anno.df)+1)]
+      MA.set <- colnames(Conti.df)[2:(ncol(Conti.df)-ncol(Anno.df)+1)]
       pdf(file = paste0(Save.Path,"/",ProjectName,"_Conti_MetricsLine", LinePlotSet.lt[["Remark"]],".pdf"),
           width = 7,  height = 7)
       for (i in 1:length(MA.set)) {
-        p <- CC_LinePlot(Sum_Conti.df,
+        p <- CC_LinePlot(Conti.df,
                         XValue = LinePlotSet.lt[["XValue"]],
                         Metrics = MA.set[i],
                         Group = LinePlotSet.lt[["Group"]])
@@ -142,10 +142,10 @@ CellCheck_Conti <- function(Conti.df = Sum_Conti.df, Anno.df = Simu_Anno.df,
 
 
   #### Export tsv files ####
-  write.table(Sum_Conti.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_Conti.tsv"),sep="\t",
+  write.table(Conti.df, file=paste0(Save.Path,"/",ProjectName,"_Sum_Conti.tsv"),sep="\t",
               row.names=F, quote = FALSE)
 
-  return(Sum_Conti.df)
+  return(Conti.df)
 }
 
 

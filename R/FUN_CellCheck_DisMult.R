@@ -18,7 +18,7 @@
 #' @keywords Summarize results of multiple discrete data.
 #' @export
 #' @examples
-#' CellCheck_DisMult(Simu_DisMult.df, Simu_Anno.df,
+#' CellCheck_DisMult(DisMult.df, Anno.df,
 #'                   DisCMSet.lt  = DisCMSet.lt ,
 #'                   BarChartSet.lt = BarChartSet.lt,
 #'                   LinePlotSet.lt = LinePlotSet.lt,
@@ -31,7 +31,7 @@
 ## Ref: https://www.researchgate.net/figure/Confusion-matrix-for-60-training-and-40-testing-strategy_fig4_338909223
 ## Ref: https://cran.r-project.org/web/packages/cvms/vignettes/Creating_a_confusion_matrix.html
 
-CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
+CellCheck_DisMult <- function(DisMult.df, Anno.df,
                               DisCMSet.lt = "", #   DisCMSet.lt = list(Mode = "One", Actual = "Actual", Predict = "Predict2" , FilterSet1 = "Tool", FilterSet2 = "ToolA" , Remark = "") # Mode = c("One","Multiple")
                               BarChartSet.lt = "", # BarChartSet.lt = list(Mode = "Multiple", Metrics = "Accuracy", XValue = "Type", Group = "Tool", Remark = "")
                               LinePlotSet.lt = "", # LinePlotSet.lt = list(Mode = "Multiple", Metrics = "Accuracy", XValue = "PARM", Group = "Tool", Remark = "")
@@ -61,10 +61,10 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
     #### Build summarize dataframe for all cell type ####
     ## Build list for all CM
     conf_mat.lt <- list()
-    for (i in 1:(ncol(Simu_DisMult.df)-1)) {
-      conf_mat.lt[[i]] <- confusion_matrix(targets = Simu_DisMult.df[,"Actual"] %>% as.factor(),
-                                           predictions = Simu_DisMult.df[,1+i] %>% as.factor())
-      names(conf_mat.lt)[[i]] <- colnames(Simu_DisMult.df)[i+1]
+    for (i in 1:(ncol(DisMult.df)-1)) {
+      conf_mat.lt[[i]] <- confusion_matrix(targets = DisMult.df[,"Actual"] %>% as.factor(),
+                                           predictions = DisMult.df[,1+i] %>% as.factor())
+      names(conf_mat.lt)[[i]] <- colnames(DisMult.df)[i+1]
 
     }
     rm(i)
@@ -83,7 +83,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
 
     rm(i,Sum_DisMult_All_New.df)
     ## Add annotation dataframe
-    SumCM_DisMult_All.df <- left_join(SumCM_DisMult_All.df, Simu_Anno.df)
+    SumCM_DisMult_All.df <- left_join(SumCM_DisMult_All.df, Anno.df)
 
 
     #### Build summarize dataframe ####
@@ -100,7 +100,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
 
     rm(i,Sum_DisMult2_New.df)
     ## Add annotation dataframe
-    SumCM_DisMult.df <- left_join(SumCM_DisMult.df, Simu_Anno.df)
+    SumCM_DisMult.df <- left_join(SumCM_DisMult.df, Anno.df)
 
     ## Create Output
     SumCM_DisMult.lt <- list(SumCM_DisMult.df = SumCM_DisMult.df,
@@ -117,8 +117,8 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
   ### For one prediction
   if(DisCMSet.lt[["Mode"]] == "One"){
     ## Build CM
-    conf_mat <- confusion_matrix(targets = Simu_DisMult.df[,DisCMSet.lt[["Actual"]]], # Simu_DisMult.df$Actual
-                                 predictions = Simu_DisMult.df[,DisCMSet.lt[["Predict"]]])
+    conf_mat <- confusion_matrix(targets = DisMult.df[,DisCMSet.lt[["Actual"]]], # DisMult.df$Actual
+                                 predictions = DisMult.df[,DisCMSet.lt[["Predict"]]])
 
     conf_mat
 
@@ -191,7 +191,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
       ### For all Metric all
       }else{
         ## Plot all MetricBar
-        Metrics_DisMult.set <- colnames(SumCM_DisMult_All.df)[6:(ncol(SumCM_DisMult_All.df)-(ncol(Simu_Anno.df)-1))]
+        Metrics_DisMult.set <- colnames(SumCM_DisMult_All.df)[6:(ncol(SumCM_DisMult_All.df)-(ncol(Anno.df)-1))]
         pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar_AllCT",BarChartSet.lt[["Remark"]],".pdf"),
             width = 7,  height = 7)
         for (i in 1:length(Metrics_DisMult.set)) {
@@ -226,7 +226,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
         ### For all Metric all
       }else{
         ## Plot all MetricBar
-        Metrics_DisMult.set <- colnames(SumCM_DisMult.df)[6:(ncol(SumCM_DisMult.df)-(ncol(Simu_Anno.df)-1))]
+        Metrics_DisMult.set <- colnames(SumCM_DisMult.df)[6:(ncol(SumCM_DisMult.df)-(ncol(Anno.df)-1))]
         pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsBar",BarChartSet.lt[["Remark"]],".pdf"),
             width = 7,  height = 7)
         for (i in 1:length(Metrics_DisMult.set)) {
@@ -261,7 +261,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
         ### For all Metric all
       }else{
         ## Plot all Line plot
-        Metrics_DisMult.set <- colnames(SumCM_DisMult_All.df)[6:(ncol(SumCM_DisMult_All.df)-(ncol(Simu_Anno.df)-1))]
+        Metrics_DisMult.set <- colnames(SumCM_DisMult_All.df)[6:(ncol(SumCM_DisMult_All.df)-(ncol(Anno.df)-1))]
 
         pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine_AllCT", LinePlotSet.lt[["Remark"]],".pdf"),
             width = 10,  height = 7)
@@ -298,7 +298,7 @@ CellCheck_DisMult <- function(Simu_DisMult.df, Simu_Anno.df,
         ### For all Metric all
       }else{
         ## Plot all MetricBar
-        Metrics_DisMult.set <- colnames(SumCM_DisMult.df)[6:(ncol(SumCM_DisMult.df)-(ncol(Simu_Anno.df)-1))]
+        Metrics_DisMult.set <- colnames(SumCM_DisMult.df)[6:(ncol(SumCM_DisMult.df)-(ncol(Anno.df)-1))]
 
         pdf(file = paste0(Save.Path,"/",ProjectName,"_DisMult_MetricsLine", LinePlotSet.lt[["Remark"]],".pdf"),
             width = 10,  height = 7)
