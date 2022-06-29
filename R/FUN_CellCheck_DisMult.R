@@ -62,7 +62,7 @@ CellCheck_DisMult <- function(DisMult.df, Anno.df,
     ## Build list for all CM
     conf_mat.lt <- list()
     for (i in 1:(ncol(DisMult.df)-1)) {
-      conf_mat.lt[[i]] <- confusion_matrix(targets = DisMult.df[,"Actual"] %>% as.factor(),
+      conf_mat.lt[[i]] <- confusion_matrix(targets = DisMult.df[,DisCMSet.lt[["Actual"]]] %>% as.factor(),
                                            predictions = DisMult.df[,1+i] %>% as.factor())
       names(conf_mat.lt)[[i]] <- colnames(DisMult.df)[i+1]
 
